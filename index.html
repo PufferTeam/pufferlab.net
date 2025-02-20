@@ -23,17 +23,14 @@
             let bt = document.getElementById('changeMode')
             let bg = document.getElementsByClassName('bg0');
             let tx = document.getElementsByClassName('tx0');
-            console.log(m + "1")
             if (m) {
                 [...bg].forEach( x => x.className = "bg1" );
                 [...tx].forEach( x => x.className = "tx1" );
-                console.log(bg)
                 bt.innerHTML = 'Change to Dark Mode 🌑'
                 m = false
             } else {
                 bg = document.getElementsByClassName('bg1');
                 tx = document.getElementsByClassName('tx1');
-                console.log(bg);
                 [...bg].forEach( x => x.className = "bg0" );
                 [...tx].forEach( x => x.className = "tx0" );
                 bt.innerHTML = 'Change to Light Mode ☀️'

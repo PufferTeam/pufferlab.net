@@ -1,0 +1,25 @@
+example {
+    background-color: lightblue;
+    color: navy;
+    margin-left: 20px;
+}
+
+title {
+    margin: auto;
+    color: rgb(202, 188, 141);
+    margin-left: 20px;
+}
+
+.bg0 {
+    background-color: #121212;
+}
+
+.tx0 {
+    color: white
+}
+
+.bg1 {
+}
+
+.tx1 {
+}

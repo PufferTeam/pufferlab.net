@@ -1,0 +1,14 @@
+{
+    "en": {
+        "main.intro": "Welcome, you are on the PufferLab website!",
+        "lang": "Language:",
+        "mode.light": "Dark Mode 🌑",
+        "mode.dark": "Light Mode ☀️"
+    },
+    "fr": {
+        "main.intro": "Bonjour, vous êtes sur le site de PufferLab!",
+        "lang": "Langue:",
+        "mode.light": "Mode sombre 🌑",
+        "mode.dark": "Mode clair ☀️"
+    }
+}

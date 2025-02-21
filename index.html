@@ -1,41 +1,93 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8" />
-        <title>PufferLab</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
 
-    <body id="main" class="bg0">
-    <title>PufferLab</title> 
-    <button type="button" id="changeMode" onclick="changeMode()">Change to Light Mode ☀️</button>
+<head>
+    <meta charset="utf-8" />
+    <title>PufferLab</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body id="main" class="bg0">
+    <title>PufferLab</title>
+    <button type="button" id="changeMode" onclick="changeMode()">mode.dark</button>
+    <label for="lang" class="tx0" id="changeLangLabel">lang</label>
+    <select name="lang" id="changeLang" onchange="changeLang()">
+        <option value="en">English 🇺🇸</option>
+        <option value="fr">Français 🇫🇷</option>
+    </select>
     <div class="tx0">
         <h1>PufferLab</h1>
-        <p>Bonjour vous êtes sur le site de PufferLab! 河豚实验室</p>
+        <p id="intro">main.intro</p>
     </div>
 
-    </body>
-	<script>
-        alert("This website is under construction.");
-        var m = true;
+</body>
+<script>
+    alert("This website is under construction.");
+    var mode = 'mode.dark';
 
-        function changeMode() {
-            let bt = document.getElementById('changeMode')
-            let bg = document.getElementsByClassName('bg0');
-            let tx = document.getElementsByClassName('tx0');
-            if (m) {
-                [...bg].forEach( x => x.className = "bg1" );
-                [...tx].forEach( x => x.className = "tx1" );
-                bt.innerHTML = 'Change to Dark Mode 🌑'
-                m = false
-            } else {
-                bg = document.getElementsByClassName('bg1');
-                tx = document.getElementsByClassName('tx1');
-                [...bg].forEach( x => x.className = "bg0" );
-                [...tx].forEach( x => x.className = "tx0" );
-                bt.innerHTML = 'Change to Light Mode ☀️'
-                m = true
-            }
+    var changeModeBT = document.getElementById('changeMode');
+    var changeLangSL = document.getElementById('changeLang');
+    var changeLangLB = document.getElementById('changeLangLabel');
+    var introPR = document.getElementById('intro');
+    /*
+    var request = new XMLHttpRequest();
+    request.open("GET", "lang.json", false);
+    request.send(null)
+    var langFile = JSON.parse(request.responseText);
+    */
+    const langFile =
+    {
+        "en": {
+            "main.intro": "Welcome, you are on the PufferLab website!",
+            "lang": "Language:",
+            "mode.light": "Dark Mode 🌑",
+            "mode.dark": "Light Mode ☀️"
+        },
+        "fr": {
+            "main.intro": "Bonjour, vous êtes sur le site de PufferLab!",
+            "lang": "Langue:",
+            "mode.light": "Mode sombre 🌑",
+            "mode.dark": "Mode clair ☀️"
         }
-    </script> 
+    }
+    console.log(langFile)
+
+    var lang = 'en'
+    changeModeBT.innerHTML = getLang(lang, 'mode.light')
+
+    function getLang(lang, key) {
+        let fKey = langFile[lang][key]
+        return fKey;
+    }
+
+    function updateLang() {
+        changeModeBT.innerHTML = getLang(lang, mode);
+        changeLangLB.innerHTML = getLang(lang, 'lang');
+        introPR.innerHTML = getLang(lang, 'main.intro');
+    }
+    updateLang()
+
+    function changeLang() {
+        lang = changeLangSL.value;
+        updateLang()
+    }
+
+    function changeMode() {
+        let bg = document.getElementsByClassName('bg0');
+        let tx = document.getElementsByClassName('tx0');
+        if (mode == 'mode.dark') {
+            [...bg].forEach(x => x.className = "bg1");
+            [...tx].forEach(x => x.className = "tx1");
+            mode = 'mode.light'
+        } else {
+            bg = document.getElementsByClassName('bg1');
+            tx = document.getElementsByClassName('tx1');
+            [...bg].forEach(x => x.className = "bg0");
+            [...tx].forEach(x => x.className = "tx0");
+            mode = 'mode.dark'
+        }
+        changeModeBT.innerHTML = getLang(lang, mode);
+    }
+</script>
+
 </html>

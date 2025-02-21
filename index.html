@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body id="main" class="bg0">
+<body id="main" class="web">
     <title>PufferLab</title>
     <button type="button" id="changeMode" onclick="changeMode()">mode.dark</button>
-    <label for="lang" class="tx0" id="changeLangLabel">lang</label>
+    <label for="lang" id="changeLangLabel">lang</label>
     <select name="lang" id="changeLang" onchange="changeLang()">
         <option value="en">English 🇺🇸</option>
         <option value="fr">Français 🇫🇷</option>
     </select>
-    <div class="tx0">
+    <div>
         <h1>PufferLab</h1>
         <p id="intro">main.intro</p>
     </div>
@@ -23,12 +23,16 @@
 </body>
 <script>
     alert("This website is under construction.");
-    var mode = 'mode.dark';
-
     var changeModeBT = document.getElementById('changeMode');
     var changeLangSL = document.getElementById('changeLang');
     var changeLangLB = document.getElementById('changeLangLabel');
     var introPR = document.getElementById('intro');
+
+    var mode = localStorage.getItem("savedMode");
+    if(localStorage.getItem("savedMode") == null) {
+        mode = 'mode.light'
+    }
+
     /*
     var request = new XMLHttpRequest();
     request.open("GET", "lang.json", false);
@@ -53,7 +57,6 @@
     console.log(langFile)
 
     var lang = 'en'
-    changeModeBT.innerHTML = getLang(lang, 'mode.light')
 
     function getLang(lang, key) {
         let fKey = langFile[lang][key]
@@ -73,20 +76,15 @@
     }
 
     function changeMode() {
-        let bg = document.getElementsByClassName('bg0');
-        let tx = document.getElementsByClassName('tx0');
+        let body = document.getElementById('main');
         if (mode == 'mode.dark') {
-            [...bg].forEach(x => x.className = "bg1");
-            [...tx].forEach(x => x.className = "tx1");
             mode = 'mode.light'
         } else {
-            bg = document.getElementsByClassName('bg1');
-            tx = document.getElementsByClassName('tx1');
-            [...bg].forEach(x => x.className = "bg0");
-            [...tx].forEach(x => x.className = "tx0");
             mode = 'mode.dark'
         }
+        body.classList.toggle('dark')
         changeModeBT.innerHTML = getLang(lang, mode);
+        localStorage.setItem("savedMode", mode);
     }
 </script>
 

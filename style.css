@@ -4,16 +4,17 @@ example {
     margin-left: 20px;
 }
 
-.bg0 {
-    background-color: #121212;
+:root {
+    --fg: #121212;
+    --bg: white;
 }
 
-.tx0 {
-    color: white
+.dark {
+    --bg: #121212;
+    --fg: white;
 }
 
-.bg1 {
-}
-
-.tx1 {
+body {
+    background-color: var(--bg);
+    color: var(--fg)
 }

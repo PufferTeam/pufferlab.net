@@ -11,16 +11,16 @@
 <body id="main" class="web">
     <title>PufferLab</title>
     <div>
-        <button type="button" id="changeMode" onclick="changeMode()">mode.dark</button>
-        <label for="lang" id="changeLangLabel">lang</label>
-        <select name="lang" id="changeLang" onchange="changeLang()">
+        <button type="button" id="changeMode" class="lang" name="!mode" onclick="changeMode()"></button>
+        <label for="langSL" id="changeLangLabel" class="lang" name="lang"></label>
+        <select name="langSL" id="changeLang" onchange="changeLang()">
             <option value="en">English 🇺🇸</option>
             <option value="fr">Français 🇫🇷</option>
         </select>
     </div>
     <div>
         <h1>PufferLab</h1>
-        <p id="intro">main.intro</p>
+        <p id="intro" class="lang" name="main.intro"></p>
     </div>
 
 </body>
@@ -28,8 +28,8 @@
     alert("This website is under construction.");
     var changeModeBT = document.getElementById('changeMode');
     var changeLangSL = document.getElementById('changeLang');
-    var changeLangLB = document.getElementById('changeLangLabel');
-    var introPR = document.getElementById('intro');
+    
+    var langElements = document.getElementsByClassName("lang");
 
     var mode = localStorage.getItem("savedMode");
     if (mode == null) {
@@ -72,9 +72,15 @@
     function updateLang() {
         changeLangSL.value = lang;
 
-        changeModeBT.innerHTML = getLang(mode);
-        changeLangLB.innerHTML = getLang('lang');
-        introPR.innerHTML = getLang('main.intro');
+        for (let i = 0; i < langElements.length; i++) {
+            let e = langElements[i];
+            let r = e.getAttribute("name");
+            if(r.startsWith("!")) {
+                e.innerHTML = getLang(eval(r.slice(1)))
+            } else {
+                e.innerHTML = getLang(r)
+            }
+        }
     }
     updateLang()
 

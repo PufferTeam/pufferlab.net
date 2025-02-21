@@ -49,7 +49,7 @@
         },
         "fr": {
             "main.intro": "Bonjour, vous êtes sur le site de PufferLab!",
-            "lang": "Langue:",
+            "lang": "Langage:",
             "mode.light": "Mode sombre 🌑",
             "mode.dark": "Mode clair ☀️"
         }
@@ -70,20 +70,29 @@
     }
     updateLang()
 
+    function updateMode() {
+        let body = document.getElementById('main');
+        if(mode == 'mode.dark') {
+            body.classList.add('dark');
+        } else {
+            body.classList.remove('dark');
+        }
+        changeModeBT.innerHTML = getLang(lang, mode);
+    }
+    updateMode()
+
     function changeLang() {
         lang = changeLangSL.value;
         updateLang()
     }
 
     function changeMode() {
-        let body = document.getElementById('main');
         if (mode == 'mode.dark') {
-            mode = 'mode.light'
+            mode = 'mode.light';
         } else {
             mode = 'mode.dark'
         }
-        body.classList.toggle('dark')
-        changeModeBT.innerHTML = getLang(lang, mode);
+        updateMode()
         localStorage.setItem("savedMode", mode);
     }
 </script>

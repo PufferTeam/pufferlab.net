@@ -9,12 +9,14 @@
 
 <body id="main" class="web">
     <title>PufferLab</title>
-    <button type="button" id="changeMode" onclick="changeMode()">mode.dark</button>
-    <label for="lang" id="changeLangLabel">lang</label>
-    <select name="lang" id="changeLang" onchange="changeLang()">
-        <option value="en">English 🇺🇸</option>
-        <option value="fr">Français 🇫🇷</option>
-    </select>
+    <div>
+        <button type="button" id="changeMode" onclick="changeMode()">mode.dark</button>
+        <label for="lang" id="changeLangLabel">lang</label>
+        <select name="lang" id="changeLang" onchange="changeLang()">
+            <option value="en">English 🇺🇸</option>
+            <option value="fr">Français 🇫🇷</option>
+        </select>
+    </div>
     <div>
         <h1>PufferLab</h1>
         <p id="intro">main.intro</p>
@@ -29,8 +31,13 @@
     var introPR = document.getElementById('intro');
 
     var mode = localStorage.getItem("savedMode");
-    if(localStorage.getItem("savedMode") == null) {
+    if (mode == null) {
         mode = 'mode.light'
+    }
+
+    var lang = localStorage.getItem("savedLang");
+    if (lang == null) {
+        lang = 'en'
     }
 
     /*
@@ -56,14 +63,14 @@
     }
     console.log(langFile)
 
-    var lang = 'en'
-
     function getLang(key) {
         let fKey = langFile[lang][key]
         return fKey;
     }
 
     function updateLang() {
+        changeLangSL.value = lang;
+
         changeModeBT.innerHTML = getLang(mode);
         changeLangLB.innerHTML = getLang('lang');
         introPR.innerHTML = getLang('main.intro');
@@ -72,7 +79,7 @@
 
     function updateMode() {
         let body = document.getElementById('main');
-        if(mode == 'mode.dark') {
+        if (mode == 'mode.dark') {
             body.classList.add('dark');
         } else {
             body.classList.remove('dark');
@@ -83,6 +90,7 @@
 
     function changeLang() {
         lang = changeLangSL.value;
+        localStorage.setItem("savedLang", lang)
         updateLang()
     }
 
@@ -92,8 +100,8 @@
         } else {
             mode = 'mode.dark'
         }
-        updateMode()
         localStorage.setItem("savedMode", mode);
+        updateMode()
     }
 </script>
 

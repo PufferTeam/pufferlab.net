@@ -18,3 +18,8 @@ body {
     background-color: var(--bg);
     color: var(--fg)
 }
+
+select,
+button{
+  padding: 5px 10px;
+}

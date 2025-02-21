@@ -58,15 +58,15 @@
 
     var lang = 'en'
 
-    function getLang(lang, key) {
+    function getLang(key) {
         let fKey = langFile[lang][key]
         return fKey;
     }
 
     function updateLang() {
-        changeModeBT.innerHTML = getLang(lang, mode);
-        changeLangLB.innerHTML = getLang(lang, 'lang');
-        introPR.innerHTML = getLang(lang, 'main.intro');
+        changeModeBT.innerHTML = getLang(mode);
+        changeLangLB.innerHTML = getLang('lang');
+        introPR.innerHTML = getLang('main.intro');
     }
     updateLang()
 
@@ -77,7 +77,7 @@
         } else {
             body.classList.remove('dark');
         }
-        changeModeBT.innerHTML = getLang(lang, mode);
+        changeModeBT.innerHTML = getLang(mode);
     }
     updateMode()
 

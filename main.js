@@ -61,7 +61,7 @@ function changePage(pg) {
 }
 
 function changeURL() {
-    let pageName = '/#' + page
+    let pageName = '/?' + page
     if (!validPages.includes(page)) {
         pageName = ''
     }

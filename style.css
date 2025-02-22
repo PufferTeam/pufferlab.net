@@ -18,7 +18,7 @@
 .dark {
     --fg: white;
     --bg: #121212;
-    --no: #202020;;
+    --no: #202020;
     --nv: #303030;
     --nc: #3d3d3d;
     --ns: #5f5f5f;
@@ -43,9 +43,6 @@ button {
 
 .trigger:hover {
     background-color: var(--nc)
-}
-
-#changeMode {
 }
 
 .set {

@@ -1,25 +1,103 @@
-example {
-    background-color: lightblue;
-    color: navy;
-    margin-left: 20px;
-}
-
 :root {
     --fg: #121212;
     --bg: white;
+    --no: #f3f3f3;
+    --nv: #e4e4e4;
+    --nc: #cecece;
+    --ns: #adadad;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
 }
 
 .dark {
-    --bg: #121212;
     --fg: white;
+    --bg: #121212;
+    --no: #202020;;
+    --nv: #303030;
+    --nc: #3d3d3d;
+    --ns: #5f5f5f;
 }
 
 body {
     background-color: var(--bg);
-    color: var(--fg)
+    color: var(--fg);
+    font-family: sans-serif;
 }
 
 select,
-button{
-  padding: 5px 10px;
+button {
+    padding: 5px 10px;
+}
+
+.trigger {
+    border-style: none;
+    color: var(--fg);
+    background-color: var(--nv);
+}
+
+.trigger:hover {
+    background-color: var(--nc)
+}
+
+#changeMode {
+}
+
+.set {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.top {
+    margin: 0;
+    padding: 0px;
+    text-align: center;
+}
+
+li {
+    float: left;
+}
+
+ul.navigator {
+    background-color: var(--nv);
+}
+
+ul.option {
+    background-color: var(--no);
+}
+
+li.navigator {
+    padding: 14px 0px;
+}
+
+li.option {
+    padding: 5px 10px;
+}
+
+li a {
+    color: var(--fg);
+    text-align: center;
+    padding: 14px 20px;
+    width: 60px;
+}
+
+li a.selected {
+    background-color: var(--nc)
+}
+
+li a:hover {
+    background-color: var(--ns);
+}
+
+@media (max-width: 479px) {
+    body {
+        font-size: 13px;
+    }
 }

@@ -1,13 +1,21 @@
 {
     "en": {
+        "nav.home": "Home",
+        "nav.about": "About",
         "main.intro": "Welcome, you are on the PufferLab website!",
+        "main.p": "This website is home to multiple web tools, experiments and other useful things you can use.",
+        "about.intro": "We are dedicated developers who are building their first website.",
         "lang": "Language:",
         "mode.light": "Dark Mode 🌑",
         "mode.dark": "Light Mode ☀️"
     },
     "fr": {
+        "nav.home": "Accueil",
+        "nav.about": "À propos",
         "main.intro": "Bonjour, vous êtes sur le site de PufferLab!",
-        "lang": "Langue:",
+        "main.p": "Ce site héberge plusieurs outils, experiences et autres choses utiles que vous pouvez utiliser.",
+        "about.intro": "Nous sommes des développeurs passionés et nous construisons notre premier site.",
+        "lang": "Langage:",
         "mode.light": "Mode sombre 🌑",
         "mode.dark": "Mode clair ☀️"
     }

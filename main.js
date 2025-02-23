@@ -58,7 +58,7 @@ function changePage(pg) {
 function changeURL() {
     let pageName = '/?' + page
     if (!validPages.includes(page)) {
-        pageName = ''
+        pageName = '/?error'
     }
     let fullURL = url[2];
     let mainURL = url[0] + "//" + fullURL;

@@ -1,1 +1,18 @@
+<!DOCTYPE html>
+<html>
 
+<head>
+    <script>
+        function init() {
+            var url = window.location.href.split('/');
+            let fullURL = url[2];
+            let mainURL = url[0] + "//" + fullURL + "/?error";
+            window.location.href = mainURL
+        }
+    </script>
+</head>
+
+<body onload="init">
+</body>
+
+</html>

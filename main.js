@@ -11,7 +11,7 @@ for (let i = 0; i < defaultElements.length; i++) {
 let page = 'home';
 
 const validPages = [
-    "", "about"
+    "error", "", "about"
 ]
 
 var url = window.location.href.split('/');
@@ -30,23 +30,18 @@ function updatePage() {
     if (!validPages.includes(page)) {
         page = 'home'
     }
-    const pagesToHide = [];
     for (let i = 0; i < validPages.length; i++) {
-        if (i != page) {
-            pagesToHide.push(validPages[i])
+        let pageID = validPages[i]
+        if (pageID != page) {
+            if (pageID == '') {
+                pageID = 'home'
+            }
+    
+            let e = document.getElementById(pageID + 'Page')
+            let b = document.getElementById(pageID)
+            e.classList.remove('active')
+            b.classList.remove('selected')
         }
-    }
-
-    for (let i = 0; i < pagesToHide.length; i++) {
-        let pageID = pagesToHide[i]
-        if (pagesToHide[i] == '') {
-            pageID = 'home'
-        }
-
-        let e = document.getElementById(pageID + 'Page')
-        let b = document.getElementById(pageID)
-        e.classList.remove('active')
-        b.classList.remove('selected')
     }
     let e = document.getElementById(page + 'Page')
     let b = document.getElementById(page)
@@ -66,7 +61,7 @@ function changeURL() {
         pageName = ''
     }
     let fullURL = url[2];
-    let mainURL = 'http://' + fullURL;
+    let mainURL = url[0] + "//" + fullURL;
     let pageURL = mainURL + pageName;
     window.history.pushState(null, null, pageURL);
 }

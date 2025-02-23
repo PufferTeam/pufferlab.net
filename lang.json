@@ -1,5 +1,6 @@
 {
     "en": {
+        "error": "Sorry we cannot find this page. It may be deleted or doesn't exist.",
         "nav.home": "Home",
         "nav.about": "About",
         "main.intro": "Welcome, you are on the PufferLab website!",
@@ -10,6 +11,7 @@
         "mode.dark": "Light Mode ☀️"
     },
     "fr": {
+        "error": "Désolé nous ne pouvons pas trouver cette page. Elle a peut-être été supprimé ou n'existe pas.",
         "nav.home": "Accueil",
         "nav.about": "À propos",
         "main.intro": "Bonjour, vous êtes sur le site de PufferLab!",

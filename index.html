@@ -18,7 +18,8 @@
         </div>
         <div id="optionPage">
             <ul class="option set">
-                <li class="option"><button type="button" id="changeMode" class="lang trigger" name="!mode" onclick="changeMode()"></button>
+                <li class="option"><button type="button" id="changeMode" class="lang trigger" name="!mode"
+                        onclick="changeMode()"></button>
                 </li>
                 <li class="option"><label for="langSL" id="changeLangLabel" class="lang" name="lang"></label>
                     <select name="langSL" id="changeLang" class="trigger" onchange="changeLang()">
@@ -33,6 +34,7 @@
         <div id="menuPage">
             <nav>
                 <ul class="navigator set">
+                    <li class="navigator"><a id="error" class="hidden"></a></li>
                     <li class="navigator"><a href="javascript:void(0)" id="home" class="lang" name="nav.home"
                             onclick="changePage('home')"></a></li>
                     <li class="navigator"><a href="javascript:void(0)" id="about" class="lang" name="nav.about"
@@ -42,14 +44,18 @@
         </div>
 
     </div>
+    <div id="errorPage" class="page">
+        <h2>404</h2>
+        <p id="error.intro" class="lang" name="error"></p>
+    </div>
     <div id="homePage" class="page default">
         <h2 class="lang" name="nav.home"></h2>
-        <p id="intro" class="lang" name="main.intro"></p>
-        <p id="p" class="lang" name="main.p"></p>
+        <p id="main.intro" class="lang" name="main.intro"></p>
+        <p id="main.p" class="lang" name="main.p"></p>
     </div>
     <div id="aboutPage" class="page">
         <h2 class="lang" name="nav.about"></h2>
-        <p id="intro" class="lang" name="about.intro"></p>
+        <p id="about.intro" class="lang" name="about.intro"></p>
     </div>
     <script src="main.js"></script>
 </body>

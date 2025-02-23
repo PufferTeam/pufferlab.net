@@ -11,7 +11,7 @@ for (let i = 0; i < defaultElements.length; i++) {
 let page = 'home';
 
 const validPages = [
-    "error", "", "about"
+    "error", "", "home", "about"
 ]
 
 var url = window.location.href.split('/');
@@ -28,7 +28,7 @@ readURL()
 
 function updatePage() {
     if (!validPages.includes(page)) {
-        page = 'home'
+        page = 'error'
     }
     for (let i = 0; i < validPages.length; i++) {
         let pageID = validPages[i]

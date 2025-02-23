@@ -60,6 +60,9 @@ function changeURL() {
     if (!validPages.includes(page)) {
         pageName = '/?error'
     }
+    if(page == 'home') {
+        pageName = ''
+    }
     let fullURL = url[2];
     let mainURL = url[0] + "//" + fullURL;
     let pageURL = mainURL + pageName;

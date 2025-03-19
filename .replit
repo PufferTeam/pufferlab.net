@@ -1,0 +1,10 @@
+entrypoint = "index.html"
+modules = ["web", "python-3.8"]
+run= "python3 -m http.server 8080"
+
+[nix]
+channel = "stable-23_11"
+
+[[ports]]
+localPort = 8080
+externalPort = 80

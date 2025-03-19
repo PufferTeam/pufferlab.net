@@ -72,7 +72,11 @@ function changeURL() {
 
 var mode = localStorage.getItem('savedMode');
 if (mode == null) {
-    mode = 'mode.light'
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        mode = 'mode.dark'
+    } else {
+        mode = 'mode.light'
+    }
 }
 
 var lang = localStorage.getItem('savedLang');

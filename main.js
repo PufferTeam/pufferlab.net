@@ -3,9 +3,17 @@ var changeLangSL = document.getElementById('changeLang');
 
 var langElements = document.getElementsByClassName('lang');
 var defaultElements = document.getElementsByClassName('default');
+var navlinkElements = document.getElementsByClassName('navlink');
 
 for (let i = 0; i < defaultElements.length; i++) {
     defaultElements[i].classList.add('active')
+}
+
+for (let i = 0; i < navlinkElements.length; i++) {
+    let el = navlinkElements[i]
+    el.addEventListener("click", function(event){
+      event.preventDefault()
+    });
 }
 
 let page = 'home';

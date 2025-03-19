@@ -96,9 +96,3 @@ li a.selected {
 li a:hover {
     background-color: var(--ns);
 }
-
-@media (max-width: 479px) {
-    body {
-        font-size: 13px;
-    }
-}

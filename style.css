@@ -70,9 +70,8 @@ li {
 
 ul.navigator {
     border-style: solid none solid none;
-    border-width: 1.5px;
-    border-color: var(--fs);
-    border-radius: 1px;
+    border-width: 1px;
+    border-color: #808080;
     background-color: var(--nv);
 }
 
@@ -97,9 +96,6 @@ li a {
 }
 
 li a.selected {
-    text-decoration: underline;
-    text-underline-offset: 2px;
-    text-underline-position: under;
     background-color: var(--nc);
 }
 

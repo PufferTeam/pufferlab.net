@@ -122,9 +122,6 @@ function getLang(key) {
     if (fKey == undefined) {
         fKey = langFile['en'][key]
     }
-    if(fKey == undefined) {
-        fKey = getSvg(key)
-    }
     return fKey;
 }
 
@@ -150,7 +147,7 @@ function updateMode() {
     } else {
         body.classList.remove('dark');
     }
-    changeModeBT.innerHTML = getLang(mode);
+    changeModeBT.innerHTML = getSvg(mode);
 }
 updateMode()
 

@@ -2,6 +2,7 @@ var changeModeBT = document.getElementById('changeMode');
 var changeLangSL = document.getElementById('changeLang');
 
 var langElements = document.getElementsByClassName('lang');
+var svgElements = document.getElementsByClassName('svgl');
 var defaultElements = document.getElementsByClassName('default');
 var navlinkElements = document.getElementsByClassName('navlink');
 
@@ -104,7 +105,7 @@ var svgFile = JSON.parse(request2.responseText);
 
 const svgStates = ["normal", "hover"];
 function getSvg(key) {
-    let svgA = ['<div class="svgs option">'];
+    let svgA = ['<div class="svgs">'];
     for (let i = 0; i < svgStates.length; i++) {
         let st = svgStates[i];
         let sKey = svgFile[st][key];
@@ -125,17 +126,22 @@ function getLang(key) {
     return fKey;
 }
 
+function updateSvg() {
+    for (let i = 0; i < svgElements.length; i++) {
+        let e = svgElements[i];
+        let r = e.getAttribute('name');
+        e.innerHTML = getSvg(r);
+    }
+}
+updateSvg()
+
 function updateLang() {
     changeLangSL.value = lang;
 
     for (let i = 0; i < langElements.length; i++) {
         let e = langElements[i];
         let r = e.getAttribute('name');
-        if (r.startsWith('!')) {
-            e.innerHTML = getLang(eval(r.slice(1)))
-        } else {
-            e.innerHTML = getLang(r)
-        }
+        e.innerHTML = getLang(r);
     }
 }
 updateLang()

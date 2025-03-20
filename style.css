@@ -34,17 +34,40 @@ body {
     background-color: var(--bg);
     color: var(--fg);
     font-family: 'Roboto', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+}
+
+@media (max-width: 479px) {
+    body {
+        font-size: 13px;
+    }
+}
+
+h2 {
+    font-size: 1.5em;
+}
+
+p {
+    font-weight: normal;
+    font-size: 1em;
 }
 
 .trigger {
-    padding: 0 1.1em;
+    padding: 0 1em;
     border-style: none;
     border-radius: 0.3em;
-    height: 24px;
+    height: 2em;
+    width: 2em;
     color: var(--fg);
     background-color: var(--nv);
     --n: 1;
     --h: 0;
+}
+
+#changeLang {
+    width: 8em;
 }
 
 @media (hover: hover) {
@@ -56,9 +79,13 @@ body {
 }
 
 div .svgs {
-    margin: 0px -12px;
-    height: 24px;
-    width: 24px;
+    margin: 0 -1em;
+    height: 2em;
+    width: 2em;
+}
+
+.static {
+    margin: 0 2em;
 }
 
 .hover {
@@ -74,38 +101,36 @@ div .svgs {
 }
 
 .set {
-    list-style-type: none;
     margin: 0;
     padding: 0;
+    list-style-type: none;
     overflow: hidden;
 }
 
 .header {
-    margin: 0;
-    padding: 0;
+    float: left;
 }
 
 .logo {
     text-align: left;
-    height: 5px;
-    margin: -2.5px 1px;
-    float: left;
+    height: 1em;
+    font-size: 1.5em;
+    font-weight: 0.9em;
 }
 
 .option {
-    margin: 0;
     float: right;
+}
+
+.navigator {
+    float: left;
 }
 
 ul.navigator {
     width: 100%;
     border-bottom: solid;
-    border-width: 1px;
+    border-width: 0.1em;
     border-color: #808080;
-    background-color: var(--no);
-}
-
-ul.option {
     background-color: var(--no);
 }
 
@@ -113,7 +138,11 @@ li {
     float: left;
 
     &.navigator {
-        padding: 12px 0px;
+        padding: 0.9em 0;
+    }
+
+    &.header {
+        padding: 0 0;
     }
 
     & a {
@@ -121,8 +150,8 @@ li {
         text-decoration: none;
         color: var(--fs);
         text-align: center;
-        padding: 14px 20px;
-        width: 60px;
+        padding: 1em;
+        width: 8em;
     }
 
     & a:hover {
@@ -131,7 +160,7 @@ li {
 }
 
 li.option {
-    padding: 5px 10px;
+    padding: 0.3em 0.6em;
 }
 
 .selected {
@@ -142,26 +171,12 @@ li.option {
     &:after {
         content: "";
         width: 70%;
-        height: 4px;
-        border-radius: 3px;
+        height: 0.3em;
+        border-radius: 0.25em;
         background: var(--fg);
         position: absolute;
         bottom: 0;
         right: 15%;
     }
 
-}
-
-@media (max-width: 479px) {
-    body {
-        font-size: 13px;
-    }
-}
-
-h2 {
-    font-size: 1.5em;
-}
-
-p {
-    font-size: 1em;
 }

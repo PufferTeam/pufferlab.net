@@ -37,6 +37,7 @@ body {
 }
 
 .trigger {
+    padding: 0 1.1em;
     border-style: none;
     color: var(--fg);
     background-color: var(--nv);

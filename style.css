@@ -1,5 +1,5 @@
 :root {
-    --fs: #1a1a1a;
+    --fs: #404040;
     --fg: #0d0d0d;
     --bg: #ffffff;
     --no: #f2f2f2;
@@ -10,18 +10,18 @@
 
 .page {
     display: none;
+
+    &.active {
+        display: block;
+    }
 }
 
 .hidden {
     display: none;
 }
 
-.page.active {
-    display: block;
-}
-
 .dark {
-    --fs: #f2f2f2;
+    --fs: #cccccc;
     --fg: #ffffff;
     --bg: #0d0d0d;
     --no: #1a1a1a;
@@ -36,19 +36,36 @@ body {
     font-family: sans-serif;
 }
 
-select,
-button {
-    padding: 5px 10px;
-}
-
 .trigger {
     border-style: none;
     color: var(--fg);
     background-color: var(--nv);
+    --n: 1;
+    --h: 0;
 }
 
 .trigger:hover {
     background-color: var(--nc);
+    --n: 0;
+    --h: 1;
+}
+
+div .svgs {
+    margin: 0px -12px;
+    height: 24px;
+    width: 24px;
+}
+
+.hover {
+    opacity: var(--h);
+}
+
+.normal {
+    opacity: var(--n);
+}
+
+.toggle {
+    position: absolute;
 }
 
 .set {
@@ -58,49 +75,83 @@ button {
     overflow: hidden;
 }
 
-.top {
+.header {
     margin: 0;
-    padding: 0px;
-    text-align: center;
+    padding: 0;
 }
 
-li {
+.logo {
+    text-align: left;
+    height: 5px;
+    margin: -2.5px 1px;
     float: left;
 }
 
+.option {
+    margin: 0;
+    float: right;
+}
+
 ul.navigator {
-    border-style: solid none solid none;
+    width: 100%;
+    border-bottom: solid;
     border-width: 1px;
     border-color: #808080;
-    background-color: var(--nv);
+    background-color: var(--no);
 }
 
 ul.option {
     background-color: var(--no);
 }
 
-li.navigator {
-    padding: 14px 0px;
+li {
+    float: left;
+
+    &.navigator {
+        padding: 12px 0px;
+    }
+
+    & a {
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--fs);
+        text-align: center;
+        padding: 14px 20px;
+        width: 60px;
+    }
+
+    & a:hover {
+        color: var(--fg);
+    }
 }
 
 li.option {
     padding: 5px 10px;
 }
 
-li a {
-    text-decoration: none;
+.selected {
+    font-weight: 800;
     color: var(--fg);
-    text-align: center;
-    padding: 14px 20px;
-    width: 60px;
+    position: relative;
+
+    &:after {
+        content: "";
+        width: 70%;
+        height: 4px;
+        border-style: none none none none;
+        border-radius: 3px;
+        background: var(--fg);
+        position: absolute;
+        bottom: 0;
+        right: 15%;
+    }
+
 }
 
-li a.selected {
-    background-color: var(--nc);
-}
-
-li a:hover {
-    background-color: var(--ns);
+@media (max-width: 479px) {
+    body {
+        font-size: 13px;
+    }
 }
 
 h2 {
@@ -108,11 +159,5 @@ h2 {
 }
 
 p {
-    font-size: 100%;
-}
-
-@media (max-width: 479px) {
-    body {
-        font-size: 13px;
-    }
+    font-size: 1em;
 }

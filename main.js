@@ -97,8 +97,34 @@ request.open("GET", "lang.json", false);
 request.send(null)
 var langFile = JSON.parse(request.responseText);
 
+var request2 = new XMLHttpRequest();
+request2.open("GET", "svg.json", false);
+request2.send(null)
+var svgFile = JSON.parse(request2.responseText);
+
+const svgStates = ["normal", "hover"];
+function getSvg(key) {
+    let svgA = ['<div class="svgs option">'];
+    for (let i = 0; i < svgStates.length; i++) {
+        let st = svgStates[i];
+        let sKey = svgFile[st][key];
+        if (sKey != undefined) {
+            svgA.push(sKey)
+        }       
+    }
+    svgA.push('</div>');
+    let svgO = svgA.join('');
+    return svgO
+}
+
 function getLang(key) {
     let fKey = langFile[lang][key]
+    if (fKey == undefined) {
+        fKey = langFile['en'][key]
+    }
+    if(fKey == undefined) {
+        fKey = getSvg(key)
+    }
     return fKey;
 }
 

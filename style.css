@@ -33,22 +33,26 @@
 body {
     background-color: var(--bg);
     color: var(--fg);
-    font-family: sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .trigger {
     padding: 0 1.1em;
     border-style: none;
+    border-radius: 0.3em;
+    height: 24px;
     color: var(--fg);
     background-color: var(--nv);
     --n: 1;
     --h: 0;
 }
 
-.trigger:hover {
-    background-color: var(--nc);
-    --n: 0;
-    --h: 1;
+@media (hover: hover) {
+    .trigger:hover {
+        background-color: var(--nc);
+        --n: 0;
+        --h: 1;
+    }
 }
 
 div .svgs {

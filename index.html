@@ -17,20 +17,20 @@
     <header id="mainPage" class="page default set">
         <div id="headerPage" class="header">
             <ul class="header set">
-                <li>
-                    <div class="static svgl" name="logo"></div>
+                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu"
+                        onclick="toggleMenu()"></button>
                 </li>
-                <li>
+                <li class="header sep">
                     <h1 class="logo set">PufferLab</h1>
                 </li>
             </ul>
         </div>
         <div id="optionPage">
             <ul class="option set">
-                <li class="option"><button type="button" id="changeMode" class="trigger"
+                <li class="option sep"><button type="button" id="changeMode" class="trigger"
                         onclick="changeMode()"></button>
                 </li>
-                <li class="option"><label for="langSL" id="changeLangLabel"></label>
+                <li class="option sep"><label for="langSL" id="changeLangLabel"></label>
                     <select name="langSL" id="changeLang" class="trigger" onchange="changeLang()">
                         <option value="en">English 🇺🇸</option>
                         <option value="fr">Français 🇫🇷</option>

@@ -1,5 +1,6 @@
 var changeModeBT = document.getElementById('changeMode');
 var changeLangSL = document.getElementById('changeLang');
+var toggleMenuBT = document.getElementById('toggleMenu');
 
 var langElements = document.getElementsByClassName('lang');
 var svgElements = document.getElementsByClassName('svgl');
@@ -93,6 +94,8 @@ if (lang == null) {
     lang = 'en'
 }
 
+var menu = 'menu.hide';
+
 var request = new XMLHttpRequest();
 request.open("GET", "lang.json", false);
 request.send(null)
@@ -126,6 +129,11 @@ function getLang(key) {
     return fKey;
 }
 
+function updateMenu() {
+    toggleMenuBT.innerHTML = getSvg(menu);
+}
+updateMenu();
+
 function updateSvg() {
     for (let i = 0; i < svgElements.length; i++) {
         let e = svgElements[i];
@@ -156,6 +164,15 @@ function updateMode() {
     changeModeBT.innerHTML = getSvg(mode);
 }
 updateMode()
+
+function toggleMenu() {
+    if (menu == 'menu.hide') {
+        menu = 'menu.show';
+    } else {
+        menu = 'menu.hide'
+    }
+    updateMenu();
+}
 
 function changeLang() {
     lang = changeLangSL.value;

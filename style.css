@@ -66,6 +66,7 @@ p {
     width: 2em;
     color: var(--fg);
     background-color: var(--no);
+    position: relative;
     --n: block;
     --h: none;
 }

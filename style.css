@@ -100,8 +100,8 @@ svg {
     transform: translate(-50%, -50%);
 
     &.menu {
-        height: 130%;
-        width: 130%;
+        height: 115%;
+        width: 115%;
     }
 }
 

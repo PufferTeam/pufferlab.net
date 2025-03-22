@@ -17,6 +17,7 @@
 }
 
 .hidden {
+    top: 0;
     display: none;
 }
 
@@ -32,6 +33,7 @@
 
 body {
     background-color: var(--bg);
+    height: 500px;
     color: var(--fg);
     font-family: 'Roboto', sans-serif;
     font-optical-sizing: auto;
@@ -41,7 +43,15 @@ body {
 
 .site {
     position: relative;
-    z-index: 0;
+    z-index: 1;
+}
+
+.overlay {
+    position: absolute;
+    height: 100%;
+    width: 20em;
+    z-index: 2;
+    background-color: var(--nc);
 }
 
 @media (max-width: 479px) {
@@ -69,6 +79,10 @@ p {
     position: relative;
     --n: block;
     --h: none;
+}
+
+.menu {
+    z-index: 3;
 }
 
 #topPage {

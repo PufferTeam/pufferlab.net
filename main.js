@@ -6,6 +6,7 @@ var langElements = document.getElementsByClassName('lang');
 var svgElements = document.getElementsByClassName('svgl');
 var defaultElements = document.getElementsByClassName('default');
 var navlinkElements = document.getElementsByClassName('navlink');
+let menuPG = document.getElementById('menuPage')
 
 for (let i = 0; i < defaultElements.length; i++) {
     defaultElements[i].classList.add('active')
@@ -48,14 +49,18 @@ function updatePage() {
             }
     
             let e = document.getElementById(pageID + 'Page')
+            let em = document.getElementById(pageID + 'PageMenu')
             let b = document.getElementById(pageID)
             e.classList.remove('active')
+            //em.classList.remove('active')
             b.classList.remove('selected')
         }
     }
     let e = document.getElementById(page + 'Page')
+    let em = document.getElementById(page + 'PageMenu')
     let b = document.getElementById(page)
     e.classList.add('active')
+    //em.classList.add('active')
     b.classList.add('selected')
 }
 
@@ -130,6 +135,11 @@ function getLang(key) {
 }
 
 function updateMenu() {
+    if (menu == 'menu.show') {
+        menuPG.classList.add('active')
+    } else {
+        menuPG.classList.remove('active')
+    }
     toggleMenuBT.innerHTML = getSvg(menu);
 }
 updateMenu();

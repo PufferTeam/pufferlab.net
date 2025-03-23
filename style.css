@@ -1,4 +1,5 @@
 :root {
+    --fh: #595959;
     --fs: #404040;
     --fg: #0d0d0d;
     --bg: #ffffff;
@@ -17,11 +18,11 @@
 }
 
 .hidden {
-    top: 0;
     display: none;
 }
 
 .dark {
+    --fh: #b3b3b3;
     --fs: #cccccc;
     --fg: #ffffff;
     --bg: #0d0d0d;
@@ -51,7 +52,7 @@ body {
     height: 100%;
     width: 20em;
     z-index: 2;
-    background-color: var(--nc);
+    background-color: var(--no);
 }
 
 @media (max-width: 479px) {
@@ -147,16 +148,27 @@ svg {
     float: right;
 }
 
-.navigator {
+.navigator, .menu {
     float: left;
 }
 
-ul.navigator {
-    width: 100%;
-    border-bottom: solid;
-    border-width: 0.1em;
-    border-color: #808080;
-    background-color: var(--no);
+ul.nav {
+    &.navigator {
+        width: 100%;
+        border-bottom: solid;
+        border-width: 0.1em;
+        border-color: #808080;
+        background-color: var(--no);
+    }
+    
+    &.menu {
+        margin: 2.8em 0;
+        border-left: solid;
+        border-width: 0.1em;
+        border-color: #808080;
+        background-color: var(--nv);
+    }
+    
 }
 
 li {   
@@ -173,8 +185,19 @@ li {
         width: 8em;
     }
 
+    & a.menu {
+        text-align: left;
+        color: var(--fh);
+        padding: 0.75em;
+        width: 90%;
+    }
+
     & a:hover {
         color: var(--fg);
+    }
+
+    & a.menu:hover {
+        color: var(--fs);
     }
 }
 
@@ -187,6 +210,10 @@ li.sep {
     color: var(--fg);
     position: relative;
 
+    &.menu {
+        color: var(--fs);
+    }
+
     &:after {
         content: "";
         width: 70%;
@@ -196,6 +223,14 @@ li.sep {
         position: absolute;
         bottom: 0;
         right: 15%;
+    }
+
+    &.menu:after {
+        height: 70%;
+        width: 0.3em;
+        background: var(--fs);
+        top: 15%;
+        left: -0.7%;
     }
 
 }

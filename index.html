@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <title>PufferLab</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,11 +16,11 @@
 <body id="main" class="site">
     <div id="menuPage" class="overlay menu page">
         <nav>
-            <ul class="overlay menu set">
-                <li>
-                </li>
-                <li>
-                </li>
+            <ul class="overlay nav menu set">
+                <li class=""><a href="?home" id="info" class="lang menu navlink selected" name="home"
+                    onclick="changePage('home')"></a></li>
+                <li class=""><a href="?home" id="info2" class="lang menu navlink" name="home"
+                    onclick="changePage('home')"></a></li>
             </ul>
         </nav>
     </div>
@@ -54,7 +54,7 @@
 
         <div id="navPage">
             <nav>
-                <ul class="navigator set">
+                <ul class="nav navigator set">
                     <li class="navigator"><a href="?home" id="home" class="lang navlink" name="home"
                             onclick="changePage('home')"></a></li>
                     <li class="navigator"><a href="?about" id="about" class="lang navlink" name="about"

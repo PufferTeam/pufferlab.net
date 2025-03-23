@@ -25,7 +25,6 @@ const validPages = [
     "error", "", "home", "about"
 ]
 
-var url = window.location.href.split('/');
 function readURL() {
     url = window.location.href.split('/');
     page = url[3].slice(1)
@@ -71,9 +70,9 @@ function changePage(pg) {
 }
 
 function changeURL() {
-    let pageName = '/?' + page
+    let pageName = '/' + page
     if (!validPages.includes(page)) {
-        pageName = '/?error'
+        pageName = '/error'
     }
     if(page == 'home') {
         pageName = ''

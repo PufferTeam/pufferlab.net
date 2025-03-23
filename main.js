@@ -65,9 +65,11 @@ function updatePage() {
 }
 
 function changePage(pg) {
-    page = pg
-    changeURL()
-    updatePage()
+    if(page != pg) {
+        page = pg
+        changeURL()
+        updatePage()
+    }
 }
 
 function changeURL() {
@@ -81,7 +83,7 @@ function changeURL() {
     let fullURL = url[2];
     let mainURL = url[0] + "//" + fullURL;
     let pageURL = mainURL + pageName;
-    window.history.pushState(null, null, pageURL);
+    window.history.pushState({page: page}, null, pageURL)
 }
 
 

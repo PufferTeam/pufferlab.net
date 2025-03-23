@@ -19,6 +19,10 @@ for (let i = 0; i < navlinkElements.length; i++) {
     });
 }
 
+window.addEventListener("popstate", function (e) {
+    readURL()
+});
+
 let page = 'home';
 
 const validPages = [
@@ -32,10 +36,10 @@ function readURL() {
     if (page == '') {
         page = 'home'
     }
-    changeURL()
+
     updatePage()
 }
-readURL()
+readURL();
 
 function updatePage() {
     if (!validPages.includes(page)) {
@@ -83,9 +87,8 @@ function changeURL() {
     let fullURL = url[2];
     let mainURL = url[0] + "//" + fullURL;
     let pageURL = mainURL + pageName;
-    window.history.pushState({page: page}, null, pageURL)
+    window.history.pushState({page: page}, "", pageURL);
 }
-
 
 var mode = localStorage.getItem('savedMode');
 if (mode == null) {

@@ -138,7 +138,7 @@ function getSvg(key) {
             svgA.push(sKey);
         }
     }
-    svgA.push("</div>");
+    svgA.push('</div>');
     let svgO = svgA.join("");
     return svgO;
 }

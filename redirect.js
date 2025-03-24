@@ -1,5 +1,5 @@
 let title = "PufferLab - Redirecting...";
-document.title(title);
+document.title = title;
 
 var mode = localStorage.getItem("savedMode");
 let e = document.getElementById("redirect");

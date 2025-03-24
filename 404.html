@@ -3,18 +3,10 @@
 
 <head>
     <meta charset="utf-8" />
-    <script>
-        var mode = localStorage.getItem('savedMode');
-        if(mode == 'mode.dark') {
-            document.getElementById("mainerror").style.backgroundColor = "#0d0d0d";
-        } else {
-            document.getElementById("mainerror").style.backgroundColor = "#ffffff";
-        }
-        window.location.href = "https://pufferlab.net/?error";
-    </script>
 </head>
 
-<body id="mainerror">
+<body id="redirect">
+    <script src="/redirect.js"></script>
 </body>
 
 </html>

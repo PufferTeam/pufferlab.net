@@ -26,21 +26,12 @@ const validPages = [
     "error", "", "home", "about"
 ]
 
-var url = window.location.href.split('/');
+var mainURL = window.location.href.split('/').slice(0, 3).join('/');
+
+var url = window.location.href;
 function readURL() {
-    url = window.location.href.split('/');
-    let rest = '';
-    if(url.length > 4) {
-        let pageL = ['']
-        for (let i = 4; i < url.length; i++) {
-            pageL.push(url[i]);
-        }
-        rest = pageL.join('/');
-    }
-    page = url[3].slice(1) + rest;
-    if(url[url.length - 1] == '') {
-        page = page.slice(0, -1);
-    }
+    url = window.location.href;
+    page = url.slice(mainURL.length + 2);
     if (page == '') {
         page = 'home'
     }
@@ -104,8 +95,6 @@ function changeURL() {
     if(page == 'home') {
         pageName = ''
     }
-    let fullURL = url[2];
-    let mainURL = url[0] + "//" + fullURL;
     let pageURL = mainURL + pageName;
     window.history.pushState({page: page}, "", pageURL);
 }

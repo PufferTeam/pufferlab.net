@@ -148,7 +148,8 @@ svg {
     float: right;
 }
 
-.navigator, .menu {
+.navigator,
+.menu {
     float: left;
 }
 
@@ -160,7 +161,7 @@ ul.nav {
         border-color: #808080;
         background-color: var(--no);
     }
-    
+
     &.menu {
         margin: 2.8em 0;
         border-left: solid;
@@ -168,10 +169,10 @@ ul.nav {
         border-color: #808080;
         background-color: var(--nv);
     }
-    
+
 }
 
-li {   
+li {
     &.navigator {
         padding: 0.92em 0;
     }

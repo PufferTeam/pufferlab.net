@@ -29,7 +29,18 @@ const validPages = [
 var url = window.location.href.split('/');
 function readURL() {
     url = window.location.href.split('/');
-    page = url[3].slice(1)
+    let rest = '';
+    if(url.length > 4) {
+        let pageL = ['']
+        for (let i = 4; i < url.length; i++) {
+            pageL.push(url[i]);
+        }
+        rest = pageL.join('/');
+    }
+    page = url[3].slice(1) + rest;
+    if(url[url.length - 1] == '') {
+        page = page.slice(0, -1);
+    }
     if (page == '') {
         page = 'home'
     }

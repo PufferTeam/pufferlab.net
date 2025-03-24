@@ -66,10 +66,7 @@ function updatePage() {
     }
     for (let i = 0; i < validPages.length; i++) {
         let pageID = validPages[i];
-        if (pageID != page) {
-            if (pageID == "") {
-                pageID = "home";
-            }
+        if (pageID != page && pageID != "") {
             updatePageClass(pageID, false);
         }
     }
@@ -87,9 +84,6 @@ function changePage(pg) {
 
 function changeURL() {
     let pageName = "/?" + page;
-    if (!validPages.includes(page)) {
-        pageName = "/?error";
-    }
     if (page == "home") {
         pageName = "";
     }

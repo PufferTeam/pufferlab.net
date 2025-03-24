@@ -20,7 +20,7 @@ window.addEventListener("popstate", function () {
     updateTitle()
 });
 
-let page = 'home';
+var page = 'home';
 
 const validPages = [
     "error", "", "home", "about"

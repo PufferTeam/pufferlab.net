@@ -15,8 +15,9 @@ for (let i = 0; i < navlinkElements.length; i++) {
     });
 }
 
-window.addEventListener("popstate", function (e) {
+window.addEventListener("popstate", function () {
     readURL()
+    updateTitle()
 });
 
 let page = 'home';
@@ -80,6 +81,7 @@ function changePage(pg) {
         page = pg
         changeURL()
         updatePage()
+        updateTitle()
     }
 }
 
@@ -113,15 +115,17 @@ if (lang == null) {
 
 var menu = 'menu.hide';
 
-var request = new XMLHttpRequest();
-request.open("GET", "lang.json", false);
-request.send(null)
-var langFile = JSON.parse(request.responseText);
+function sendRequest(name) {
+    let request = new XMLHttpRequest();
+    request.open("GET", name + '.json', false);
+    request.send(null)
+    let o = JSON.parse(request.responseText);
+    
+    return o
+}
 
-var request2 = new XMLHttpRequest();
-request2.open("GET", "svg.json", false);
-request2.send(null)
-var svgFile = JSON.parse(request2.responseText);
+var langFile = sendRequest('lang')
+var svgFile = sendRequest('svg')
 
 const svgStates = ["normal", "hover"];
 function getSvg(key) {
@@ -156,7 +160,6 @@ function updateIn(cl) {
         } else {
             e.innerHTML = getLang(r);
         }
-
     }
 }
 
@@ -171,10 +174,18 @@ function updateMenu() {
 }
 updateMenu();
 
+function updateTitle() {
+    let tl = getLang(page);
+    let title = 'PufferLab - ' + tl;
+    document.title = title;
+}
+updateTitle()
+
 updateIn('svg');
 
 function updateLang() {
     changeLangSL.value = lang;
+    updateTitle()
     updateIn('lang');
 }
 updateLang()

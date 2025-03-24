@@ -1,5 +1,6 @@
 {
     "en": {
+        "error": "Error 404",
         "error.desc": "Sorry we cannot find this page. It may be deleted or doesn't exist.",
         "home": "Home",
         "home.desc": "Welcome, you are on the PufferLab website!",
@@ -8,6 +9,7 @@
         "about.desc": "We are dedicated developers who are building their first website."
     },
     "fr": {
+        "error": "Erreur 404",
         "error.desc": "Désolé nous ne pouvons pas trouver cette page. Elle a peut-être été supprimé ou n'existe pas.",
         "home": "Accueil",
         "home.desc": "Bonjour, vous êtes sur le site de PufferLab!",

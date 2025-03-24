@@ -2,15 +2,12 @@ var changeModeBT = document.getElementById('changeMode');
 var changeLangSL = document.getElementById('changeLang');
 var toggleMenuBT = document.getElementById('toggleMenu');
 
-var langElements = document.getElementsByClassName('lang');
-var svgElements = document.getElementsByClassName('svgl');
 var defaultElements = document.getElementsByClassName('default');
-var navlinkElements = document.getElementsByClassName('navlink');
-
 for (let i = 0; i < defaultElements.length; i++) {
     defaultElements[i].classList.add('active')
 }
 
+var navlinkElements = document.getElementsByClassName('navlink');
 for (let i = 0; i < navlinkElements.length; i++) {
     let el = navlinkElements[i]
     el.addEventListener("click", function(event){
@@ -149,6 +146,20 @@ function getLang(key) {
     return fKey;
 }
 
+function updateIn(cl) {
+    let el = document.getElementsByClassName(cl);
+    for (let i = 0; i < el.length; i++) {
+        let e = el[i];
+        let r = e.getAttribute('name');
+        if (cl == 'svg') {
+            e.innerHTML = getSvg(r);
+        } else {
+            e.innerHTML = getLang(r);
+        }
+
+    }
+}
+
 function updateMenu() {
     let el = 'menuPage'
     if (menu == 'menu.show') {
@@ -160,23 +171,11 @@ function updateMenu() {
 }
 updateMenu();
 
-function updateSvg() {
-    for (let i = 0; i < svgElements.length; i++) {
-        let e = svgElements[i];
-        let r = e.getAttribute('name');
-        e.innerHTML = getSvg(r);
-    }
-}
-updateSvg()
+updateIn('svg');
 
 function updateLang() {
     changeLangSL.value = lang;
-
-    for (let i = 0; i < langElements.length; i++) {
-        let e = langElements[i];
-        let r = e.getAttribute('name');
-        e.innerHTML = getLang(r);
-    }
+    updateIn('lang');
 }
 updateLang()
 

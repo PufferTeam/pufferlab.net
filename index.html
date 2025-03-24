@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <title>PufferLab</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
@@ -14,13 +14,15 @@
 </head>
 
 <body id="main" class="site">
-    <div id="menuPage" class="overlay menu page">
+    <div id="menuPage" class="overlay menu page default">
         <nav>
-            <ul class="overlay nav menu set">
-                <li class=""><a href="?home" id="info" class="lang menu navlink selected" name="home"
-                    onclick="changePage('home')"></a></li>
-                <li class=""><a href="?home" id="info2" class="lang menu navlink" name="home"
-                    onclick="changePage('home')"></a></li>
+            <ul id="homePageMenu" class="page overlay nav menu set">
+                    <li class="menu"><a href="?home" id="homeMenu" class="lang menu navlink" name="home"
+                        onclick="changePage('home')"></a></li>
+            </ul>
+            <ul id="aboutPageMenu" class="page overlay nav menu set">
+                    <li class="menu"><a href="?about" id="aboutMenu" class="lang menu navlink" name="about"
+                        onclick="changePage('about')"></a></li>
             </ul>
         </nav>
     </div>
@@ -63,7 +65,7 @@
             </nav>
         </div>
     </header>
-    
+    <main>
     <div id="errorPage" class="page">
         <a id="error" class="hidden"></a>
         <h2>404</h2>
@@ -78,6 +80,7 @@
         <h2 class="lang" name="about"></h2>
         <p class="lang" name="about.desc"></p>
     </div>
+    </main>
     <script src="/main.js"></script>
 </body>
 

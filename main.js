@@ -6,7 +6,6 @@ var langElements = document.getElementsByClassName('lang');
 var svgElements = document.getElementsByClassName('svgl');
 var defaultElements = document.getElementsByClassName('default');
 var navlinkElements = document.getElementsByClassName('navlink');
-let menuPG = document.getElementById('menuPage')
 
 for (let i = 0; i < defaultElements.length; i++) {
     defaultElements[i].classList.add('active')
@@ -41,6 +40,28 @@ function readURL() {
 }
 readURL();
 
+function change(id, add, t) {
+    let e = document.getElementById(id);
+    if(e != null) {
+        let tag = 'active';
+        if(t != undefined) {
+            tag = t
+        }
+        if(add) {
+            e.classList.add(tag);
+        } else {
+            e.classList.remove(tag);
+        }
+    }
+}
+
+function updatePageClass(page, show) {
+    change(page + 'Page', show);
+    change(page + 'PageMenu', show);
+    change(page, show, 'selected');
+    change(page + 'Menu', show, 'selected');
+}
+
 function updatePage() {
     if (!validPages.includes(page)) {
         page = 'error'
@@ -51,21 +72,10 @@ function updatePage() {
             if (pageID == '') {
                 pageID = 'home'
             }
-    
-            let e = document.getElementById(pageID + 'Page')
-            let em = document.getElementById(pageID + 'PageMenu')
-            let b = document.getElementById(pageID)
-            e.classList.remove('active')
-            //em.classList.remove('active')
-            b.classList.remove('selected')
+            updatePageClass(pageID, false);
         }
     }
-    let e = document.getElementById(page + 'Page')
-    let em = document.getElementById(page + 'PageMenu')
-    let b = document.getElementById(page)
-    e.classList.add('active')
-    //em.classList.add('active')
-    b.classList.add('selected')
+    updatePageClass(page, true);
 }
 
 function changePage(pg) {
@@ -140,10 +150,11 @@ function getLang(key) {
 }
 
 function updateMenu() {
+    let el = 'menuPage'
     if (menu == 'menu.show') {
-        menuPG.classList.add('active')
+        change(el, true);
     } else {
-        menuPG.classList.remove('active')
+        change(el, false);
     }
     toggleMenuBT.innerHTML = getSvg(menu);
 }
@@ -170,11 +181,11 @@ function updateLang() {
 updateLang()
 
 function updateMode() {
-    let body = document.getElementById('main');
+    let el = 'main'
     if (mode == 'mode.dark') {
-        body.classList.add('dark');
+        change(el, true, 'dark');
     } else {
-        body.classList.remove('dark');
+        change(el, false, 'dark');
     }
     changeModeBT.innerHTML = getSvg(mode);
 }

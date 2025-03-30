@@ -29,7 +29,10 @@ var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 var url = window.location.href;
 function readURL() {
     url = window.location.href;
-    page = url.slice(mainURL.length + 2).toLowerCase().replace("/", ".");
+    page = url
+        .slice(mainURL.length + 2)
+        .toLowerCase()
+        .replace("/", ".");
     if (page == "") {
         page = "home";
     }
@@ -64,8 +67,6 @@ function updatePageClass(page, show) {
     change(mainPage, show, "selected");
     change(page + "Menu", show, "selected");
 }
-
-change("aboutPageMenu", true);
 
 function updatePage() {
     if (!validPages.includes(page)) {
@@ -167,10 +168,13 @@ function updateIn(cl) {
 
 function updateMenu() {
     let el = "menuPage";
+    let el2 = "subMenuPage";
     if (menu == "menu.show") {
         change(el, true);
+        change(el2, true);
     } else {
         change(el, false);
+        change(el2, false);
     }
     toggleMenuBT.innerHTML = getSvg(menu);
 }
@@ -227,3 +231,11 @@ function changeMode() {
     localStorage.setItem("savedMode", mode);
     updateMode();
 }
+
+var subOverlay = document.getElementById("subMenuPage");
+subOverlay.addEventListener("click", function (event) {
+    if(menu == "menu.show") {
+        menu = "menu.hide"
+        updateMenu();
+    }
+});

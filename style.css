@@ -47,13 +47,26 @@ body {
     z-index: 1;
 }
 
+.sub-overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 2;
+}
+
 .overlay {
     position: fixed;
     top: 0;
     bottom: 0;
     left: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
     width: 20em;
-    z-index: 2;
+    z-index: 3;
     background-color: var(--nv);
 }
 
@@ -201,7 +214,6 @@ nav.nav {
     }
 
     &.menu {
-        height: 100%;
         border-left: solid;
         border-width: 0.1em;
         border-color: #808080;

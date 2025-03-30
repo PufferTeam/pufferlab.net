@@ -29,7 +29,7 @@ var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 var url = window.location.href;
 function readURL() {
     url = window.location.href;
-    page = url.slice(mainURL.length + 2);
+    page = url.toLowerCase().slice(mainURL.length + 2);
     if (page == "") {
         page = "home";
     }

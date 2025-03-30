@@ -36,7 +36,7 @@
 
     <header id="mainPage" class="page default set">
         <div class="top">
-        <div id="headerPage" class="header">
+        <div id="headerPage" class="page default header fix">
             <ul class="header set">
                 <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu"
                         onclick="toggleMenu()"></button>
@@ -46,13 +46,13 @@
                 </li>
             </ul>
         </div>
-        <div id="optionPage">
+        <div id="optionPage" class="page default option fix">
             <ul class="option set">
                 <li class="option sep"><button type="button" id="changeMode" class="trigger"
                         onclick="changeMode()"></button>
                 </li>
                 <li class="option sep"><label for="langSL" id="changeLangLabel"></label>
-                    <select name="langSL" id="changeLang" class="trigger" 
+                    <select name="langSL" id="changeLang" class="trigger select" 
                         onchange="changeLang()">
                         <option value="en">English 🇺🇸</option>
                         <option value="fr">Français 🇫🇷</option>

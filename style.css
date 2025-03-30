@@ -177,6 +177,12 @@ svg {
     float: left;
 }
 
+.converter {
+    height: 20px
+    width: 100%;
+    background-color: red;
+}
+
 ul.nav {
     &.navigator {
         width: 100%;

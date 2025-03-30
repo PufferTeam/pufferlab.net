@@ -26,6 +26,14 @@
                         onclick="changePage('home')"></a>
                     </li>
             </ul>
+            <ul id="toolsPageMenu" class="page overlay nav menu set">
+                    <li class="menu"><a href="?tools" id="toolsMenu" class="lang menu navlink" name="tools"
+                        onclick="changePage('tools')"></a>
+                    </li>
+                    <li class="menu"><a href="?tools/converter" id="tools.converterMenu" class="lang menu navlink" name="tools.converter"
+                        onclick="changePage('tools.converter')"></a>
+                    </li>
+            </ul>
             <ul id="aboutPageMenu" class="page overlay nav menu set">
                     <li class="menu"><a href="?about" id="aboutMenu" class="lang menu navlink" name="about"
                         onclick="changePage('about')"></a>
@@ -68,6 +76,9 @@
                     <li class="navigator"><a href="?home" id="home" class="lang navlink" name="home"
                             onclick="changePage('home')"></a>
                     </li>
+                    <li class="navigator"><a href="?tools" id="tools" class="lang navlink" name="tools"
+                            onclick="changePage('tools')"></a>
+                    </li>
                     <li class="navigator"><a href="?about" id="about" class="lang navlink" name="about"
                             onclick="changePage('about')"></a>
                     </li>
@@ -84,6 +95,23 @@
             <h2 class="lang" name="home"></h2>
             <p class="lang" name="home.desc"></p>
             <p class="lang" name="home.p1"></p>
+        </div>
+        <div id="toolsPage" class="page">
+            <h2 class="lang" name="tools"></h2>
+            <p class="lang" name="tools.desc"></p>
+        </div>
+        <div id="tools.converterPage" class="page">
+            <h2 class="lang" name="tools.converter"></h2>
+            <p class="lang" name="tools.converter.desc"></p>
+            <div class="converter">
+                <p>Hello</p>
+                <label for="convertSL" id="changeConvertLabel"></label>
+                <select name="convertSL" id="changeConvert" class="trigger select" 
+                    onchange="alert('change')">
+                    <option value="length">Length</option>
+                    <option value="temp">Temp</option>
+                </select>
+            </div>
         </div>
         <div id="aboutPage" class="page">
             <h2 class="lang" name="about"></h2>

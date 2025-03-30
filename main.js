@@ -22,14 +22,14 @@ window.addEventListener("popstate", function () {
 
 var page = "home";
 
-const validPages = ["error", "", "home", "about"];
+const validPages = ["error", "", "home", "tools", "tools.converter", "about"];
 
 var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 
 var url = window.location.href;
 function readURL() {
     url = window.location.href;
-    page = url.toLowerCase().slice(mainURL.length + 2);
+    page = url.slice(mainURL.length + 2).toLowerCase().replace("/", ".");
     if (page == "") {
         page = "home";
     }
@@ -55,8 +55,13 @@ function change(id, add, t) {
 
 function updatePageClass(page, show) {
     change(page + "Page", show);
-    change(page + "PageMenu", show);
-    change(page, show, "selected");
+    let pg = page.split(".");
+    let mainPage = page;
+    if (pg[1] != undefined) {
+        mainPage = pg[0];
+    }
+    change(mainPage + "PageMenu", show);
+    change(mainPage, show, "selected");
     change(page + "Menu", show, "selected");
 }
 
@@ -83,7 +88,7 @@ function changePage(pg) {
 }
 
 function changeURL() {
-    let pageName = "/?" + page;
+    let pageName = "/?" + page.replace(".", "/");
     if (page == "home") {
         pageName = "";
     }
@@ -132,7 +137,7 @@ function getSvg(key) {
             svgA.push(sKey);
         }
     }
-    svgA.push('</div>');
+    svgA.push("</div>");
     let svgO = svgA.join("");
     return svgO;
 }

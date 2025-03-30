@@ -5,6 +5,10 @@
         "home": "Home",
         "home.desc": "Welcome, you are on the PufferLab website!",
         "home.p1": "This website is home to multiple web tools, experiments and other useful things you can use.",
+        "tools": "Tools",
+        "tools.desc": "You will find a great amount of tools on here that can be useful for a multitude of purposes.",
+        "tools.converter": "Unit Converter",
+        "tools.converter.desc": "Convert between different units of measurement.",
         "about": "About",
         "about.desc": "We are dedicated developers who are building their first website."
     },
@@ -14,6 +18,10 @@
         "home": "Accueil",
         "home.desc": "Bonjour, vous êtes sur le site de PufferLab!",
         "home.p1": "Ce site héberge plusieurs outils, experiences et autres choses utiles que vous pouvez utiliser.",
+        "tools": "Outils",
+        "tools.desc" : "Vous trouverez ici un grand nombre d'outils qui peuvent être utiles à une multitude d'activités.",
+        "tools.converter": "Convertisseur d'unité",
+        "tools.converter.desc": "Convertir entre différentes unités de mesure.",
         "about": "À propos",
         "about.desc": "Nous sommes des développeurs passionés et nous construisons notre premier site."
     }

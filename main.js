@@ -65,6 +65,8 @@ function updatePageClass(page, show) {
     change(page + "Menu", show, "selected");
 }
 
+change("aboutPageMenu", true);
+
 function updatePage() {
     if (!validPages.includes(page)) {
         page = "error";

@@ -54,7 +54,7 @@ body {
     left: 0;
     width: 20em;
     z-index: 2;
-    background-color: var(--no);
+    background-color: var(--nv);
 }
 
 @media (max-width: 479px) {
@@ -110,8 +110,13 @@ p {
     }
 }
 
-.first {
+.top-page {
     margin: 2.5em 0;
+
+    &.menu {
+        padding: 0;
+        margin: 3.5em 0 0 0;
+    }
 }
 
 .select {
@@ -150,6 +155,10 @@ svg {
 
 .normal {
     display: var(--n);
+
+    &.static {
+        display: block;
+    }
 }
 
 .set {
@@ -178,12 +187,11 @@ svg {
 }
 
 .converter {
-    height: 20px
     width: 100%;
     background-color: red;
 }
 
-ul.nav {
+nav.nav {
     &.navigator {
         width: 100%;
         border-bottom: solid;
@@ -193,13 +201,20 @@ ul.nav {
     }
 
     &.menu {
-        margin: 3em 0;
+        height: 100%;
         border-left: solid;
         border-width: 0.1em;
         border-color: #808080;
-        background-color: var(--nv);
     }
 
+}
+
+ul.menu {
+    position: relative;
+}
+
+.sub {
+    background-color: var(--no);
 }
 
 li {

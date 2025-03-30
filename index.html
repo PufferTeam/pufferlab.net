@@ -15,29 +15,24 @@
 
 <body id="main" class="site">
     <div id="menuPage" class="overlay menu page default">
-        <nav>
-            <ul id="errorPageMenu" class="page overlay nav menu set">
-                    <li class="menu"><a href="?error" id="errorMenu" class="lang menu navlink" name="error"
-                        onclick="changePage('error')"></a>
-                    </li>
-            </ul>
-            <ul id="homePageMenu" class="page overlay nav menu set">
-                    <li class="menu"><a href="?home" id="homeMenu" class="lang menu navlink" name="home"
-                        onclick="changePage('home')"></a>
-                    </li>
-            </ul>
-            <ul id="toolsPageMenu" class="page overlay nav menu set">
-                    <li class="menu"><a href="?tools" id="toolsMenu" class="lang menu navlink" name="tools"
-                        onclick="changePage('tools')"></a>
-                    </li>
-                    <li class="menu"><a href="?tools/converter" id="tools.converterMenu" class="lang menu navlink" name="tools.converter"
-                        onclick="changePage('tools.converter')"></a>
-                    </li>
-            </ul>
-            <ul id="aboutPageMenu" class="page overlay nav menu set">
-                    <li class="menu"><a href="?about" id="aboutMenu" class="lang menu navlink" name="about"
-                        onclick="changePage('about')"></a>
-                    </li>
+        <nav class="nav menu top-page">
+            <ul id="PageMenu" class="page default overlay nav menu set">
+                <li class="menu"><a href="?home" id="homeMenu" class="lang menu navlink" name="home"
+                    onclick="changePage('home')"></a>
+                </li>
+                <li class="menu"><a href="?tools" id="toolsMenu" class="lang menu navlink" name="tools"
+                    onclick="changePage('tools')"></a>
+                </li>
+                <li class="menu">
+                    <ul id="toolsPageMenu" class="sub page overlay nav menu set">
+                        <li class="menu"><a href="?tools/converter" id="tools.converterMenu" class="lang menu navlink" name="tools.converter"
+                            onclick="changePage('tools.converter')"></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="menu"><a href="?about" id="aboutMenu" class="lang menu navlink" name="about"
+                    onclick="changePage('about')"></a>
+                </li>
             </ul>
         </nav>
     </div>
@@ -46,7 +41,7 @@
         <div class="top">
         <div id="headerPage" class="page default header fix">
             <ul class="header set">
-                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu"
+                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu static"
                         onclick="toggleMenu()"></button>
                 </li>
                 <li class="header sep">
@@ -70,8 +65,8 @@
         </div>
         </div>
 
-        <div id="navPage" class="first">
-            <nav>
+        <div id="navPage" class="top-page">
+            <nav class="nav navigator">
                 <ul class="nav navigator set">
                     <li class="navigator"><a href="?home" id="home" class="lang navlink" name="home"
                             onclick="changePage('home')"></a>

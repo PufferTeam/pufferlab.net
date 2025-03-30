@@ -245,16 +245,19 @@ li {
 
     & a.menu {
         text-align: left;
-        color: var(--fh);
         padding: 0.75em;
         width: 20em;
+    }
+
+    & a.sub {
+        color: var(--fh);
     }
 
     & a:hover {
         color: var(--fg);
     }
 
-    & a.menu:hover {
+    & a.sub:hover {
         color: var(--fs);
     }
 }
@@ -268,7 +271,7 @@ li.sep {
     color: var(--fg);
     position: relative;
 
-    &.menu {
+    &.sub {
         color: var(--fs);
     }
 
@@ -286,9 +289,12 @@ li.sep {
     &.menu:after {
         height: 70%;
         width: 0.3em;
-        background: var(--fs);
         top: 15%;
         left: -0.7%;
+    }
+
+    &.sub:after {
+        background: var(--fs);
     }
 
 }

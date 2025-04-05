@@ -201,7 +201,7 @@ svg {
 
 .converter {
     width: 100%;
-    background-color: red;
+    background-color: var(--no);
 }
 
 nav.nav {
@@ -251,6 +251,7 @@ li {
 
     & a.sub {
         color: var(--fh);
+        padding-left: 1.5em;
     }
 
     & a:hover {

@@ -250,6 +250,17 @@ function toggleMenu() {
     updateMenu();
 }
 
+var width = window.innerWidth;
+function changeMenu() {
+    if(width > 600) {
+        menu = "menu.show";
+    } else {
+        menu = "menu.hide"
+    }
+    updateMenu()
+}
+changeMenu();
+
 // Change the language and save it to localStorage
 function changeLang() {
     lang = changeLangSL.value;

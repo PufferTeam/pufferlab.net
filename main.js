@@ -18,10 +18,12 @@ for (let i = 0; i < navlinkElements.length; i++) {
     });
 }
 
+alert(window.innerWidth);
+
 // Handle browser back/forward navigation
 window.addEventListener("popstate", function () {
-    readURL(); // Update the page based on the current URL
-    updateTitle(); // Update the page title
+    readURL();
+    updateTitle();
 });
 
 // Default page
@@ -33,10 +35,8 @@ const validPages = ["error", "", "home", "tools", "tools.converter", "about"];
 // Base URL of the website
 var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 
-// Current URL
-var url = window.location.href;
-
 // Read and parse the current URL to determine the active page
+var url = window.location.href;
 function readURL() {
     url = window.location.href;
     page = url
@@ -272,7 +272,7 @@ function changeMode() {
 
 // Close the menu when clicking on the submenu overlay
 var subOverlay = document.getElementById("subMenuPage");
-subOverlay.addEventListener("click", function (event) {
+subOverlay.addEventListener("click", function () {
     if (menu == "menu.show") {
         menu = "menu.hide";
         updateMenu();

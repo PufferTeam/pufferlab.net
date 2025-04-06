@@ -60,6 +60,7 @@ body {
 }
 
 .overlay {
+    margin-left: 0.5em;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -125,7 +126,7 @@ p {
 }
 
 .pages.open {
-    margin-left: 20em;
+    margin-left: 20.5em;
 }
 
 #subMenuPage.page.active {

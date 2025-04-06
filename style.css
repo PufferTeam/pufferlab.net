@@ -123,6 +123,26 @@ p {
     }
 }
 
+.pages.open {
+    margin-left: 20em;
+}
+
+#subMenuPage.page.active {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .pages.open {
+        margin-left: 0;
+    }
+
+    #subMenuPage.page.active {
+        display: block;
+    }
+}
+
+
+
 .top-page {
     margin: 2.5em 0;
 

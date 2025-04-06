@@ -195,13 +195,18 @@ function updateIn(cl) {
 function updateMenu() {
     let el = "menuPage";
     let el2 = "subMenuPage";
+    let el3 = "pages";
+    let el4 = "navPage";
+
+    let show = false;
     if (menu == "menu.show") {
-        change(el, true);
-        change(el2, true);
-    } else {
-        change(el, false);
-        change(el2, false);
+        show = true;
     }
+
+    change(el, show);
+    change(el2, show);
+    change(el3, show, "open")
+    change(el4, show, "open");
     toggleMenuBT.innerHTML = getSvg(menu);
 }
 updateMenu(); // Initial menu update

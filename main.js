@@ -18,8 +18,6 @@ for (let i = 0; i < navlinkElements.length; i++) {
     });
 }
 
-alert(window.innerWidth);
-
 // Handle browser back/forward navigation
 window.addEventListener("popstate", function () {
     readURL();

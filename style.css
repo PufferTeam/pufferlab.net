@@ -40,6 +40,7 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "wdth" 100;
+    scrollbar-color: var(--nv) var(--no);
 }
 
 .site {
@@ -59,6 +60,7 @@ body {
 }
 
 .overlay {
+    margin-left: 0.5em;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -120,6 +122,30 @@ p {
     &.option {
         right: 0;
         z-index: -1;
+    }
+}
+
+.pages.open {
+    margin-left: 20.5em;
+}
+
+#subMenuPage.page.active {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .pages.open {
+        margin-left: 0;
+    }
+
+    #subMenuPage.page.active {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 300px) {
+    #navPage.page.active {
+        display: none;
     }
 }
 

@@ -9,19 +9,19 @@ for (let i = 0; i < defaultElements.length; i++) {
     defaultElements[i].classList.add("active");
 }
 
-// Add click event listeners to all elements with the "navlink" class
+// Prevent default click behavior for elements with the "navlink" class
 var navlinkElements = document.getElementsByClassName("navlink");
 for (let i = 0; i < navlinkElements.length; i++) {
     let el = navlinkElements[i];
     el.addEventListener("click", function (event) {
-        event.preventDefault(); // Prevent default navigation behavior
+        event.preventDefault();
     });
 }
 
 // Handle browser back/forward navigation
 window.addEventListener("popstate", function () {
-    readURL(); // Update the page based on the current URL
-    updateTitle(); // Update the page title
+    readURL();
+    updateTitle();
 });
 
 // Default page
@@ -33,23 +33,18 @@ const validPages = ["error", "", "home", "tools", "tools.converter", "about"];
 // Base URL of the website
 var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 
-// Current URL
-var url = window.location.href;
-
 // Read and parse the current URL to determine the active page
+var url = window.location.href;
 function readURL() {
     url = window.location.href;
-    page = url
-        .slice(mainURL.length + 2)
-        .toLowerCase()
-        .replace("/", ".");
+    page = url.slice(mainURL.length + 2).toLowerCase().replace("/", ".");
     if (page == "") {
-        page = "home"; // Default to "home" if no page is specified
+        page = "home";
     }
 
-    updatePage(); // Update the page content
+    updatePage();
 }
-readURL(); // Initial call to read the URL
+readURL();
 
 // Add or remove a class from an element
 function change(id, add, t) {
@@ -57,7 +52,7 @@ function change(id, add, t) {
     if (e != null) {
         let tag = "active";
         if (t != undefined) {
-            tag = t; // Use a custom class if provided
+            tag = t;
         }
         if (add) {
             e.classList.add(tag);
@@ -73,7 +68,7 @@ function updatePageClass(page, show) {
     let pg = page.split(".");
     let mainPage = page;
     if (pg[1] != undefined) {
-        mainPage = pg[0]; // Handle subpages
+        mainPage = pg[0];
     }
     change(mainPage + "PageMenu", show);
     change(mainPage, show, "selected");
@@ -83,24 +78,24 @@ function updatePageClass(page, show) {
 // Update the active page and hide inactive pages
 function updatePage() {
     if (!validPages.includes(page)) {
-        page = "error"; // Fallback to "error" page if invalid
+        page = "error";
     }
     for (let i = 0; i < validPages.length; i++) {
         let pageID = validPages[i];
         if (pageID != page && pageID != "") {
-            updatePageClass(pageID, false); // Hide inactive pages
+            updatePageClass(pageID, false);
         }
     }
-    updatePageClass(page, true); // Show the active page
+    updatePageClass(page, true);
 }
 
 // Change the current page and update the URL, content, and title
 function changePage(pg) {
     if (page != pg) {
         page = pg;
-        changeURL(); // Update the URL
-        updatePage(); // Update the page content
-        updateTitle(); // Update the page title
+        changeURL();
+        updatePage();
+        updateTitle();
     }
 }
 
@@ -108,7 +103,7 @@ function changePage(pg) {
 function changeURL() {
     let pageName = "/?" + page.replace(".", "/");
     if (page == "home") {
-        pageName = ""; // Default to root for "home" page
+        pageName = "";
     }
     let pageURL = mainURL + pageName;
     window.history.pushState({ page: page }, "", pageURL);
@@ -172,12 +167,12 @@ function getSvg(key) {
 function getLang(key) {
     let fKey = langFile[lang][key];
     if (fKey == undefined) {
-        fKey = langFile["en"][key]; // Fallback to English if key is missing
+        fKey = langFile["en"][key];
     }
     return fKey;
 }
 
-// Update elements with a specific class (e.g., SVG or language strings)
+// Update the inner HTML of elements with a specific class
 function updateIn(cl) {
     let el = document.getElementsByClassName(cl);
     for (let i = 0; i < el.length; i++) {
@@ -195,16 +190,21 @@ function updateIn(cl) {
 function updateMenu() {
     let el = "menuPage";
     let el2 = "subMenuPage";
+    let el3 = "pages";
+    let el4 = "navPage";
+
+    let show = false;
     if (menu == "menu.show") {
-        change(el, true);
-        change(el2, true);
-    } else {
-        change(el, false);
-        change(el2, false);
+        show = true;
     }
+
+    change(el, show);
+    change(el2, show);
+    change(el3, show, "open")
+    change(el4, show, "open");
     toggleMenuBT.innerHTML = getSvg(menu);
 }
-updateMenu(); // Initial menu update
+updateMenu();
 
 // Update the page title
 function updateTitle() {
@@ -212,20 +212,20 @@ function updateTitle() {
     let title = "PufferLab - " + tl;
     document.title = title;
 }
-updateTitle(); // Initial title update
+updateTitle();
 
 // Update all SVG elements
 updateIn("svg");
 
-// Update the language selection and related content
+// Update all language elements
 function updateLang() {
     changeLangSL.value = lang;
     updateTitle();
     updateIn("lang");
 }
-updateLang(); // Initial language update
+updateLang();
 
-// Update the mode (dark/light) and related UI elements
+// Update the mode (dark/light)
 function updateMode() {
     let el = "main";
     if (mode == "mode.dark") {
@@ -235,7 +235,7 @@ function updateMode() {
     }
     changeModeBT.innerHTML = getSvg(mode);
 }
-updateMode(); // Initial mode update
+updateMode();
 
 // Toggle the menu visibility
 function toggleMenu() {
@@ -246,6 +246,18 @@ function toggleMenu() {
     }
     updateMenu();
 }
+
+// Change the menu visibility based on the window width
+var width = window.innerWidth;
+function changeMenu() {
+    if(width > 600) {
+        menu = "menu.show";
+    } else {
+        menu = "menu.hide"
+    }
+    updateMenu()
+}
+changeMenu();
 
 // Change the language and save it to localStorage
 function changeLang() {
@@ -265,9 +277,9 @@ function changeMode() {
     updateMode();
 }
 
-// Close the menu when clicking on the submenu overlay
+// Close the menu when clicking on the background
 var subOverlay = document.getElementById("subMenuPage");
-subOverlay.addEventListener("click", function (event) {
+subOverlay.addEventListener("click", function () {
     if (menu == "menu.show") {
         menu = "menu.hide";
         updateMenu();

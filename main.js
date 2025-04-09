@@ -292,3 +292,4 @@ window.mathtools = mathtools;
 window.changePage = changePage;
 window.changeMode = changeMode;
 window.changeLang = changeLang;
+window.toggleMenu = toggleMenu;

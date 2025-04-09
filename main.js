@@ -1,3 +1,5 @@
+import * as mathtools from "./tools/mathtools.js";
+
 // Get references to UI elements
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
@@ -285,3 +287,8 @@ subOverlay.addEventListener("click", function () {
         updateMenu();
     }
 });
+
+window.mathtools = mathtools;
+window.changePage = changePage;
+window.changeMode = changeMode;
+window.changeLang = changeLang;

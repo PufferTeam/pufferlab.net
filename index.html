@@ -45,7 +45,7 @@
         <div class="top">
         <div id="headerPage" class="page default header fix">
             <ul class="header set">
-                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu static"
+                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu header static"
                         onclick="toggleMenu()"></button>
                 </li>
                 <li class="header sep">
@@ -55,11 +55,11 @@
         </div>
         <div id="optionPage" class="page default option fix">
             <ul class="option set">
-                <li class="option sep"><button type="button" id="changeMode" class="trigger"
+                <li class="option sep"><button type="button" id="changeMode" class="trigger option"
                         onclick="changeMode()"></button>
                 </li>
                 <li class="option sep"><label for="langSL" id="changeLangLabel"></label>
-                    <select name="langSL" id="changeLang" class="trigger select" 
+                    <select name="langSL" id="changeLang" class="trigger select option" 
                         onchange="changeLang()">
                         <option value="en">English 🇺🇸</option>
                         <option value="fr">Français 🇫🇷</option>
@@ -104,19 +104,41 @@
             <h2 class="lang" name="tools.converter"></h2>
             <p class="lang" name="tools.converter.desc"></p>
             <div class="converter">
-                <p>Hello</p>
-                <label for="convertSL" id="changeConvertLabel"></label>
-                <select name="convertSL" id="changeConvert" class="trigger select" 
-                    onchange="alert('change')">
-                    <option value="distance" class="lang" name="tools.converter.distance""></option>
-                    <option value="mass" class="lang" name="tools.converter.mass""></option>
-                    <option value="temperature" class="lang" name="tools.converter.temperature"></option>
+                <p class="p-title">Converter:</p>
+                <div class="converter in">
+                <select name="converterSL" id="changeUnit" class="trigger select in top-bar" 
+                    onchange="tools.changeUnit()">
+                    <option value="distance" class="lang" name="tools.unit.distance"></option>
+                    <option value="mass" class="lang" name="tools.unit.mass"></option>
+                    <option value="volume" class="lang" name="tools.unit.volume"></option>
+                    <option value="time" class="lang" name="tools.unit.time"></option>
+                    <option value="temperature" class="lang" name="tools.unit.temperature"></option>
                 </select>
-                <div id="lengthPage">
+                <div id="distancePage" class="converter">
+                    <div class="converter input">
+                    <label for="converterInput">
+                            <select name="converterInputSL" id="changeInputUnit" class="trigger select in" 
+                                onchange="tools.changeUnit()">
+                                <option value="none" class="lang" name="tools.none"></option>
+                            </select>:
+                    </label>
+                    <input type="number" id="converterInput" class="trigger text in" name="converterInput" required minlength="1"/
+                    </div>
                     
+                    <p></p>
+                    <div class="converter output">
+                    <label for="converterOutput">
+                        <select name="converterOutputSL" id="changeOutputUnit" class="trigger select in" 
+                            onchange="tools.changeUnit()">
+                            <option value="none" class="lang" name="tools.none"></option>
+                        </select>:
+                    </label>
+                    <input type="number" id="converterOutput" class="trigger text in" name="converterOutput" required minlength="1"/>
+                    </div>
                 </div>
-                <div id="temperaturePage">
+                <div id="massPage">
 
+                </div>
                 </div>
             </div>
         </div>
@@ -125,7 +147,7 @@
             <p class="lang" name="about.desc"></p>
         </div>
     </main>
-    <script src="/main.js"></script>
+    <script src="/main.js" type="module"></script>
 </body>
 
 </html>

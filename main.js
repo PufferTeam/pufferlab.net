@@ -1,3 +1,5 @@
+import * as tools from "./tools.js";
+
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
 var toggleMenuBT = document.getElementById("toggleMenu");
@@ -20,14 +22,23 @@ window.addEventListener("popstate", function () {
     updateTitle();
 });
 
-var page = "home";
-const validPages = ["error", "", "home", "tools", "tools.converter", "about"];
+export var page = "home";
+export const validPages = [
+    "error",
+    "",
+    "home",
+    "tools",
+    "tools.converter",
+    "about",
+];
+
 var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 var url = window.location.href;
 
 function readURL() {
     url = window.location.href;
     page = url.slice(mainURL.length + 2).toLowerCase().replace("/", ".");
+    
     if (page == "") {
         page = "home";
     }
@@ -83,6 +94,7 @@ function changePage(pg) {
         updateTitle();
     }
 }
+window.changePage = changePage;
 
 function changeURL() {
     let pageName = "/?" + page.replace(".", "/");
@@ -93,7 +105,7 @@ function changeURL() {
     window.history.pushState({ page: page }, "", pageURL);
 }
 
-var mode = localStorage.getItem("savedMode");
+export var mode = localStorage.getItem("savedMode");
 if (mode == null) {
     if (
         window.matchMedia &&
@@ -105,12 +117,12 @@ if (mode == null) {
     }
 }
 
-var lang = localStorage.getItem("savedLang");
+export var lang = localStorage.getItem("savedLang");
 if (lang == null) {
     lang = "en";
 }
 
-var menu = "menu.hide";
+export var menu = "menu.hide";
 
 function sendRequest(name) {
     let request = new XMLHttpRequest();
@@ -123,6 +135,7 @@ function sendRequest(name) {
 
 var langFile = sendRequest("lang");
 var svgFile = sendRequest("svg");
+
 const svgStates = ["normal", "hover"];
 
 function getSvg(key) {
@@ -173,7 +186,7 @@ function updateMenu() {
 
     change(el, show);
     change(el2, show);
-    change(el3, show, "open")
+    change(el3, show, "open");
     change(el4, show, "open");
     toggleMenuBT.innerHTML = getSvg(menu);
 }
@@ -214,15 +227,16 @@ function toggleMenu() {
     }
     updateMenu();
 }
+window.toggleMenu = toggleMenu;
 
 var width = window.innerWidth;
 function changeMenu() {
-    if(width > 600) {
+    if (width > 600) {
         menu = "menu.show";
     } else {
-        menu = "menu.hide"
+        menu = "menu.hide";
     }
-    updateMenu()
+    updateMenu();
 }
 changeMenu();
 
@@ -231,6 +245,7 @@ function changeLang() {
     localStorage.setItem("savedLang", lang);
     updateLang();
 }
+window.changeLang = changeLang;
 
 function changeMode() {
     if (mode == "mode.dark") {
@@ -241,6 +256,7 @@ function changeMode() {
     localStorage.setItem("savedMode", mode);
     updateMode();
 }
+window.changeMode = changeMode;
 
 var subOverlay = document.getElementById("subMenuPage");
 subOverlay.addEventListener("click", function () {
@@ -249,3 +265,5 @@ subOverlay.addEventListener("click", function () {
         updateMenu();
     }
 });
+
+window.tools = tools;

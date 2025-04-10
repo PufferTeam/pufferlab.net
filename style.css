@@ -93,10 +93,14 @@ p {
     height: 2em;
     width: 2em;
     color: var(--fg);
-    background-color: var(--no);
+    background-color: var(--nv);
     position: relative;
     --n: block;
     --h: none;
+
+    &.option, &.header {
+        background-color: var(--no);
+    }
 }
 
 .top {
@@ -158,9 +162,52 @@ p {
     }
 }
 
+.converter {
+    margin: 0.5em 0;
+}
+
 .select {
     width: 8em;
+
+    &.in {
+       margin-left: 1%;
+       width: 20%;
+    }
+    
 }
+
+.converter.in {
+    width: 100%;
+}
+
+.text {
+    height: 1.2em;
+    width: 10em;
+
+    background-color: var(--no);
+
+    border: solid;
+    border-width: 0.1em;
+    border-color: var(--ns);
+
+    &.in {
+       margin-left: 1%;
+       width: 60%;
+    }
+}
+
+.p-title {
+    margin-bottom: 0.5em;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+}
+
+.select.top-bar {
+    margin-left: 0;
+    width: 100%;
+}
+
+
 
 @media (hover: hover) {
     .trigger:hover {

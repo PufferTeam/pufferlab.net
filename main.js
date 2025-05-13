@@ -1,5 +1,71 @@
 import * as tools from "./tools.js";
 
+export var page = "home";
+
+let hiddenPages = [
+    "error",
+    ""
+]
+
+let pages = [
+    "home",
+    "tools",
+    "tools.converter",
+    "about"
+]
+
+export const validPages = [
+];
+
+for (let i = 0; i < hiddenPages.length; i++) {
+    validPages.push(hiddenPages[i]);
+}
+
+for (let i = 0; i < pages.length; i++) {
+    validPages.push(pages[i]);
+}
+
+console.log(validPages)
+
+let PageNav = document.getElementById("PageNav");
+let PageMenu = document.getElementById("PageMenu");
+
+let subPages = [];
+let PageNavContent = [];
+let PageMenuContent = [];
+for (let i = 0; i < pages.length; i++) {
+
+    let e = pages[i];
+    let es = e.split(".");
+
+    if (es[1] == undefined) {
+        PageNavContent.push(`<li class="navigator"><a href="?${e}" id="${e}" class="lang navlink" name="${e}" onclick="changePage('${e}')"></a></li>`);
+        PageMenuContent.push(`<li class="menu"><a href="?${e}" id="${e}Menu" class="lang menu navlink" name="${e}" onclick="changePage('${e}')"></a></li>`);
+
+        if (subPages.includes(e)) {
+            PageMenuContent.push(`<li class="menu"><ul id="${e}PageMenu" class="sub page overlay nav menu set">`)
+        }
+    }
+
+    let n = i + 1;
+    if (n < pages.length - 1) {
+        let r = pages[n];
+        let rs = r.split(".");
+        if (rs[1] != undefined) {
+            let rp = r.replace(".", "/");
+            PageMenuContent.push(`<li class="menu sub"><a href="?${rp}" id="${r}Menu" class="lang sub menu navlink" name="${r}" onclick="changePage('${r}')"></a></li>`)
+            if(pages[n + 1].split(".")[1] == undefined) {
+                PageMenuContent.push(`</ul></li>`);
+            }
+        } else {
+            subPages.push(r);
+        }
+    }
+};
+
+PageNav.innerHTML = PageNavContent.join("");
+PageMenu.innerHTML = PageMenuContent.join("");
+
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
 var toggleMenuBT = document.getElementById("toggleMenu");
@@ -22,23 +88,13 @@ window.addEventListener("popstate", function () {
     updateTitle();
 });
 
-export var page = "home";
-export const validPages = [
-    "error",
-    "",
-    "home",
-    "tools",
-    "tools.converter",
-    "about",
-];
-
 var mainURL = window.location.href.split("/").slice(0, 3).join("/");
 var url = window.location.href;
 
 function readURL() {
     url = window.location.href;
     page = url.slice(mainURL.length + 2).toLowerCase().replace("/", ".");
-    
+
     if (page == "") {
         page = "home";
     }

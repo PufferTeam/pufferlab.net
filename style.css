@@ -190,7 +190,7 @@ p {
     height: 1.2em;
     width: 12em;
 
-    background-color: var(--no);
+    background-color: var(--bg);
 
     border: solid;
     border-width: 0.1em;
@@ -218,6 +218,10 @@ p {
         background-color: var(--nc);
         --n: none;
         --h: block;
+    }
+
+    .text:hover {
+        background-color: var(--no);
     }
 }
 

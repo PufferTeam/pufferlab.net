@@ -7,6 +7,7 @@
     --nv: #e6e6e6;
     --nc: #d9d9d9;
     --ns: #cccccc;
+    --na: #bfbfbf;
 }
 
 .page {
@@ -30,6 +31,7 @@
     --nv: #262626;
     --nc: #333333;
     --ns: #404040;
+    --na: #4d4d4d;
 }
 
 body {
@@ -40,7 +42,7 @@ body {
     font-optical-sizing: auto;
     font-style: normal;
     font-variation-settings: "wdth" 100;
-    scrollbar-color: var(--nv) var(--no);
+    scrollbar-color: var(--na) var(--no);
 }
 
 .site {
@@ -69,7 +71,7 @@ body {
     overflow-x: hidden;
     width: 20em;
     z-index: 3;
-    background-color: var(--nv);
+    background-color: var(--no);
 }
 
 @media (max-width: 479px) {
@@ -186,7 +188,7 @@ p {
 
 .text {
     height: 1.2em;
-    width: 20em;
+    width: 12em;
 
     background-color: var(--no);
 
@@ -296,7 +298,7 @@ ul.menu {
 }
 
 .sub {
-    background-color: var(--no);
+    background-color: var(--bg);
 }
 
 li {

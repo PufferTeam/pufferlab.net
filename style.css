@@ -162,27 +162,31 @@ p {
     }
 }
 
-.converter {
-    margin: 0.5em 0;
+.container {
+    background-color: var(--no);
+    position: relative;
+    float: left;
+    padding: 0.5em;
+    width: 30em;
+}
+
+@media only screen and (max-width: 30em) {
+    .container {
+        width: 100%;
+    }
 }
 
 .select {
     width: 8em;
-
-    &.in {
-       margin-left: 1%;
-       width: 20%;
-    }
-    
 }
 
-.converter.in {
+.row {
     width: 100%;
 }
 
 .text {
     height: 1.2em;
-    width: 10em;
+    width: 20em;
 
     background-color: var(--no);
 
@@ -192,7 +196,6 @@ p {
 
     &.in {
        margin-left: 1%;
-       width: 60%;
     }
 }
 
@@ -200,14 +203,13 @@ p {
     margin-bottom: 0.5em;
     text-decoration: underline;
     text-underline-offset: 0.2em;
+    margin: 0.5em 0;
 }
 
-.select.top-bar {
-    margin-left: 0;
-    width: 100%;
+.converter {
+    margin: 1em 0;
+
 }
-
-
 
 @media (hover: hover) {
     .trigger:hover {
@@ -270,11 +272,6 @@ svg {
 .navigator,
 .menu {
     float: left;
-}
-
-.converter {
-    width: 100%;
-    background-color: var(--no);
 }
 
 nav.nav {

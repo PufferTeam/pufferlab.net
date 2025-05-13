@@ -103,10 +103,8 @@
         <div id="tools.converterPage" class="page">
             <h2 class="lang" name="tools.converter"></h2>
             <p class="lang" name="tools.converter.desc"></p>
-            <div class="converter">
-                <p class="p-title">Converter:</p>
-                <div class="converter in">
-                <select name="converterSL" id="changeUnit" class="trigger select in top-bar" 
+            <div class="converter container">
+                <select name="converterSL" id="changeUnit" class="trigger select row" 
                     onchange="tools.changeUnit()">
                     <option value="distance" class="lang" name="tools.unit.distance"></option>
                     <option value="mass" class="lang" name="tools.unit.mass"></option>
@@ -114,8 +112,8 @@
                     <option value="time" class="lang" name="tools.unit.time"></option>
                     <option value="temperature" class="lang" name="tools.unit.temperature"></option>
                 </select>
-                <div id="distancePage" class="converter">
-                    <div class="converter input">
+                <div class="converter">
+                    <div class="converter row input">
                     <label for="converterInput">
                             <select name="converterInputSL" id="changeInputUnit" class="trigger select in" 
                                 onchange="tools.changeUnit()">
@@ -126,7 +124,7 @@
                     </div>
                     
                     <p></p>
-                    <div class="converter output">
+                    <div class="converter row output">
                     <label for="converterOutput">
                         <select name="converterOutputSL" id="changeOutputUnit" class="trigger select in" 
                             onchange="tools.changeUnit()">

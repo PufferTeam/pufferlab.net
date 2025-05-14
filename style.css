@@ -216,9 +216,18 @@ p {
 
 @media (hover: hover) {
     .trigger:hover {
-        background-color: var(--nc);
+        background-color: var(--nv);
         --n: none;
         --h: block;
+    }
+
+    .in:hover {
+        background-color: var(--nc);
+    }
+
+    option {
+        background-color: var(--no);
+        border-radius: 0em;
     }
 
     .text:hover {

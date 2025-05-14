@@ -17,15 +17,8 @@ let pages = [
 export const validPages = [
 ];
 
-for (let i = 0; i < hiddenPages.length; i++) {
-    validPages.push(hiddenPages[i]);
-}
-
-for (let i = 0; i < pages.length; i++) {
-    validPages.push(pages[i]);
-}
-
-console.log(validPages)
+hiddenPages.forEach((e) => { validPages.push(e) })
+pages.forEach((e) => { validPages.push(e) })
 
 let PageNav = document.getElementById("PageNav");
 let PageMenu = document.getElementById("PageMenu");
@@ -54,7 +47,7 @@ for (let i = 0; i < pages.length; i++) {
         if (rs[1] != undefined) {
             let rp = r.replace(".", "/");
             PageMenuContent.push(`<li class="menu sub"><a href="?${rp}" id="${r}Menu" class="lang sub menu navlink" name="${r}" onclick="changePage('${r}')"></a></li>`)
-            if(pages[n + 1].split(".")[1] == undefined) {
+            if (pages[n + 1].split(".")[1] == undefined) {
                 PageMenuContent.push(`</ul></li>`);
             }
         } else {
@@ -65,6 +58,14 @@ for (let i = 0; i < pages.length; i++) {
 
 PageNav.innerHTML = PageNavContent.join("");
 PageMenu.innerHTML = PageMenuContent.join("");
+
+export function capitalize(str) {
+    let e = str.split("");
+    e[0] = e[0].toUpperCase()
+    let r = e.join("")
+
+    return r
+}
 
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
@@ -102,7 +103,7 @@ function readURL() {
 }
 readURL();
 
-function change(id, add, t) {
+export function change(id, add, t) {
     let e = document.getElementById(id);
     if (e != null) {
         let tag = "active";
@@ -189,8 +190,8 @@ function sendRequest(name) {
     return o;
 }
 
-var langFile = sendRequest("lang");
-var svgFile = sendRequest("svg");
+export var langFile = sendRequest("lang");
+export var svgFile = sendRequest("svg");
 
 const svgStates = ["normal", "hover"];
 
@@ -208,23 +209,30 @@ function getSvg(key) {
     return svgO;
 }
 
-function getLang(key) {
+export function getLang(key) {
     let fKey = langFile[lang][key];
     if (fKey == undefined) {
         fKey = langFile["en"][key];
     }
+    if(fKey == undefined) {
+        fKey = key
+    }
     return fKey;
 }
 
-function updateIn(cl) {
+export function updateIn(cl) {
     let el = document.getElementsByClassName(cl);
     for (let i = 0; i < el.length; i++) {
         let e = el[i];
         let r = e.getAttribute("name");
+        let rs = r.split(":");
         if (cl == "svg") {
             e.innerHTML = getSvg(r);
         } else {
             e.innerHTML = getLang(r);
+            if(rs[1] !== undefined) {
+                e.innerHTML = getLang(rs[0]) + `${rs[1]}`;
+            }
         }
     }
 }

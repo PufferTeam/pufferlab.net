@@ -100,7 +100,8 @@ p {
     --n: block;
     --h: none;
 
-    &.option, &.header {
+    &.option,
+    &.header {
         background-color: var(--no);
     }
 }
@@ -197,7 +198,7 @@ p {
     border-color: var(--ns);
 
     &.in {
-       margin-left: 1%;
+        margin-left: 1%;
     }
 }
 

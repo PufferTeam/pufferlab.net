@@ -22,35 +22,33 @@
     </div>
 
     <div id="subMenuPage" class="sub-overlay page">
-        
     </div>
 
     <header id="mainPage" class="page default set">
         <div class="top">
-        <div id="headerPage" class="page default header fix">
-            <ul class="header set">
-                <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu header static"
-                        onclick="toggleMenu()"></button>
-                </li>
-                <li class="header sep">
-                    <h1 class="logo set">PufferLab</h1>
-                </li>
-            </ul>
-        </div>
-        <div id="optionPage" class="page default option fix">
-            <ul class="option set">
-                <li class="option sep"><button type="button" id="changeMode" class="trigger option"
-                        onclick="changeMode()"></button>
-                </li>
-                <li class="option sep"><label for="langSL" id="changeLangLabel"></label>
-                    <select name="langSL" id="changeLang" class="trigger select option" 
-                        onchange="changeLang()">
-                        <option value="en">English 🇺🇸</option>
-                        <option value="fr">Français 🇫🇷</option>
-                    </select>
-                </li>
-            </ul>
-        </div>
+            <div id="headerPage" class="page default header fix">
+                <ul class="header set">
+                    <li class="header menu sep"><button type="button" id="toggleMenu" class="trigger menu header static"
+                            onclick="toggleMenu()"></button>
+                    </li>
+                    <li class="header sep">
+                        <h1 class="logo set">PufferLab</h1>
+                    </li>
+                </ul>
+            </div>
+            <div id="optionPage" class="page default option fix">
+                <ul class="option set">
+                    <li class="option sep"><button type="button" id="changeMode" class="trigger option"
+                            onclick="changeMode()"></button>
+                    </li>
+                    <li class="option sep"><label for="langSL" id="changeLangLabel"></label>
+                        <select name="langSL" id="changeLang" class="trigger select option" onchange="changeLang()">
+                            <option value="en">English 🇺🇸</option>
+                            <option value="fr">Français 🇫🇷</option>
+                        </select>
+                    </li>
+                </ul>
+            </div>
         </div>
 
         <div class="top-page"></div>
@@ -79,41 +77,17 @@
             <h2 class="lang" name="tools.converter"></h2>
             <p class="lang" name="tools.converter.desc"></p>
             <div class="converter container">
-                <select name="converterSL" id="changeUnit" class="trigger select row" 
-                    onchange="tools.changeUnit()">
+                <select name="converterSL" id="changeUnit" class="trigger select row" onchange="tools.changeUnit()">
                     <option value="distance" class="lang" name="tools.unit.distance"></option>
                     <option value="mass" class="lang" name="tools.unit.mass"></option>
                     <option value="volume" class="lang" name="tools.unit.volume"></option>
                     <option value="time" class="lang" name="tools.unit.time"></option>
                     <option value="temperature" class="lang" name="tools.unit.temperature"></option>
                 </select>
-                <div class="converter">
-                    <div class="converter row input">
-                    <label for="converterInput">
-                            <select name="converterInputSL" id="changeInputUnit" class="trigger select in" 
-                                onchange="tools.changeUnit()">
-                                <option value="none" class="lang" name="tools.none"></option>
-                            </select>:
-                    </label>
-                    <input type="number" id="converterInput" class="trigger text in" name="converterInput" onkeyup="alert('u')" required minlength="1"/>
-                    </div>
-                    
-                    <p></p>
-                    <div class="converter row output">
-                    <label for="converterOutput">
-                        <select name="converterOutputSL" id="changeOutputUnit" class="trigger select in" 
-                            onchange="tools.changeUnit()">
-                            <option value="none" class="lang" name="tools.none"></option>
-                        </select>:
-                    </label>
-                    <input type="number" id="converterOutput" class="trigger text in" name="converterOutput" required minlength="1"/>
-                    </div>
-                </div>
-                <div id="massPage">
-
-                </div>
+                <div id="PageConverter">
                 </div>
             </div>
+        </div>
         </div>
         <div id="aboutPage" class="page">
             <h2 class="lang" name="about"></h2>

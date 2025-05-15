@@ -8,9 +8,9 @@ const units = new Map();
 let unitTypes = [
     "distance",
     "mass",
-    "volume",
     "time",
-    "temperature"
+    "temperature",
+    "volume"
 ]
 
 export var converterPage = 'distance';
@@ -23,6 +23,19 @@ unit('distance', 'foot', 'ft', 'imperial', 12)
 unit('distance', 'yard', 'yd', 'imperial', (12 * 3))
 unit('distance', 'mile', 'mi', 'imperial', (12 * 3 * 1760))
 
+generateMetric('mass', 'gram', 'g')
+
+unit('time', 'second', 's', 'time', 1)
+unit('time', 'minute', 'min', 'time', 60)
+unit('time', 'hour', 'h', 'time', 60 * 60)
+unit('time', 'day', 'none', 'time', 60 * 60 * 24)
+unit('time', 'week', 'none', 'time', 60 * 60 * 24 * 7)
+unit('time', 'month', 'none', 'time', 60 * 60 * 24 * 30)
+unit('time', 'year', 'none', 'time', 60 * 60 * 24 * 30 * 12)
+unit('time', 'millisecond', 'ms', 'time', 1e-3)
+unit('time', 'microsecond', 'μs', 'time', 1e-6)
+unit('time', 'nanosecond', 'ns', 'time', 1e-9)
+
 function generateMetric(type, name, symbol) {
     let m = 'metric';
     unit(type, name, symbol, m, 1)
@@ -30,16 +43,15 @@ function generateMetric(type, name, symbol) {
     unit(type, 'deci' + name, 'd' + symbol, m, 1e-1)
     unit(type, 'centi' + name, 'c' + symbol, m, 1e-2)
     unit(type, 'milli' + name, 'm' + symbol, m, 1e-3)
-    unit(type, 'hecto' + name, 'h' + symbol, m, 1e2)
     unit(type, 'deca' + name, 'da' + symbol, m, 1e1)
     unit(type, 'micro' + name, 'μ' + symbol, m, 1e-6)
     unit(type, 'nano' + name, 'n' + symbol, m, 1e-9)
     unit(type, 'pico' + name, 'p' + symbol, m, 1e-12)
+    unit(type, 'hecto' + name, 'h' + symbol, m, 1e2)
     unit(type, 'tera' + name, 'T' + symbol, m, 1e12)
     unit(type, 'giga' + name, 'G' + symbol, m, 1e9)
     unit(type, 'mega' + name, 'M' + symbol, m, 1e6)
 }
-
 
 function unit(type, name, symbol, system, ratio) {
     units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio });
@@ -93,12 +105,16 @@ units.forEach((value, key) => {
         unitSL = document.getElementsByClassName(type);
     }
     for (let i = 0; i < unitSL.length; i++) {
-        unitSL[i].insertAdjacentHTML("beforeend", unitOption(key, `: [${symbol}]`))
+        let symbolU = `: [${symbol}]`;
+        if (symbol == 'none') {
+            symbolU = ''
+        }
+        unitSL[i].insertAdjacentHTML("beforeend", unitOption(key, symbolU))
     }
 
 })
 
-function invertEquation(mainOrder, order, input, equation, inverse) {
+function invertEquation(mainOrder, order, i, e, inverse) {
     let result = 0;
     let con = false;
     if (order == mainOrder) {
@@ -108,9 +124,9 @@ function invertEquation(mainOrder, order, input, equation, inverse) {
         con = !con
     }
     if (con) {
-        result = input * equation
+        result = i * e;
     } else {
-        result = input / equation
+        result = i / e;
     }
 
     return result;
@@ -127,8 +143,6 @@ function smallerThan(i, s) {
 
     return r
 }
-
-convertUnit('kilometer', 'mile', 1);
 
 function convertUnit(unitFrom, unitTo, value) {
     let unitFromMath = Number(units.get(unitFrom).ratio);
@@ -150,7 +164,7 @@ function convertUnit(unitFrom, unitTo, value) {
 
     if (system[0] != system[1]) {
         let equation = 1
-        if (system[1] == 'metric') {
+        if (system[0] == 'imperial' && system[1] == 'metric') {
             equation = 39.3701
         }
 

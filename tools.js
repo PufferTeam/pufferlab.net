@@ -22,6 +22,7 @@ unit('distance', 'yard', 'yd', 'imperial', (12 * 3))
 unit('distance', 'mile', 'mi', 'imperial', (12 * 3 * 1760))
 
 generateMetric('mass', 'gram', 'g')
+unit('mass', 'tonne', 't', 'metric', 1e6)
 
 unit('time', 'second', 's', 'time', 1)
 unit('time', 'minute', 'min', 'time', 60)
@@ -34,9 +35,16 @@ unit('time', 'millisecond', 'ms', 'time', 1e-3)
 unit('time', 'microsecond', 'μs', 'time', 1e-6)
 unit('time', 'nanosecond', 'ns', 'time', 1e-9)
 
-unit('temperature', 'celsius', '°C', 'international', 0, true);
-unit('temperature', 'kelvin', 'K', 'international', -273.15, true);
+unit('temperature', 'celsius', '°C', 'international', 0, true)
+unit('temperature', 'kelvin', 'K', 'international', -273.15, true)
 unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
+
+generateMetric('volume', 'liter', 'L')
+unit('volume', 'cubic_meter', 'm²', 'metric', 1e3)
+unit('volume', 'cubic_decimeter', 'dm²', 'metric', 1)
+unit('volume', 'cubic_centimeter', 'cm²', 'metric', 1e-3)
+unit('volume', 'cubic_inch', 'in²', 'imperial', 1)
+unit('volume', 'cubic_foot', 'ft²', 'imperial', 1728)
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
@@ -144,51 +152,43 @@ function invertEquation(order, i, e, inverse, s, opp) {
     return result;
 }
 
-function smallerThan(i, s) {
-    if (s == undefined) {
-        s = 1
-    }
-    let r = false;
-    if (i < s) {
-        r = true
-    }
-
-    return r
-}
-
 function convertUnit(unitFrom, unitTo, value) {
     value = Number(value);
-
     let unitFromMap = units.get(unitFrom);
     let unitToMap = units.get(unitTo);
-
+    let unitType = unitFromMap.type;
     let unitFromMath = Number(unitFromMap.ratio);
     let unitToMath = Number(unitToMap.ratio);
-
     let unitFromSystem = unitFromMap.system;
     let unitToSystem = unitToMap.system;
-
     let unitFromSign = unitFromMap.sign;
     let unitToSign = unitToMap.sign;
-
-    let system = [];
     let unitValue = 1;
-    if (unitToSystem != unitFromSystem) {
-        system = [unitFromSystem, unitToSystem];
-        system.sort()
-    }
 
-    let smaller = smallerThan(unitToMath, unitFromMath)
+    let smaller = false
+    if (unitToMath < unitFromMath) {
+        smaller = true
+    }
     let unitConverted = invertEquation(!smaller, value, unitFromMath, smaller, unitFromSign, false);
 
-    if (system[0] != system[1]) {
+    if (unitToSystem != unitFromSystem) {
+        let system = [];
+        system = [unitFromSystem, unitToSystem];
+        system.sort()
         let equations = [];
         let signs = [false];
         if (system[0] == 'imperial' && system[1] == 'metric') {
-            equations = [39.3701];
+            switch (unitType) {
+                case 'distance':
+                    equations = [39.3700787402];
+                    break;
+                case 'volume':
+                    equations = [61.0237440947];
+                    break;
+            }
         }
 
-        if (system[0] == 'imperial' && system[1] == 'international') {
+        if (system[0] == 'imperial' && system[1] == 'international' && unitType == 'temperature') {
             equations = [9, 5, 32];
             signs = [false, false, true];
         }
@@ -203,9 +203,7 @@ function convertUnit(unitFrom, unitTo, value) {
         let sign = true;
         for (let i = 0; i < equations.length; i++) {
             let equation = equations[i];
-
             sign = !sign
-
             let signOrder = sign;
             if (signs[i]) {
                 signOrder = !sign;

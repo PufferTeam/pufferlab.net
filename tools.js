@@ -174,8 +174,7 @@ function convertUnit(unitFrom, unitTo, value) {
     let system = [];
     let unitValue = 1;
     if (unitToSystem != unitFromSystem) {
-        system[0] = unitFromSystem
-        system[1] = unitToSystem
+        system = [unitFromSystem, unitToSystem];
         system.sort()
     }
 

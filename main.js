@@ -220,6 +220,12 @@ export function getLang(key) {
     return fKey;
 }
 
+function replaceHTML(e, i) {
+    if(e.innerHTML != i) {
+        e.innerHTML = i
+    }
+}
+
 export function updateIn(cl) {
     let el = document.getElementsByClassName(cl);
     for (let i = 0; i < el.length; i++) {
@@ -227,11 +233,11 @@ export function updateIn(cl) {
         let r = e.getAttribute("name");
         let rs = r.split(":");
         if (cl == "svg") {
-            e.innerHTML = getSvg(r);
+            replaceHTML(e, getSvg(r));
         } else {
-            e.innerHTML = getLang(r);
+            replaceHTML(e, getLang(r));
             if(rs[1] !== undefined) {
-                e.innerHTML = getLang(rs[0]) + `${rs[1]}`;
+                replaceHTML(e, getLang(rs[0]) + `${rs[1]}`);
             }
         }
     }
@@ -252,7 +258,7 @@ function updateMenu() {
     change(el2, show);
     change(el3, show, "open");
     change(el4, show, "open");
-    toggleMenuBT.innerHTML = getSvg(menu);
+    replaceHTML(toggleMenuBT, getSvg(menu));
 }
 updateMenu();
 
@@ -279,7 +285,7 @@ function updateMode() {
     } else {
         change(el, false, "dark");
     }
-    changeModeBT.innerHTML = getSvg(mode);
+    replaceHTML(changeModeBT, getSvg(mode));
 }
 updateMode();
 

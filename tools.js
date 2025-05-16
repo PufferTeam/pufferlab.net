@@ -18,19 +18,25 @@ export var converterPage = 'distance';
 generateMetric('distance', 'meter', 'm')
 unit('distance', 'inch', 'in', 'imperial', 1)
 unit('distance', 'foot', 'ft', 'imperial', 12)
-unit('distance', 'yard', 'yd', 'imperial', (12 * 3))
-unit('distance', 'mile', 'mi', 'imperial', (12 * 3 * 1760))
+unit('distance', 'yard', 'yd', 'imperial', 12 * 3)
+unit('distance', 'mile', 'mi', 'imperial', 12 * 3 * 1760)
 
 generateMetric('mass', 'gram', 'g')
 unit('mass', 'tonne', 't', 'metric', 1e6)
+unit('mass', 'ounce', 'oz', 'imperial', 1)
+unit('mass', 'pound', 'lb', 'imperial', 16)
+unit('mass', 'stone', 'st', 'imperial', 16 * 14)
 
 unit('time', 'second', 's', 'time', 1)
 unit('time', 'minute', 'min', 'time', 60)
 unit('time', 'hour', 'h', 'time', 60 * 60)
-unit('time', 'day', 'none', 'time', 60 * 60 * 24)
-unit('time', 'week', 'none', 'time', 60 * 60 * 24 * 7)
-unit('time', 'month', 'none', 'time', 60 * 60 * 24 * 30)
-unit('time', 'year', 'none', 'time', 60 * 60 * 24 * 365)
+unit('time', 'day', '', 'time', 60 * 60 * 24)
+unit('time', 'week', '', 'time', 60 * 60 * 24 * 7)
+unit('time', 'month', '', 'time', 60 * 60 * 24 * 30)
+unit('time', 'year', '', 'time', 60 * 60 * 24 * 365)
+unit('time', 'decade', '', 'time', 60 * 60 * 24 * 365 * 1e1)
+unit('time', 'century', '', 'time', 60 * 60 * 24 * 365 * 1e2)
+unit('time', 'millennium', '', 'time', 60 * 60 * 24 * 365 * 1e3)
 unit('time', 'millisecond', 'ms', 'time', 1e-3)
 unit('time', 'microsecond', 'μs', 'time', 1e-6)
 unit('time', 'nanosecond', 'ns', 'time', 1e-9)
@@ -40,11 +46,12 @@ unit('temperature', 'kelvin', 'K', 'international', -273.15, true)
 unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
 
 generateMetric('volume', 'liter', 'L')
-unit('volume', 'cubic_meter', 'm²', 'metric', 1e3)
-unit('volume', 'cubic_decimeter', 'dm²', 'metric', 1)
-unit('volume', 'cubic_centimeter', 'cm²', 'metric', 1e-3)
-unit('volume', 'cubic_inch', 'in²', 'imperial', 1)
-unit('volume', 'cubic_foot', 'ft²', 'imperial', 1728)
+unit('volume', 'cubic_meter', 'm³', 'metric', 1e3)
+unit('volume', 'cubic_decimeter', 'dm³', 'metric', 1)
+unit('volume', 'cubic_centimeter', 'cm³', 'metric', 1e-3)
+unit('volume', 'cubic_millimeter', 'mm³', 'metric', 1e-6)
+unit('volume', 'cubic_inch', 'in³', 'imperial', 1)
+unit('volume', 'cubic_foot', 'ft³', 'imperial', 12 * 12 * 12)
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
@@ -119,7 +126,7 @@ units.forEach((value, key) => {
     }
     for (let i = 0; i < unitSL.length; i++) {
         let symbolU = `: [${symbol}]`;
-        if (symbol == 'none') {
+        if (symbol == '') {
             symbolU = ''
         }
         unitSL[i].insertAdjacentHTML("beforeend", unitOption(key, symbolU))
@@ -177,10 +184,15 @@ function convertUnit(unitFrom, unitTo, value) {
         system.sort()
         let equations = [];
         let signs = [false];
+        let order = true;
         if (system[0] == 'imperial' && system[1] == 'metric') {
             switch (unitType) {
                 case 'distance':
                     equations = [39.3700787402];
+                    break;
+                case 'mass':
+                    equations = [28.349523125];
+                    order = false;
                     break;
                 case 'volume':
                     equations = [61.0237440947];
@@ -193,11 +205,12 @@ function convertUnit(unitFrom, unitTo, value) {
             signs = [false, false, true];
         }
 
-        let order = true;
         if (system[0] != unitToSystem) {
             order = !order
-            equations = equations.reverse();
-            signs = signs.reverse();
+            if (equations.length > 1) {
+                equations = equations.reverse();
+                signs = signs.reverse();
+            }
         }
 
         let sign = true;
@@ -237,6 +250,10 @@ function changeUnit(id1, type, isText) {
     let elsl = document.getElementById(id + "SL").value;
     let elsl2 = document.getElementById(id2 + "SL").value;
 
-    document.getElementById(id2).value = convertUnit(elsl, elsl2, el)
+    let result = convertUnit(elsl, elsl2, el)
+    if(result == 0 || result == null) {
+        result = ''
+    }
+    document.getElementById(id2).value = result;
 }
 window.changeUnit = changeUnit;

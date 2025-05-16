@@ -13,7 +13,10 @@ let unitTypes = [
     "volume"
 ]
 
-export var converterPage = 'distance';
+export var converterPage = sessionStorage.getItem("savedUnitType");
+if (converterPage == null) {
+    converterPage = "distance";
+}
 
 generateMetric('distance', 'meter', 'm')
 unit('distance', 'inch', 'in', 'imperial', 1)
@@ -101,6 +104,7 @@ unitTypes.forEach((e) => {
 PageConverter.innerHTML = PageConverterContent.join("");
 
 function updateConverterPage() {
+    converterPageSL.value = converterPage;
     let pageu = main.capitalize(converterPage)
     for (let i = 0; i < unitTypes.length; i++) {
         let pageID = unitTypes[i];
@@ -111,8 +115,7 @@ function updateConverterPage() {
     }
     main.change(`Page${pageu}Converter`, true);
 }
-updateConverterPage()
-
+updateConverterPage();
 
 let currentUnitType = '';
 let unitSL = [];
@@ -233,10 +236,10 @@ function convertUnit(unitFrom, unitTo, value) {
 export function changeConverterPage() {
     if (converterPage != converterPageSL.value) {
         converterPage = converterPageSL.value
+        sessionStorage.setItem("savedUnitType", converterPage);
         updateConverterPage()
     }
 }
-changeConverterPage();
 
 function changeUnit(id1, type, isText) {
     let id = id1 + main.capitalize(type);
@@ -251,7 +254,7 @@ function changeUnit(id1, type, isText) {
     let elsl2 = document.getElementById(id2 + "SL").value;
 
     let result = convertUnit(elsl, elsl2, el)
-    if(result == 0 || result == null) {
+    if (result == 0 || result == null) {
         result = ''
     }
     document.getElementById(id2).value = result;

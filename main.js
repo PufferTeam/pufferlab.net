@@ -214,14 +214,14 @@ export function getLang(key) {
     if (fKey == undefined) {
         fKey = langFile["en"][key];
     }
-    if(fKey == undefined) {
+    if (fKey == undefined) {
         fKey = key
     }
     return fKey;
 }
 
 function replaceHTML(e, i) {
-    if(e.innerHTML != i) {
+    if (e.innerHTML != i) {
         e.innerHTML = i
     }
 }
@@ -236,7 +236,7 @@ export function updateIn(cl) {
             replaceHTML(e, getSvg(r));
         } else {
             replaceHTML(e, getLang(r));
-            if(rs[1] !== undefined) {
+            if (rs[1] !== undefined) {
                 replaceHTML(e, getLang(rs[0]) + `${rs[1]}`);
             }
         }
@@ -311,9 +311,11 @@ function changeMenu() {
 changeMenu();
 
 function changeLang() {
-    lang = changeLangSL.value;
-    localStorage.setItem("savedLang", lang);
-    updateLang();
+    if (lang != changeLangSL.value) {
+        lang = changeLangSL.value;
+        localStorage.setItem("savedLang", lang);
+        updateLang();
+    }
 }
 window.changeLang = changeLang;
 

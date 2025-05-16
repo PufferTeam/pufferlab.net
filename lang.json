@@ -57,6 +57,9 @@
         "tools.unit.foot": "Foot",
         "tools.unit.yard": "Yard",
         "tools.unit.mile": "Mile",
+        "tools.unit.celsius": "Celsius",
+        "tools.unit.kelvin": "Kelvin",
+        "tools.unit.fahrenheit": "Fahrenheit",
         "about": "About",
         "about.desc": "We are dedicated developers who are building their first website."
     },

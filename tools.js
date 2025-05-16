@@ -15,8 +15,6 @@ let unitTypes = [
 
 export var converterPage = 'distance';
 
-//unit('length', 'megameter', 'M', 'metric', 10e6)
-
 generateMetric('distance', 'meter', 'm')
 unit('distance', 'inch', 'in', 'imperial', 1)
 unit('distance', 'foot', 'ft', 'imperial', 12)
@@ -31,10 +29,14 @@ unit('time', 'hour', 'h', 'time', 60 * 60)
 unit('time', 'day', 'none', 'time', 60 * 60 * 24)
 unit('time', 'week', 'none', 'time', 60 * 60 * 24 * 7)
 unit('time', 'month', 'none', 'time', 60 * 60 * 24 * 30)
-unit('time', 'year', 'none', 'time', 60 * 60 * 24 * 30 * 12)
+unit('time', 'year', 'none', 'time', 60 * 60 * 24 * 365)
 unit('time', 'millisecond', 'ms', 'time', 1e-3)
 unit('time', 'microsecond', 'μs', 'time', 1e-6)
 unit('time', 'nanosecond', 'ns', 'time', 1e-9)
+
+unit('temperature', 'celsius', '°C', 'international', 0, true);
+unit('temperature', 'kelvin', 'K', 'international', -273.15, true);
+unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
@@ -53,8 +55,11 @@ function generateMetric(type, name, symbol) {
     unit(type, 'mega' + name, 'M' + symbol, m, 1e6)
 }
 
-function unit(type, name, symbol, system, ratio) {
-    units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio });
+function unit(type, name, symbol, system, ratio, sign) {
+    if (sign == undefined) {
+        sign = false
+    }
+    units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio, sign: sign });
 }
 
 let converterRows = [
@@ -114,19 +119,26 @@ units.forEach((value, key) => {
 
 })
 
-function invertEquation(mainOrder, order, i, e, inverse) {
+function invertEquation(order, i, e, inverse, s, opp) {
     let result = 0;
-    let con = false;
-    if (order == mainOrder) {
-        con = true;
+    if (opp) {
+        s = !s
     }
     if (inverse) {
-        con = !con
+        order = !order
     }
-    if (con) {
-        result = i * e;
+    if (order) {
+        if (s) {
+            result = i + e;
+        } else {
+            result = i * e;
+        }
     } else {
-        result = i / e;
+        if (s) {
+            result = i - e;
+        } else {
+            result = i / e;
+        }
     }
 
     return result;
@@ -145,11 +157,19 @@ function smallerThan(i, s) {
 }
 
 function convertUnit(unitFrom, unitTo, value) {
-    let unitFromMath = Number(units.get(unitFrom).ratio);
-    let unitToMath = Number(units.get(unitTo).ratio);
+    value = Number(value);
 
-    let unitFromSystem = units.get(unitFrom).system;
-    let unitToSystem = units.get(unitTo).system;
+    let unitFromMap = units.get(unitFrom);
+    let unitToMap = units.get(unitTo);
+
+    let unitFromMath = Number(unitFromMap.ratio);
+    let unitToMath = Number(unitToMap.ratio);
+
+    let unitFromSystem = unitFromMap.system;
+    let unitToSystem = unitToMap.system;
+
+    let unitFromSign = unitFromMap.sign;
+    let unitToSign = unitToMap.sign;
 
     let system = [];
     let unitValue = 1;
@@ -160,19 +180,44 @@ function convertUnit(unitFrom, unitTo, value) {
     }
 
     let smaller = smallerThan(unitToMath, unitFromMath)
-    let unitConverted = invertEquation(false, smaller, value, unitFromMath, smaller);
+    let unitConverted = invertEquation(!smaller, value, unitFromMath, smaller, unitFromSign, false);
 
     if (system[0] != system[1]) {
-        let equation = 1
+        let equations = [];
+        let signs = [false];
         if (system[0] == 'imperial' && system[1] == 'metric') {
-            equation = 39.3701
+            equations = [39.3701];
         }
 
-        unitConverted = invertEquation(system[0], unitToSystem, unitConverted, equation)
-    }
-    unitValue = invertEquation(true, smaller, unitConverted, unitToMath, smaller);
+        if (system[0] == 'imperial' && system[1] == 'international') {
+            equations = [9, 5, 32];
+            signs = [false, false, true];
+        }
 
-    return unitValue;
+        let order = true;
+        if (system[0] != unitToSystem) {
+            order = !order
+            equations = equations.reverse();
+            signs = signs.reverse();
+        }
+
+        let sign = true;
+        for (let i = 0; i < equations.length; i++) {
+            let equation = equations[i];
+
+            sign = !sign
+
+            let signOrder = sign;
+            if (signs[i]) {
+                signOrder = !sign;
+            }
+
+            unitConverted = invertEquation(order, unitConverted, equation, sign, sign, signOrder)
+        }
+    }
+    unitValue = invertEquation(smaller, unitConverted, unitToMath, smaller, unitToSign, false);
+
+    return Number(unitValue);
 }
 
 export function changeConverterPage() {

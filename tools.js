@@ -12,7 +12,8 @@ let unitTypes = [
     "mass",
     "time",
     "temperature",
-    "angle"
+    "angle",
+    "data"
 ]
 
 export var converterPage = sessionStorage.getItem("savedUnitType");
@@ -25,6 +26,8 @@ unit('distance', 'inch', 'in', 'imperial', 1)
 unit('distance', 'foot', 'ft', 'imperial', 12)
 unit('distance', 'yard', 'yd', 'imperial', 12 * 3)
 unit('distance', 'mile', 'mi', 'imperial', 12 * 3 * 1760)
+unit('distance', 'astronomical_unit', 'au', 'metric', 149597870700)
+unit('distance', 'light_year', 'ly', 'metric', 9460730472580800)
 
 generateMetric('volume', 'liter', 'L')
 unit('volume', 'cubic_meter', 'm³', 'metric', 1e3)
@@ -82,6 +85,19 @@ unit('temperature', 'fahrenheit', '°F', 'imperial', -32, true)
 unit('angle', 'degree', '°', 'international', Math.PI / 180)
 unit('angle', 'radian', 'rad', 'international', 1)
 unit('angle', 'gradian', 'gon', 'international', Math.PI / 200)
+
+unit('data', 'bit', 'b', 'data', 1/8)
+unit('data', 'byte', 'B', 'data', 1)
+unit('data', 'kibibyte', 'KiB', 'data', 1024)
+unit('data', 'mebibyte', 'MiB', 'data', Math.pow(1024, 2))
+unit('data', 'gibibyte', 'GiB', 'data', Math.pow(1024, 3))
+unit('data', 'tebibyte', 'TiB', 'data', Math.pow(1024, 4))
+unit('data', 'pebibyte', 'PiB', 'data', Math.pow(1024, 4))
+unit('data', 'kilobyte', 'KB', 'data', 1000)
+unit('data', 'megabyte', 'MB', 'data', Math.pow(1000, 2))
+unit('data', 'gigabyte', 'GB', 'data', Math.pow(1000, 3))
+unit('data', 'terabyte', 'TB', 'data', Math.pow(1000, 4))
+unit('data', 'petabyte', 'PB', 'data', Math.pow(1000, 4))
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';

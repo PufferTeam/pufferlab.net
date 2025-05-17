@@ -48,7 +48,7 @@ unit('volume', 'us_cup', 'cup (US)', 'imperial', us_gal / 16)
 unit('volume', 'legal_cup', 'cup (US legal)', 'metric', 0.24)
 unit('volume', 'us_tablespoon', 'tbsp (US)', 'imperial', us_gal / 128 / 2)
 unit('volume', 'us_teaspoon', 'tsp (US)', 'imperial', us_gal / 128 / 2 / 3)
-let imp_gal = 277.41943161904
+let imp_gal = 277.41943279162
 unit('volume', 'imp_gallon', 'gal (imp)', 'imperial', imp_gal)
 unit('volume', 'imp_quart', 'qt (imp)', 'imperial', imp_gal / 4)
 unit('volume', 'imp_pint', 'pt (imp)', 'imperial', imp_gal / 8)

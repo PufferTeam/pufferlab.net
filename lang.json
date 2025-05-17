@@ -16,6 +16,7 @@
         "tools.unit.mass": "Mass",
         "tools.unit.volume": "Volume",
         "tools.unit.time": "Time",
+        "tools.unit.angle": "Angle",
         "tools.unit.temperature": "Temperature",
         "tools.unit.terameter": "Terameter",
         "tools.unit.gigameter": "Gigameter",
@@ -86,6 +87,9 @@
         "tools.unit.celsius": "Celsius",
         "tools.unit.kelvin": "Kelvin",
         "tools.unit.fahrenheit": "Fahrenheit",
+        "tools.unit.gradian": "Gradian",
+        "tools.unit.degree": "Degree",
+        "tools.unit.radian": "Radian",
         "about": "About",
         "about.desc": "We are dedicated developers who are building their first website."
     },
@@ -102,7 +106,6 @@
         "tools.unit": "Type d'unité:",
         "tools.unit.distance": "Longueur",
         "tools.unit.mass": "Masse",
-        "tools.unit.volume": "Volume",
         "tools.unit.time": "Temps",
         "tools.unit.temperature": "Température",
         "tools.unit.terameter": "Téramètre",
@@ -169,6 +172,8 @@
         "tools.unit.foot": "Pied",
         "tools.unit.yard": "Yard",
         "tools.unit.mile": "Mille",
+        "tools.unit.gradian": "Grade",
+        "tools.unit.degree": "Degré",
         "about": "À propos",
         "about.desc": "Nous sommes des développeurs passionés et nous construisons notre premier site."
     }

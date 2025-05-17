@@ -7,10 +7,11 @@ const units = new Map();
 
 let unitTypes = [
     "distance",
+    "volume",
     "mass",
     "time",
     "temperature",
-    "volume"
+    "angle"
 ]
 
 export var converterPage = sessionStorage.getItem("savedUnitType");
@@ -24,30 +25,6 @@ unit('distance', 'foot', 'ft', 'imperial', 12)
 unit('distance', 'yard', 'yd', 'imperial', 12 * 3)
 unit('distance', 'mile', 'mi', 'imperial', 12 * 3 * 1760)
 
-generateMetric('mass', 'gram', 'g')
-unit('mass', 'tonne', 't', 'metric', 1e6)
-unit('mass', 'ounce', 'oz', 'imperial', 1)
-unit('mass', 'pound', 'lb', 'imperial', 16)
-unit('mass', 'stone', 'st', 'imperial', 16 * 14)
-
-unit('time', 'second', 's', 'time', 1)
-unit('time', 'minute', 'min', 'time', 60)
-unit('time', 'hour', 'h', 'time', 60 * 60)
-unit('time', 'day', '', 'time', 60 * 60 * 24)
-unit('time', 'week', '', 'time', 60 * 60 * 24 * 7)
-unit('time', 'month', '', 'time', 60 * 60 * 24 * 30)
-unit('time', 'year', '', 'time', 60 * 60 * 24 * 365)
-unit('time', 'decade', '', 'time', 60 * 60 * 24 * 365 * 1e1)
-unit('time', 'century', '', 'time', 60 * 60 * 24 * 365 * 1e2)
-unit('time', 'millennium', '', 'time', 60 * 60 * 24 * 365 * 1e3)
-unit('time', 'millisecond', 'ms', 'time', 1e-3)
-unit('time', 'microsecond', 'μs', 'time', 1e-6)
-unit('time', 'nanosecond', 'ns', 'time', 1e-9)
-
-unit('temperature', 'celsius', '°C', 'international', 0, true)
-unit('temperature', 'kelvin', 'K', 'international', -273.15, true)
-unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
-
 generateMetric('volume', 'liter', 'L')
 unit('volume', 'cubic_meter', 'm³', 'metric', 1e3)
 unit('volume', 'cubic_decimeter', 'dm³', 'metric', 1)
@@ -55,6 +32,34 @@ unit('volume', 'cubic_centimeter', 'cm³', 'metric', 1e-3)
 unit('volume', 'cubic_millimeter', 'mm³', 'metric', 1e-6)
 unit('volume', 'cubic_inch', 'in³', 'imperial', 1)
 unit('volume', 'cubic_foot', 'ft³', 'imperial', 12 * 12 * 12)
+
+generateMetric('mass', 'gram', 'g')
+unit('mass', 'tonne', 't', 'metric', 1e6)
+unit('mass', 'ounce', 'oz', 'imperial', 1)
+unit('mass', 'pound', 'lb', 'imperial', 16)
+unit('mass', 'stone', 'st', 'imperial', 16 * 14)
+
+unit('time', 'second', 's', '', 1)
+unit('time', 'minute', 'min', '', 60)
+unit('time', 'hour', 'h', '', 60 * 60)
+unit('time', 'day', '', '', 60 * 60 * 24)
+unit('time', 'week', '', '', 60 * 60 * 24 * 7)
+unit('time', 'month', '', '', 60 * 60 * 24 * 30)
+unit('time', 'year', '', '', 60 * 60 * 24 * 365)
+unit('time', 'decade', '', '', 60 * 60 * 24 * 365 * 1e1)
+unit('time', 'century', '', '', 60 * 60 * 24 * 365 * 1e2)
+unit('time', 'millennium', '', '', 60 * 60 * 24 * 365 * 1e3)
+unit('time', 'millisecond', 'ms', '', 1e-3)
+unit('time', 'microsecond', 'μs', '', 1e-6)
+unit('time', 'nanosecond', 'ns', '', 1e-9)
+
+unit('temperature', 'celsius', '°C', 'international', 0, true)
+unit('temperature', 'kelvin', 'K', 'international', -273.15, true)
+unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
+
+unit('angle', 'degree', '°', 'international', Math.PI/180)
+unit('angle', 'radian', 'rad', 'international', 1)
+unit('angle', 'gradian', 'gon', 'international', Math.PI/200)
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';

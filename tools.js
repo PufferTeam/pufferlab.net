@@ -220,13 +220,14 @@ function convertUnit(unitFrom, unitTo, value) {
     return Number(unitValue);
 }
 
-export function changeConverterPage() {
+function changeConverterPage() {
     if (converterPage != converterPageSL.value) {
         converterPage = converterPageSL.value
         sessionStorage.setItem("savedUnitType", converterPage);
         updateConverterPage()
     }
 }
+window.changeConverterPage = changeConverterPage;
 
 function changeUnit(id1, type, isText) {
     let id = id1 + type;

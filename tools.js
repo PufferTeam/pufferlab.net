@@ -31,6 +31,27 @@ unit('volume', 'cubic_meter', 'm³', 'metric', 1e3)
 unit('volume', 'cubic_decimeter', 'dm³', 'metric', 1)
 unit('volume', 'cubic_centimeter', 'cm³', 'metric', 1e-3)
 unit('volume', 'cubic_millimeter', 'mm³', 'metric', 1e-6)
+unit('volume', 'metric_cup', 'cup', 'metric', 0.25)
+unit('volume', 'metric_tablespoon', 'tbsp', 'metric', 0.015)
+unit('volume', 'metric_teaspoon', 'tsp', 'metric', 0.005)
+let us_gal = 231
+unit('volume', 'us_gallon', 'gal (US)', 'imperial', us_gal)
+unit('volume', 'us_quart', 'qt (US)', 'imperial', us_gal / 4)
+unit('volume', 'us_pint', 'pt (US)', 'imperial', us_gal / 8)
+unit('volume', 'us_fluid_ounce', 'fl oz (US)', 'imperial', us_gal / 128)
+unit('volume', 'us_dram', 'dr (US)', 'imperial', us_gal / 128 / 8)
+unit('volume', 'us_cup', 'cup (US)', 'imperial', us_gal / 16)
+unit('volume', 'legal_cup', 'cup (US legal)', 'metric', 0.24)
+unit('volume', 'us_tablespoon', 'tbsp (US)', 'imperial', us_gal / 128 / 2)
+unit('volume', 'us_teaspoon', 'tsp (US)', 'imperial', us_gal / 128 / 2 / 3)
+let imp_gal = 277.41943161904
+unit('volume', 'imp_gallon', 'gal (imp)', 'imperial', imp_gal)
+unit('volume', 'imp_quart', 'qt (imp)', 'imperial', imp_gal / 4)
+unit('volume', 'imp_pint', 'pt (imp)', 'imperial', imp_gal / 8)
+unit('volume', 'imp_fluid_ounce', 'fl oz (imp)', 'imperial', imp_gal / 160)
+unit('volume', 'imp_dram', 'dr (imp)', 'imperial', imp_gal / 160 / 8)
+unit('volume', 'imp_tablespoon', 'tbsp (imp)', 'imperial', imp_gal / 128 / 2)
+unit('volume', 'imp_teaspoon', 'tsp (imp)', 'imperial', imp_gal / 128 / 2 / 3)
 unit('volume', 'cubic_inch', 'in³', 'imperial', 1)
 unit('volume', 'cubic_foot', 'ft³', 'imperial', 12 * 12 * 12)
 
@@ -82,7 +103,7 @@ function generateMetric(type, name, symbol) {
 unitConversion('distance', 'imperial', 'metric', 39.3700787402, true)
 unitConversion('mass', 'imperial', 'metric', 28.349523125, false)
 unitConversion('volume', 'imperial', 'metric', 61.0237440947, true)
-unitConversion('temperature', 'imperial', 'international', 9/5, true)
+unitConversion('temperature', 'imperial', 'international', 9 / 5, true)
 
 function unit(type, name, symbol, system, ratio, sign) {
     if (sign == undefined) {

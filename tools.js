@@ -4,6 +4,7 @@ let PageConverter = document.getElementById("PageConverter");
 let converterPageSL = document.getElementById("changeUnit");
 
 const units = new Map();
+const unitsConversion = new Map()
 
 let unitTypes = [
     "distance",
@@ -78,11 +79,20 @@ function generateMetric(type, name, symbol) {
     unit(type, 'mega' + name, 'M' + symbol, m, 1e6)
 }
 
+unitConversion('distance', 'imperial', 'metric', 39.3700787402, true)
+unitConversion('mass', 'imperial', 'metric', 28.349523125, false)
+unitConversion('volume', 'imperial', 'metric', 61.0237440947, true)
+unitConversion('temperature', 'imperial', 'international', 9/5, true)
+
 function unit(type, name, symbol, system, ratio, sign) {
     if (sign == undefined) {
         sign = false
     }
     units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio, sign: sign });
+}
+
+function unitConversion(type, system1, system2, equation, order) {
+    unitsConversion.set(type + system1 + system2, { equation: equation, order: order });
 }
 
 let converterRows = [
@@ -166,48 +176,25 @@ function convertUnit(unitFrom, unitTo, value) {
     let unitFromMap = units.get(unitFrom);
     let unitToMap = units.get(unitTo);
     let unitType = unitFromMap.type;
-    let unitFromMath = Number(unitFromMap.ratio);
-    let unitToMath = Number(unitToMap.ratio);
-    let unitFromSystem = unitFromMap.system;
-    let unitToSystem = unitToMap.system;
-    let unitFromSign = unitFromMap.sign;
-    let unitToSign = unitToMap.sign;
     let unitValue = 1;
 
-    let unitConverted = invertEquation(true, value, unitFromMath, unitFromSign);
+    let unitConverted = invertEquation(true, value, unitFromMap.ratio, unitFromMap.sign);
 
-    if (unitToSystem != unitFromSystem) {
+    if (unitToMap.system != unitFromMap.system) {
         let system = [];
-        system = [unitFromSystem, unitToSystem];
+        system = [unitFromMap.system, unitToMap.system];
         system.sort()
-        let order = true;
-        let equation = 0;
-        if (system[0] == 'imperial' && system[1] == 'metric') {
-            switch (unitType) {
-                case 'distance':
-                    equation = 39.3700787402;
-                    break;
-                case 'mass':
-                    equation = 28.349523125;
-                    order = false;
-                    break;
-                case 'volume':
-                    equation = 61.0237440947;
-                    break;
-            }
-        }
+        let unitConversionMap = unitsConversion.get(unitType + system[0] + system[1])
+        let equation = unitConversionMap.equation;
+        let order = unitConversionMap.order;
 
-        if (unitType == 'temperature') {
-            equation = 9 / 5;
-        }
-
-        if (system[0] != unitToSystem) {
+        if (system[0] != unitToMap.system) {
             order = !order
         }
 
         unitConverted = invertEquation(order, unitConverted, equation, false)
     }
-    unitValue = invertEquation(false, unitConverted, unitToMath, unitToSign);
+    unitValue = invertEquation(false, unitConverted, unitToMap.ratio, unitToMap.sign);
 
     return Number(unitValue);
 }

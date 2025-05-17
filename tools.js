@@ -26,6 +26,7 @@ unit('distance', 'inch', 'in', 'imperial', 1)
 unit('distance', 'foot', 'ft', 'imperial', 12)
 unit('distance', 'yard', 'yd', 'imperial', 12 * 3)
 unit('distance', 'mile', 'mi', 'imperial', 12 * 3 * 1760)
+unit('distance', 'nautical_mile', 'nmi', 'imperial', 1852)
 unit('distance', 'astronomical_unit', 'au', 'metric', 149597870700)
 unit('distance', 'light_year', 'ly', 'metric', 9460730472580800)
 
@@ -63,7 +64,10 @@ unit('mass', 'tonne', 't', 'metric', 1e6)
 unit('mass', 'ounce', 'oz', 'imperial', 1)
 unit('mass', 'pound', 'lb', 'imperial', 16)
 unit('mass', 'stone', 'st', 'imperial', 16 * 14)
+unit('mass', 'long_ton', 'LT (UK)', 'imperial', 16 * 2240)
+unit('mass', 'short_ton', 'st (US)', 'imperial', 16 * 2000)
 
+unit('area', 'square_meter', )
 unit('time', 'second', 's', '', 1)
 unit('time', 'minute', 'min', '', 60)
 unit('time', 'hour', 'h', '', 60 * 60)
@@ -92,12 +96,12 @@ unit('data', 'kibibyte', 'KiB', 'data', 1024)
 unit('data', 'mebibyte', 'MiB', 'data', Math.pow(1024, 2))
 unit('data', 'gibibyte', 'GiB', 'data', Math.pow(1024, 3))
 unit('data', 'tebibyte', 'TiB', 'data', Math.pow(1024, 4))
-unit('data', 'pebibyte', 'PiB', 'data', Math.pow(1024, 4))
+unit('data', 'pebibyte', 'PiB', 'data', Math.pow(1024, 5))
 unit('data', 'kilobyte', 'KB', 'data', 1000)
 unit('data', 'megabyte', 'MB', 'data', Math.pow(1000, 2))
 unit('data', 'gigabyte', 'GB', 'data', Math.pow(1000, 3))
 unit('data', 'terabyte', 'TB', 'data', Math.pow(1000, 4))
-unit('data', 'petabyte', 'PB', 'data', Math.pow(1000, 4))
+unit('data', 'petabyte', 'PB', 'data', Math.pow(1000, 5))
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
@@ -233,7 +237,7 @@ function convertUnit(unitFrom, unitTo, value) {
     }
     unitValue = invertEquation(false, unitConverted, unitToMap.ratio, unitToMap.sign);
 
-    return Number(unitValue);
+    return parseFloat(unitValue.toFixed(10));
 }
 
 function changeConverterPage() {

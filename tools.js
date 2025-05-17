@@ -132,7 +132,7 @@ unitTypes.forEach((e) => {
     PageConverterContent.push(`<div id="Page${eu}Converter" class="converter page">`)
     converterRows.forEach((r) => {
         let ru = main.capitalize(r)
-        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${r}', false)"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${r}', true)" required minlength="1" /></div>`);
+        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${ru}', false)"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${ru}', true)" required minlength="1" /></div>`);
     })
     PageConverterContent.push(`</div>`)
 })
@@ -229,13 +229,13 @@ export function changeConverterPage() {
 }
 
 function changeUnit(id1, type, isText) {
-    let id = id1 + main.capitalize(type);
-    if (type == 'input') {
-        type = 'output'
+    let id = id1 + type;
+    if (type == 'Input') {
+        type = 'Output'
     } else {
-        type = 'input'
+        type = 'Input'
     }
-    let id2 = id1 + main.capitalize(type);
+    let id2 = id1 + type;
     let el = document.getElementById(id).value;
     let elsl = document.getElementById(id + "SL").value;
     let elsl2 = document.getElementById(id2 + "SL").value;

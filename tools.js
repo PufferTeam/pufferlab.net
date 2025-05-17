@@ -55,11 +55,11 @@ unit('time', 'nanosecond', 'ns', '', 1e-9)
 
 unit('temperature', 'celsius', '°C', 'international', 0, true)
 unit('temperature', 'kelvin', 'K', 'international', -273.15, true)
-unit('temperature', 'fahrenheit', '°F', 'imperial', 1)
+unit('temperature', 'fahrenheit', '°F', 'imperial', -32, true)
 
-unit('angle', 'degree', '°', 'international', Math.PI/180)
+unit('angle', 'degree', '°', 'international', Math.PI / 180)
 unit('angle', 'radian', 'rad', 'international', 1)
-unit('angle', 'gradian', 'gon', 'international', Math.PI/200)
+unit('angle', 'gradian', 'gon', 'international', Math.PI / 200)
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
@@ -142,15 +142,9 @@ units.forEach((value, key) => {
 
 })
 
-function invertEquation(order, i, e, inverse, s, opp) {
+function invertEquation(o, i, e, s) {
     let result = 0;
-    if (opp) {
-        s = !s
-    }
-    if (inverse) {
-        order = !order
-    }
-    if (order) {
+    if (o) {
         if (s) {
             result = i + e;
         } else {
@@ -180,56 +174,40 @@ function convertUnit(unitFrom, unitTo, value) {
     let unitToSign = unitToMap.sign;
     let unitValue = 1;
 
-    let unitConverted = invertEquation(true, value, unitFromMath, false, unitFromSign, false);
+    let unitConverted = invertEquation(true, value, unitFromMath, unitFromSign);
 
     if (unitToSystem != unitFromSystem) {
         let system = [];
         system = [unitFromSystem, unitToSystem];
         system.sort()
-        let equations = [];
-        let signs = [false];
         let order = true;
+        if (system[0] != unitToSystem) {
+            order = !order
+        }
+        
+        let equation = 0;
         if (system[0] == 'imperial' && system[1] == 'metric') {
             switch (unitType) {
                 case 'distance':
-                    equations = [39.3700787402];
+                    equation = 39.3700787402;
                     break;
                 case 'mass':
-                    equations = [28.349523125];
+                    equation = 28.349523125;
                     order = false;
                     break;
                 case 'volume':
-                    equations = [61.0237440947];
+                    equation = 61.0237440947;
                     break;
             }
         }
 
-        if (system[0] == 'imperial' && system[1] == 'international' && unitType == 'temperature') {
-            equations = [9, 5, 32];
-            signs = [false, false, true];
+        if (unitType == 'temperature') {
+            equation = 9 / 5;
         }
 
-        if (system[0] != unitToSystem) {
-            order = !order
-            if (equations.length > 1) {
-                equations = equations.reverse();
-                signs = signs.reverse();
-            }
-        }
-
-        let sign = true;
-        for (let i = 0; i < equations.length; i++) {
-            let equation = equations[i];
-            sign = !sign
-            let signOrder = sign;
-            if (signs[i]) {
-                signOrder = !sign;
-            }
-
-            unitConverted = invertEquation(order, unitConverted, equation, sign, sign, signOrder)
-        }
+        unitConverted = invertEquation(order, unitConverted, equation, false)
     }
-    unitValue = invertEquation(false, unitConverted, unitToMath, false, unitToSign, false);
+    unitValue = invertEquation(false, unitConverted, unitToMath, unitToSign);
 
     return Number(unitValue);
 }

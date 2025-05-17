@@ -175,11 +175,7 @@ function convertUnit(unitFrom, unitTo, value) {
     let unitToSign = unitToMap.sign;
     let unitValue = 1;
 
-    let smaller = false
-    if (unitToMath < unitFromMath) {
-        smaller = true
-    }
-    let unitConverted = invertEquation(!smaller, value, unitFromMath, smaller, unitFromSign, false);
+    let unitConverted = invertEquation(true, value, unitFromMath, false, unitFromSign, false);
 
     if (unitToSystem != unitFromSystem) {
         let system = [];
@@ -228,7 +224,7 @@ function convertUnit(unitFrom, unitTo, value) {
             unitConverted = invertEquation(order, unitConverted, equation, sign, sign, signOrder)
         }
     }
-    unitValue = invertEquation(smaller, unitConverted, unitToMath, smaller, unitToSign, false);
+    unitValue = invertEquation(false, unitConverted, unitToMath, false, unitToSign, false);
 
     return Number(unitValue);
 }

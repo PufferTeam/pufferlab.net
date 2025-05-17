@@ -136,7 +136,7 @@
         "home.p1": "Ce site héberge plusieurs outils, expériences et autres choses utiles que vous pouvez utiliser.",
         "tools": "Outils",
         "tools.desc": "Vous trouverez ici un grand nombre d'outils qui peuvent être utiles à une multitude d'activités.",
-        "tools.converter": "Convertisseur d'unité",
+        "tools.converter": "Convertisseur d'unités",
         "tools.converter.desc": "Convertir entre différentes unités de mesure.",
         "tools.unit": "Type d'unité:",
         "tools.unit.distance": "Longueur",
@@ -244,6 +244,6 @@
         "tools.unit.petabyte": "Pétaoctet",
         "tools.unit.pebibyte": "Pébioctet",
         "about": "À propos",
-        "about.desc": "Nous sommes des développeurs passionés et nous construisons notre premier site."
+        "about.desc": "Nous sommes des développeurs passionnés et nous construisons notre premier site."
     }
 }

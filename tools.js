@@ -254,7 +254,7 @@ function changeUnit(id1, type, isText) {
     let elsl2 = document.getElementById(id2 + "SL").value;
 
     let result = convertUnit(elsl, elsl2, el)
-    if (result == 0 || result == null) {
+    if (el == '') {
         result = ''
     }
     document.getElementById(id2).value = result;

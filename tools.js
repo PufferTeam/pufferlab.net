@@ -181,10 +181,6 @@ function convertUnit(unitFrom, unitTo, value) {
         system = [unitFromSystem, unitToSystem];
         system.sort()
         let order = true;
-        if (system[0] != unitToSystem) {
-            order = !order
-        }
-        
         let equation = 0;
         if (system[0] == 'imperial' && system[1] == 'metric') {
             switch (unitType) {
@@ -203,6 +199,10 @@ function convertUnit(unitFrom, unitTo, value) {
 
         if (unitType == 'temperature') {
             equation = 9 / 5;
+        }
+
+        if (system[0] != unitToSystem) {
+            order = !order
         }
 
         unitConverted = invertEquation(order, unitConverted, equation, false)

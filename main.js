@@ -11,7 +11,8 @@ let pages = [
     "home",
     "tools",
     "tools.unit-converter",
-    "tools.atomic-calculator",
+    "tools.periodic-table",
+    "tools.molecular-calculator",
     "about"
 ]
 

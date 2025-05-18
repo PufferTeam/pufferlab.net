@@ -8,6 +8,7 @@
     --nc: #d9d9d9;
     --ns: #cccccc;
     --na: #bfbfbf;
+    --p: 90%;
 }
 
 .page {
@@ -32,6 +33,7 @@
     --nc: #333333;
     --ns: #404040;
     --na: #4d4d4d;
+    --p: 10%;
 }
 
 body {
@@ -166,15 +168,19 @@ p {
 }
 
 .container {
+    margin: 1em 0;
     background-color: var(--no);
     position: relative;
     float: left;
     padding: 0.5em;
+}
+
+.container-set {
     width: 30em;
 }
 
 @media only screen and (max-width: 30em) {
-    .container {
+    .container-set {
         width: 100%;
     }
 }
@@ -209,9 +215,94 @@ p {
     margin: 0.5em 0;
 }
 
+.flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+}
+
 .converter {
     margin: 1em 0;
+}
 
+.periodic {
+    &.period-0 {
+        height: 1em;
+    }
+
+    &.family-0 {
+        width: 1em;
+    }
+}
+
+.periodic-square {
+    text-align: center;
+    height: 3.2em;
+    width: 3.2em;
+    border: solid;
+    border-width: 0.1em;
+    border-color: var(--no);
+    --elbg: var(--no);
+    &.chemical-element {
+        border-color: var(--ns);
+    }
+    &.non_metal {
+        --elbg: hsl(140, 100%, var(--p));
+    }
+    &.transition_metal {
+        --elbg: hsl(0, 100%, var(--p));
+    }
+    &.post_transition_metal {
+        --elbg: hsl(190, 100%, var(--p));
+    }
+    &.metalloid {
+        --elbg: hsl(200, 100%, var(--p));
+    }
+    &.noble_gas {
+        --elbg: hsl(264, 100%, var(--p));
+    }
+    &.alkali_metal {
+        --elbg: hsl(60, 100%, var(--p));
+    }
+    &.alkaline_earth_metal {
+        --elbg: hsl(40, 100%, var(--p));
+    }
+    &.lanthanide {
+        --elbg: hsl(300, 100%, var(--p));
+    }
+    &.actinide {
+        --elbg: hsl(280, 100%, var(--p));
+    }
+    &.unknown {
+        --elbg: hsl(0, 10%, var(--p));
+    }
+    background-color: var(--elbg);
+}
+
+.element-name {
+    font-size: 0.6em;
+}
+
+.element-atomic-number {
+    font-size: 0.5em;
+}
+
+.element-atomic-mass {
+    font-size: 0.5em;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-left {
+    text-align: left;
 }
 
 @media (hover: hover) {

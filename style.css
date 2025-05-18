@@ -9,7 +9,6 @@
     --ns: #cccccc;
     --na: #bfbfbf;
     --p: 90%;
-    --ovw: hidden;
 }
 
 .page {
@@ -70,7 +69,7 @@ body {
     top: 0;
     bottom: 0;
     left: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     width: 20em;
     z-index: 3;
@@ -216,16 +215,10 @@ p {
     margin: 0.5em 0;
 }
 
-@media only screen and (max-width: 90em) {
-    .periodic {
-        --ovw: scroll
-    }
-}
-
 .scroll {
     width: 100%;
     overflow-y: hidden;
-    overflow-x: var(--ovw);
+    overflow-x: auto;
 }
 
 .flex {

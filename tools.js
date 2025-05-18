@@ -294,7 +294,7 @@ window.changeUnit = changeUnit;
 
 let PagePeriodic = document.getElementById("PagePeriodic");
 
-let elements = new Map();
+const elements = new Map();
 
 element(1, 'H', 'hydrogen', 1.0080, 'non_metal', 1, 1)
 element(2, 'He', 'helium', 4.00260, 'noble_gas', 1, 18)

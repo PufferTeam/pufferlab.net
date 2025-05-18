@@ -416,26 +416,36 @@ element(117, 'Ts', 'tennessine', 294.211, 'unknown', 7, 17)
 element(118, 'Og', 'oganesson', 295.216, 'unknown', 7, 18)
 
 let periodicPeriod = 9;
-let periodicFamily = 18;
+let periodicGroup = 18;
 
-function element(atomic_number, symbol, name, atomic_mass, type, period, family) {
-    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, family: family });
+function element(atomic_number, symbol, name, atomic_mass, type, period, group) {
+    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, group: group });
 }
 
 let PagePeriodicContent = [];
 for (let i = 0; i < periodicPeriod + 1; i++) {
-    PagePeriodicContent.push(`<ul id="PeriodicColumn-${i}" class="periodic period flex flex-row set">`)
-    for (let j = 0; j < periodicFamily + 1; j++) {
-        PagePeriodicContent.push(`<li id="PeriodicSquare-Period${i}-Family${j}" class="periodic periodic-square family period-${i} family-${j} flex flex-column"></li>`)
+    PagePeriodicContent.push(`<ul id="PeriodicColumn-${i}" class="periodic periodic-column set">`)
+    for (let j = 0; j < periodicGroup + 1; j++) {
+        PagePeriodicContent.push(`<li id="Periodic-Period${i}-Group${j}" class="periodic periodic-square period-${i} group-${j}"></li>`)
     }
     PagePeriodicContent.push(`</ul>`)
 }
 
 PagePeriodic.innerHTML = PagePeriodicContent.join("");
 
+for (let i = 1; i < periodicPeriod - 1; i++) {
+    let periodicPeriodSquare = document.getElementById(`Periodic-Period${i}-Group0`)
+    periodicPeriodSquare.innerHTML = `<small class="period-number">${i}</small>`
+}
+
+for (let i = 1; i < periodicGroup + 1; i++) {
+    let periodicGroupSquare = document.getElementById(`Periodic-Period0-Group${i}`)
+    periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
+}
+
 elements.forEach((value, key) => {
     let elementMap = elements.get(key);
-    let periodSquareID = `PeriodicSquare-Period${elementMap.period}-Family${elementMap.family}`
+    let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
     let periodSquare = document.getElementById(periodSquareID);
 
     main.change(periodSquareID, true, 'chemical-element')

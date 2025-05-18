@@ -236,12 +236,24 @@ p {
         height: 1em;
     }
 
-    &.family-0 {
+    &.group-0 {
         width: 1em;
     }
 }
 
+.period-number {
+    align-content: center;
+    height: 100%;
+}
+
+.periodic-column {
+    display: flex;
+    flex-direction: row;
+}
+
 .periodic-square {
+    display: flex;
+    flex-direction: column;
     text-align: center;
     height: 3.2em;
     width: 3.2em;

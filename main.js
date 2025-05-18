@@ -11,6 +11,7 @@ let pages = [
     "home",
     "tools",
     "tools.unit-converter",
+    "tools.atomic-calculator",
     "about"
 ]
 
@@ -220,9 +221,13 @@ export function getLang(key) {
     return fKey;
 }
 
-function replaceHTML(e, i) {
-    if (e.innerHTML != i) {
-        e.innerHTML = i
+function replaceHTML(e, i, c) {
+    if (c == undefined) {
+        if (e.innerHTML != i) {
+            e.innerHTML = i
+        }
+    } else {
+        e.setAttribute(c, i.toString())
     }
 }
 
@@ -231,13 +236,18 @@ export function updateIn(cl) {
     for (let i = 0; i < el.length; i++) {
         let e = el[i];
         let r = e.getAttribute("name");
+        let t = e.tagName
+        let re = undefined
+        if (t == "OPTGROUP") {
+            re = 'label'
+        }
         let rs = r.split(":");
         if (cl == "svg") {
             replaceHTML(e, getSvg(r));
         } else {
-            replaceHTML(e, getLang(r));
+            replaceHTML(e, getLang(r), re);
             if (rs[1] !== undefined) {
-                replaceHTML(e, getLang(rs[0]) + `${rs[1]}`);
+                replaceHTML(e, getLang(rs[0]) + `${rs[1]}`, re);
             }
         }
     }

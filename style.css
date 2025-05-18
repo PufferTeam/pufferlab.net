@@ -251,12 +251,16 @@ p {
     flex-direction: row;
 }
 
+#PeriodicColumn-8 {
+    margin-top: 1em;
+}
+
 .periodic-square {
     display: flex;
     flex-direction: column;
     text-align: center;
-    height: 3.2em;
-    width: 3.2em;
+    height: 3.3em;
+    width: 3.3em;
     border: solid;
     border-width: 0.1em;
     border-color: var(--no);
@@ -305,6 +309,9 @@ p {
     font-size: 0.5em;
 }
 
+.element-symbol {
+    margin: 0;
+}
 .element-atomic-mass {
     font-size: 0.5em;
 }

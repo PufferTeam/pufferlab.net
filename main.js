@@ -10,7 +10,7 @@ let hiddenPages = [
 let pages = [
     "home",
     "tools",
-    "tools.converter",
+    "tools.unit-converter",
     "about"
 ]
 

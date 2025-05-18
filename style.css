@@ -9,6 +9,7 @@
     --ns: #cccccc;
     --na: #bfbfbf;
     --p: 90%;
+    --ovw: hidden;
 }
 
 .page {
@@ -213,6 +214,18 @@ p {
     text-decoration: underline;
     text-underline-offset: 0.2em;
     margin: 0.5em 0;
+}
+
+@media only screen and (max-width: 90em) {
+    .periodic {
+        --ovw: scroll
+    }
+}
+
+.scroll {
+    width: 100%;
+    overflow-y: hidden;
+    overflow-x: var(--ovw);
 }
 
 .flex {

@@ -259,45 +259,58 @@ p {
     display: flex;
     flex-direction: column;
     text-align: center;
-    height: 3.3em;
-    width: 3.3em;
+    align-content: center;
+    height: 3.2em;
+    width: 3.2em;
     border: solid;
     border-width: 0.1em;
     border-color: var(--no);
     --elbg: var(--no);
+
     &.chemical-element {
         border-color: var(--ns);
     }
+
     &.non_metal {
         --elbg: hsl(140, 100%, var(--p));
     }
+
     &.transition_metal {
         --elbg: hsl(0, 100%, var(--p));
     }
+
     &.post_transition_metal {
         --elbg: hsl(190, 100%, var(--p));
     }
+
     &.metalloid {
         --elbg: hsl(200, 100%, var(--p));
     }
+
     &.noble_gas {
         --elbg: hsl(264, 100%, var(--p));
     }
+
     &.alkali_metal {
         --elbg: hsl(60, 100%, var(--p));
     }
+
     &.alkaline_earth_metal {
         --elbg: hsl(40, 100%, var(--p));
     }
+
     &.lanthanide {
         --elbg: hsl(300, 100%, var(--p));
     }
+
     &.actinide {
         --elbg: hsl(280, 100%, var(--p));
     }
+
     &.unknown {
         --elbg: hsl(0, 10%, var(--p));
     }
+
     background-color: var(--elbg);
 }
 
@@ -310,8 +323,9 @@ p {
 }
 
 .element-symbol {
-    margin: 0;
+    line-height: 1em;
 }
+
 .element-atomic-mass {
     font-size: 0.5em;
 }
@@ -442,7 +456,7 @@ li {
     & a.menu {
         text-align: left;
         padding: 0.75em;
-        width: 20em;
+        width: 16em;
     }
 
     & a.sub {

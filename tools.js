@@ -32,13 +32,13 @@ unit('distance', 'astronomical_unit', 'au', 'metric', 149597870700, false, 'othe
 unit('distance', 'light_year', 'ly', 'metric', 9460730472580800, false, 'other')
 
 generateMetric('volume', 'liter', 'L')
-unit('volume', 'cubic_meter', 'm³', 'metric', 1e3, false, 'metric')
-unit('volume', 'cubic_decimeter', 'dm³', 'metric', 1, false, 'metric')
-unit('volume', 'cubic_centimeter', 'cm³', 'metric', 1e-3, false, 'metric')
-unit('volume', 'cubic_millimeter', 'mm³', 'metric', 1e-6, false, 'metric')
-unit('volume', 'metric_cup', 'cup', 'metric', 0.25, false, 'metric')
-unit('volume', 'metric_tablespoon', 'tbsp', 'metric', 0.015, false, 'metric')
-unit('volume', 'metric_teaspoon', 'tsp', 'metric', 0.005, false, 'metric')
+unit('volume', 'cubic_meter', 'm³', 'metric', 1e3, false, 'metric_other')
+unit('volume', 'cubic_decimeter', 'dm³', 'metric', 1, false, 'metric_other')
+unit('volume', 'cubic_centimeter', 'cm³', 'metric', 1e-3, false, 'metric_other')
+unit('volume', 'cubic_millimeter', 'mm³', 'metric', 1e-6, false, 'metric_other')
+unit('volume', 'metric_cup', 'cup', 'metric', 0.25, false, 'metric_other')
+unit('volume', 'metric_tablespoon', 'tbsp', 'metric', 0.015, false, 'metric_other')
+unit('volume', 'metric_teaspoon', 'tsp', 'metric', 0.005, false, 'metric_other')
 unit('volume', 'cubic_inch', 'in³', 'imperial', 1, false, 'imperial_us')
 unit('volume', 'cubic_foot', 'ft³', 'imperial', 12 * 12 * 12, false, 'imperial_us')
 let us_gal = 231
@@ -68,16 +68,16 @@ unit('mass', 'stone', 'st', 'imperial', 16 * 14, false, 'imperial')
 unit('mass', 'long_ton', 'LT (UK)', 'imperial', 16 * 2240, false, 'imperial')
 unit('mass', 'short_ton', 'st (US)', 'imperial', 16 * 2000, false, 'us')
 
-unit('time', 'second', 's', '', 1)
-unit('time', 'minute', 'min', '', 60)
-unit('time', 'hour', 'h', '', 60 * 60)
-unit('time', 'day', '', '', 60 * 60 * 24)
-unit('time', 'week', '', '', 60 * 60 * 24 * 7)
-unit('time', 'month', '', '', 60 * 60 * 24 * 30)
-unit('time', 'year', '', '', 60 * 60 * 24 * 365)
-unit('time', 'decade', '', '', 60 * 60 * 24 * 365 * 1e1)
-unit('time', 'century', '', '', 60 * 60 * 24 * 365 * 1e2)
 unit('time', 'millennium', '', '', 60 * 60 * 24 * 365 * 1e3)
+unit('time', 'century', '', '', 60 * 60 * 24 * 365 * 1e2)
+unit('time', 'decade', '', '', 60 * 60 * 24 * 365 * 1e1)
+unit('time', 'year', '', '', 60 * 60 * 24 * 365)
+unit('time', 'month', '', '', 60 * 60 * 24 * 30)
+unit('time', 'week', '', '', 60 * 60 * 24 * 7)
+unit('time', 'day', '', '', 60 * 60 * 24)
+unit('time', 'hour', 'h', '', 60 * 60)
+unit('time', 'minute', 'min', '', 60)
+unit('time', 'second', 's', '', 1, false, undefined, true)
 unit('time', 'millisecond', 'ms', '', 1e-3)
 unit('time', 'microsecond', 'μs', '', 1e-6)
 unit('time', 'nanosecond', 'ns', '', 1e-9)
@@ -90,50 +90,54 @@ unit('angle', 'degree', '°', 'international', Math.PI / 180)
 unit('angle', 'radian', 'rad', 'international', 1)
 unit('angle', 'gradian', 'gon', 'international', Math.PI / 200)
 
-unit('data', 'bit', 'b', 'data', 1 / 8)
-unit('data', 'byte', 'B', 'data', 1)
-unit('data', 'kibibyte', 'KiB', 'data', 1024)
-unit('data', 'mebibyte', 'MiB', 'data', Math.pow(1024, 2))
-unit('data', 'gibibyte', 'GiB', 'data', Math.pow(1024, 3))
-unit('data', 'tebibyte', 'TiB', 'data', Math.pow(1024, 4))
-unit('data', 'pebibyte', 'PiB', 'data', Math.pow(1024, 5))
-unit('data', 'kilobyte', 'KB', 'data', 1000)
-unit('data', 'megabyte', 'MB', 'data', Math.pow(1000, 2))
-unit('data', 'gigabyte', 'GB', 'data', Math.pow(1000, 3))
-unit('data', 'terabyte', 'TB', 'data', Math.pow(1000, 4))
-unit('data', 'petabyte', 'PB', 'data', Math.pow(1000, 5))
+unit('data', 'bit', 'b', 'data', 1 / 8, false, 'default')
+unit('data', 'byte', 'B', 'data', 1, false, 'default', true)
+unit('data', 'kibibyte', 'KiB', 'data', 1024, false, 'ram')
+unit('data', 'mebibyte', 'MiB', 'data', Math.pow(1024, 2), false, 'ram')
+unit('data', 'gibibyte', 'GiB', 'data', Math.pow(1024, 3), false, 'ram')
+unit('data', 'tebibyte', 'TiB', 'data', Math.pow(1024, 4), false, 'ram')
+unit('data', 'pebibyte', 'PiB', 'data', Math.pow(1024, 5), false, 'ram')
+unit('data', 'kilobyte', 'KB', 'data', 1000, false, 'metric')
+unit('data', 'megabyte', 'MB', 'data', Math.pow(1000, 2), false, 'metric')
+unit('data', 'gigabyte', 'GB', 'data', Math.pow(1000, 3), false, 'metric')
+unit('data', 'terabyte', 'TB', 'data', Math.pow(1000, 4), false, 'metric')
+unit('data', 'petabyte', 'PB', 'data', Math.pow(1000, 5), false, 'metric')
 
 function generateMetric(type, name, symbol) {
     let m = 'metric';
-    unit(type, name, symbol, m, 1, false, m)
-    unit(type, 'kilo' + name, 'k' + symbol, m, 1e3, false, m)
-    unit(type, 'deci' + name, 'd' + symbol, m, 1e-1, false, m)
-    unit(type, 'centi' + name, 'c' + symbol, m, 1e-2, false, m)
-    unit(type, 'milli' + name, 'm' + symbol, m, 1e-3, false, m)
-    unit(type, 'deca' + name, 'da' + symbol, m, 1e1, false, m)
-    unit(type, 'micro' + name, 'μ' + symbol, m, 1e-6, false, m)
-    unit(type, 'nano' + name, 'n' + symbol, m, 1e-9, false, m)
-    unit(type, 'pico' + name, 'p' + symbol, m, 1e-12, false, m)
-    unit(type, 'hecto' + name, 'h' + symbol, m, 1e2, false, m)
     unit(type, 'tera' + name, 'T' + symbol, m, 1e12, false, m)
     unit(type, 'giga' + name, 'G' + symbol, m, 1e9, false, m)
     unit(type, 'mega' + name, 'M' + symbol, m, 1e6, false, m)
+    unit(type, 'kilo' + name, 'k' + symbol, m, 1e3, false, m)
+    unit(type, 'hecto' + name, 'h' + symbol, m, 1e2, false, m)
+    unit(type, 'deca' + name, 'da' + symbol, m, 1e1, false, m)
+    unit(type, name, symbol, m, 1, false, m, true)
+    unit(type, 'deci' + name, 'd' + symbol, m, 1e-1, false, m)
+    unit(type, 'centi' + name, 'c' + symbol, m, 1e-2, false, m)
+    unit(type, 'milli' + name, 'm' + symbol, m, 1e-3, false, m)
+    unit(type, 'micro' + name, 'μ' + symbol, m, 1e-6, false, m)
+    unit(type, 'nano' + name, 'n' + symbol, m, 1e-9, false, m)
+    unit(type, 'pico' + name, 'p' + symbol, m, 1e-12, false, m)
 }
 
 unitCategories('distance', ['metric', 'imperial_us', 'other'])
-unitCategories('volume', ['metric', 'imperial_us', 'us', 'imperial'])
+unitCategories('volume', ['metric', 'metric_other', 'imperial_us', 'us', 'imperial'])
 unitCategories('mass', ['metric', 'imperial_us', 'us', 'imperial'])
+unitCategories('data', ['default', 'metric', 'ram'])
 
 unitConversion('distance', 'imperial', 'metric', 0.0254, false)
 unitConversion('mass', 'imperial', 'metric', 28.349523125, false)
 unitConversion('volume', 'imperial', 'metric', 61.0237440947, true)
 unitConversion('temperature', 'imperial', 'international', 9 / 5, true)
 
-function unit(type, name, symbol, system, ratio, sign, category) {
+function unit(type, name, symbol, system, ratio, sign, category, defaultUnit) {
     if (sign == undefined) {
         sign = false
     }
-    units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio, sign: sign, category: category });
+    if (defaultUnit == undefined) {
+        defaultUnit = false;
+    }
+    units.set(name, { type: type, symbol: symbol, system: system, ratio: ratio, sign: sign, category: category, defaultUnit: defaultUnit });
 }
 
 function unitCategories(type, categories) {
@@ -164,7 +168,7 @@ unitTypes.forEach((e) => {
     PageConverterContent.push(`<div id="Page${eu}Converter" class="converter page">`)
     converterRows.forEach((r) => {
         let ru = main.capitalize(r)
-        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${ru}')"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${ru}')" required minlength="1" /></div>`);
+        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${ru}', false)"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${ru}', true)" required minlength="1" /></div>`);
     })
     PageConverterContent.push(`</div>`)
 })
@@ -197,10 +201,11 @@ updateConverterPage();
 
 let unitSL = [];
 units.forEach((value, key) => {
-    var unitsA = units.get(key);
-    let type = unitsA.type;
-    let categoryI = unitsA.category;
-    let symbol = unitsA.symbol;
+    let unitsMap = units.get(key);
+    let type = unitsMap.type;
+    let categoryI = unitsMap.category;
+    let symbol = unitsMap.symbol;
+    let isDefault = unitsMap.defaultUnit
     if (categoryI == undefined) {
         unitSL = document.getElementsByClassName(type);
     } else {
@@ -211,7 +216,12 @@ units.forEach((value, key) => {
         if (symbol == '') {
             symbolU = ''
         }
+
         unitSL[i].insertAdjacentHTML("beforeend", unitOption(key, symbolU))
+
+        if (isDefault) {
+            document.getElementsByClassName(type)[i].value = key;
+        }
     }
 
 })
@@ -272,7 +282,15 @@ function changeConverterPage() {
 }
 window.changeConverterPage = changeConverterPage;
 
-function changeUnit(id1, type) {
+let lastUsedText = ''
+function changeUnit(id1, type, isText) {
+    if (isText) {
+        lastUsedText = type;
+    }
+    if(lastUsedText !== type && lastUsedText !== '') {
+        type = lastUsedText
+    }
+
     let id = id1 + type;
     if (type == 'Input') {
         type = 'Output'

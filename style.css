@@ -179,9 +179,9 @@ p {
     width: 30em;
 }
 
-@media only screen and (max-width: 30em) {
+@media only screen and (max-width: 35em) {
     .container-set {
-        width: 100%;
+        width: 95%;
     }
 }
 
@@ -318,6 +318,12 @@ p {
     }
 
     background-color: var(--elbg);
+
+    &.element-selected {
+        border: solid;
+        border-width: 0.1em;
+        border-color: var(--fg);
+    }
 }
 
 .element-name {

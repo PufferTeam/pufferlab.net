@@ -164,7 +164,7 @@ unitTypes.forEach((e) => {
     PageConverterContent.push(`<div id="Page${eu}Converter" class="converter page">`)
     converterRows.forEach((r) => {
         let ru = main.capitalize(r)
-        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${ru}', false)"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${ru}', true)" required minlength="1" /></div>`);
+        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}Converter', '${ru}')"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}Converter', '${ru}')" required minlength="1" /></div>`);
     })
     PageConverterContent.push(`</div>`)
 })
@@ -272,7 +272,7 @@ function changeConverterPage() {
 }
 window.changeConverterPage = changeConverterPage;
 
-function changeUnit(id1, type, isText) {
+function changeUnit(id1, type) {
     let id = id1 + type;
     if (type == 'Input') {
         type = 'Output'
@@ -454,4 +454,28 @@ elements.forEach((value, key) => {
 
     let periodSquareContent = `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass">${elementMap.atomic_mass}</small>`
     periodSquare.innerHTML = periodSquareContent
+
+    periodSquare.onclick = function () { changeElementPage(key); };
 })
+
+let currentElement = ''
+function changeElementPage(name) {
+    let elementMap = elements.get(name);
+    let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
+    elements.forEach((value, key) => {
+        if (key != name) {
+            let elementMap0 = elements.get(key);
+            let periodSquareIDO = `Periodic-Period${elementMap0.period}-Group${elementMap0.group}`
+            main.change(periodSquareIDO, false, 'element-selected')
+        }
+    })
+    if (currentElement == name) {
+        main.change(periodSquareID, false, 'element-selected')
+        currentElement = ''
+    } else {
+        main.change(periodSquareID, true, 'element-selected')
+        currentElement = name;
+    }
+}
+
+window.changeElementPage = changeElementPage;

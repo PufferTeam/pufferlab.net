@@ -459,23 +459,25 @@ elements.forEach((value, key) => {
 })
 
 let currentElement = ''
+let lastElement = ''
 function changeElementPage(name) {
     let elementMap = elements.get(name);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
-    elements.forEach((value, key) => {
-        if (key != name) {
-            let elementMap0 = elements.get(key);
-            let periodSquareIDO = `Periodic-Period${elementMap0.period}-Group${elementMap0.group}`
-            main.change(periodSquareIDO, false, 'element-selected')
-        }
-    })
+    if(name !== lastElement && lastElement !== '') {
+        let elementMap0 = elements.get(lastElement);
+        let periodSquareID0 = `Periodic-Period${elementMap0.period}-Group${elementMap0.group}`
+        main.change(periodSquareID0, false, 'element-selected')
+    }
+    let select = undefined;
     if (currentElement == name) {
-        main.change(periodSquareID, false, 'element-selected')
+        select = false
         currentElement = ''
     } else {
-        main.change(periodSquareID, true, 'element-selected')
+        select = true
+        lastElement = name
         currentElement = name;
     }
+    main.change(periodSquareID, select, 'element-selected')
 }
 
 window.changeElementPage = changeElementPage;

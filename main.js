@@ -312,7 +312,7 @@ window.toggleMenu = toggleMenu;
 
 var width = window.innerWidth;
 function changeMenu() {
-    if (width > 600) {
+    if (width > 800) {
         menu = "menu.show";
     } else {
         menu = "menu.hide";

@@ -443,6 +443,10 @@ for (let i = 1; i < periodicGroup + 1; i++) {
     periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
 }
 
+function elementText(elementMap, key) {
+    return `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass">${elementMap.atomic_mass}</small>`
+}
+
 elements.forEach((value, key) => {
     let elementMap = elements.get(key);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
@@ -452,7 +456,7 @@ elements.forEach((value, key) => {
     main.change(periodSquareID, true, `element-${elementMap.atomic_number}`)
     main.change(periodSquareID, true, `${elementMap.type}`)
 
-    let periodSquareContent = `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass">${elementMap.atomic_mass}</small>`
+    let periodSquareContent = elementText(elementMap, key);
     periodSquare.innerHTML = periodSquareContent
 
     periodSquare.onclick = function () { changeElementPage(key); };
@@ -463,7 +467,7 @@ let lastElement = ''
 function changeElementPage(name) {
     let elementMap = elements.get(name);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
-    if(name !== lastElement && lastElement !== '') {
+    if (name !== lastElement && lastElement !== '') {
         let elementMap0 = elements.get(lastElement);
         let periodSquareID0 = `Periodic-Period${elementMap0.period}-Group${elementMap0.group}`
         main.change(periodSquareID0, false, 'element-selected')

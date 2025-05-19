@@ -142,7 +142,7 @@ p {
     display: none;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 800px) {
     .pages.open {
         margin-left: 0;
     }
@@ -327,19 +327,19 @@ p {
 }
 
 .element-name {
-    font-size: 0.6em;
+    font-size: 60%;
 }
 
 .element-atomic-number {
-    font-size: 0.5em;
+    font-size: 50%;
 }
 
 .element-symbol {
-    line-height: 1em;
+    line-height: 100%;
 }
 
 .element-atomic-mass {
-    font-size: 0.5em;
+    font-size: 50%;
 }
 
 .text-right {

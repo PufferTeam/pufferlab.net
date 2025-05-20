@@ -493,7 +493,12 @@ function elementTableRow(e, isL, l) {
         p = ` lang lang-element" name="tools.element.${l}`
         l = ``
     }
-    return `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}">Chemical Group</small><small class="table-el-desc${p}">${l}</small></li>`
+    
+    let r = `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}">Chemical Group</small><small class="table-el-desc${p}">${l}</small></li>`
+    if(l == undefined) {
+        r = ''
+    }
+    return r
 }
 let PagePeriodicInfo = document.getElementById("PagePeriodicInfo");
 

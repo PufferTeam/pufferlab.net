@@ -463,9 +463,9 @@ function element(atomic_number, symbol, name, atomic_mass, type, period, group) 
 }
 
 let PagePeriodicContent = [];
-for (let i = 0; i < periodicPeriod + 1; i++) {
+for (let i = 0; i <= periodicPeriod; i++) {
     PagePeriodicContent.push(`<ul id="PeriodicColumn-${i}" class="periodic periodic-column set">`)
-    for (let j = 0; j < periodicGroup + 1; j++) {
+    for (let j = 0; j <= periodicGroup; j++) {
         PagePeriodicContent.push(`<li id="Periodic-Period${i}-Group${j}" class="periodic periodic-square period-${i} group-${j}"></li>`)
     }
     PagePeriodicContent.push(`</ul>`)
@@ -483,9 +483,11 @@ for (let i = 1; i < periodicGroup + 1; i++) {
     periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
 }
 
-function elementText(elementMap, key) {
-    return `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass">${elementMap.atomic_mass}</small>`
+function elementText(elementMap, key, l, la) {
+    return `<small class="element-atomic-number${l}">${elementMap.atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass${l}">${elementMap.atomic_mass}</small>`
 }
+
+let PagePeriodicInfo = document.getElementById("PagePeriodicInfo");
 
 elements.forEach((value, key) => {
     let elementMap = elements.get(key);
@@ -496,32 +498,63 @@ elements.forEach((value, key) => {
     main.change(periodSquareID, true, `element-${elementMap.atomic_number}`)
     main.change(periodSquareID, true, `${elementMap.type}`)
 
-    let periodSquareContent = elementText(elementMap, key);
+    let periodSquareContent = elementText(elementMap, key, '', 'lang');
     periodSquare.innerHTML = periodSquareContent
 
     periodSquare.onclick = function () { changeElementPage(key); };
 })
+
+PagePeriodicInfo.innerHTML = `<div class="periodic-info-inline"><div id="periodicInfoElementSquare" class="periodic-square display-square chemical-element"></div><div id="periodicInfoElementTable" class="periodic-table"><small>Chemical Group</small></div></div>`;
+
+let lastElementDisplay = ''
+let lastType = 'non_metal'
+function updateElementPage(name, display) {
+    let elementMap = elements.get(name);
+    let elementType = elementMap.type;
+    if (display) {
+        if (lastElementDisplay !== name) {
+            let periodSquareCE = document.getElementById("periodicInfoElementSquare");
+            periodSquareCE.innerHTML = elementText(elementMap, name, ' element-info', 'lang lang-element');
+            main.updateIn('lang-element');
+            lastElementDisplay = name
+        }
+        if (lastType !== elementType) {
+            main.change("periodicInfoElementSquare", false, lastType)
+            lastType = elementType
+        }
+        main.change("periodicInfoElementSquare", true, elementType)
+        main.change("PagePeriodicInfoContainer", true)
+    } else {
+        main.change("PagePeriodicInfoContainer", false)
+    }
+}
 
 let currentElement = ''
 let lastElement = ''
 function changeElementPage(name) {
     let elementMap = elements.get(name);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
+    let display = undefined;
     if (name !== lastElement && lastElement !== '') {
         let elementMap0 = elements.get(lastElement);
         let periodSquareID0 = `Periodic-Period${elementMap0.period}-Group${elementMap0.group}`
+        display = false
         main.change(periodSquareID0, false, 'element-selected')
     }
     let select = undefined;
     if (currentElement == name) {
         select = false
+        display = false
         currentElement = ''
     } else {
         select = true
+        display = true
         lastElement = name
         currentElement = name;
     }
     main.change(periodSquareID, select, 'element-selected')
+
+    updateElementPage(name, display)
 }
 
 window.changeElementPage = changeElementPage;

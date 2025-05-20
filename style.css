@@ -247,6 +247,22 @@ p {
     }
 }
 
+.periodic-info-overlay {
+    position: absolute;
+    width: 30em;
+    z-index: 2;
+    left: 10em;
+    top: 3em;
+    border: solid;
+    border-width: 0.1em;
+    border-color: var(--fg);
+}
+
+.periodic-info-inline {
+    display: inline-flex;
+    flex-direction: row;
+}
+
 .period-number {
     align-content: center;
     height: 100%;
@@ -272,11 +288,17 @@ p {
     margin: 0.06em;
     border: solid;
     border-width: 0.1em;
-    border-color: var(--no);
-    --elbg: var(--no);
+    border-color: transparent;
+    --elbg: transparent;
 
     &.chemical-element {
         border-color: var(--ns);
+    }
+
+    &.display-square {
+        flex-grow: 1;
+        height: 6.4em;
+        width: 6.4em;
     }
 
     &.non_metal {
@@ -337,11 +359,30 @@ p {
 }
 
 .element-symbol {
+    font-size: 1em;
     line-height: 100%;
 }
 
 .element-atomic-mass {
     font-size: 50%;
+}
+
+.element-info {
+    &.element-name {
+        font-size: 120%;
+    }
+
+    &.element-atomic-number {
+        font-size: 100%;
+    }
+
+    &.element-symbol {
+        font-size: 2em;
+    }
+
+    &.element-atomic-mass {
+        font-size: 100%;
+    }
 }
 
 .text-right {

@@ -318,6 +318,7 @@ p {
     height: 3.2em;
     width: 3.2em;
     margin: 0.06em;
+    overflow: hidden;
     border: solid;
     border-width: 0.1em;
     border-color: transparent;

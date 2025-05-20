@@ -179,6 +179,52 @@ p {
     width: 30em;
 }
 
+.table-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding-bottom: 1em;
+    padding-right: 0.5em;
+    height: 6.6em;
+
+    &.periodic {
+        flex-wrap: wrap;
+        overflow: visible;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .periodic.table-container {
+        flex-wrap: nowrap;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+}
+
+.table-row {
+    border: solid;
+    background-color: var(--no);
+    width: 15em;
+    padding: 0.20em;
+    margin-left: 0.5em;
+    border-width: 0.1em;
+    border-color: var(--ns);
+    border-bottom: 0;
+}
+
+.table-el {
+    float: left;
+    text-align: left;
+}
+
+.table-el-desc {
+    float: right;
+    text-align: right;
+}
+
 @media only screen and (max-width: 35em) {
     .container-set {
         width: 95%;
@@ -221,15 +267,18 @@ p {
     overflow-x: auto;
 }
 
-.flex {
-    display: flex;
-}
-
 .flex-column {
+    display: flex;
     flex-direction: column;
 }
 
 .flex-row {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-in-row {
+    display: inline-flex;
     flex-direction: row;
 }
 
@@ -245,22 +294,6 @@ p {
     &.group-0 {
         width: 1em;
     }
-}
-
-.periodic-info-overlay {
-    position: absolute;
-    width: 30em;
-    z-index: 2;
-    left: 10em;
-    top: 3em;
-    border: solid;
-    border-width: 0.1em;
-    border-color: var(--fg);
-}
-
-.periodic-info-inline {
-    display: inline-flex;
-    flex-direction: row;
 }
 
 .period-number {
@@ -279,7 +312,6 @@ p {
 
 .periodic-square {
     display: flex;
-    flex-grow: 1;
     flex-direction: column;
     text-align: center;
     align-content: center;
@@ -296,7 +328,7 @@ p {
     }
 
     &.display-square {
-        flex-grow: 1;
+        margin: 0;
         height: 6.4em;
         width: 6.4em;
     }

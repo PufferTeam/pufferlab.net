@@ -406,13 +406,17 @@ p {
         width: 6.4em;
     }
 
-    background-color: var(--elbg);
-
     &.element-selected {
         border: solid;
         border-width: 0.1em;
         border-color: var(--fg);
     }
+
+    background-color: var(--elbg);
+}
+
+.opposite {
+    color: var(--bg);
 }
 
 .element-name {

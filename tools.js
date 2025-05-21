@@ -647,7 +647,6 @@ function updatePeriodicPage() {
     main.change("PagePeriodicInfo", true, periodicPage)
 
     main.change("PagePeriodic", true, periodicPage)
-
     elements.forEach((value, key) => {
         let elementMap = elements.get(key);
         let element = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data`)
@@ -660,6 +659,7 @@ function updatePeriodicPage() {
         }
     })
 
+    replaceColorStyle()
 }
 updatePeriodicPage()
 
@@ -674,8 +674,69 @@ function getElementData(elementMap) {
             data = elementMap.config.slice(4)
         }
     }
+    if (periodicPage == 'electronegativity') {
+        data = elementMap.negativity
+    }
+    if (periodicPage == 'ionization') {
+        data = elementMap.ionization
+    }
 
     return data
+}
+
+function replaceColorStyle() {
+    let theme = localStorage.getItem("savedMode");
+    elements.forEach((value, key) => {
+        let elementMap = elements.get(key);
+        let elementSquare = document.getElementById(`Periodic-Period${elementMap.period}-Group${elementMap.group}`)
+        let elementSquare2 = document.getElementById(`periodicInfoElementSquare`)
+        let data = getElementData(elementMap);
+        let color = getElementColor(theme, data)
+        elementSquare.setAttribute("style", color)
+        if (elementSquare2 !== null) {
+            elementSquare2.setAttribute("style", color)
+        }
+
+        let addClass = getElementColor(theme, data, true)
+        main.change(`Periodic-Period${elementMap.period}-Group${elementMap.group}`, addClass, 'opposite')
+    })
+}
+
+window.replaceColorStyle = replaceColorStyle;
+
+function getElementColor(theme, value, l) {
+    let h_value = undefined
+    let hue = 0
+    if (periodicPage == 'electronegativity') {
+        h_value = 4
+        hue = 185
+    } else if (periodicPage == 'ionization') {
+        h_value = 24
+        hue = 251
+    }
+    let color = '';
+    let textColor = false
+    if (h_value !== undefined) {
+        let calc = (100 * value) / h_value;
+        let calc2 = calc
+        if(theme == 'mode.light') {
+            calc2 = 100 - calc
+            if(calc2 < 35) {
+                textColor = true
+            }
+        } else {
+            if(calc2 > 35) {
+                textColor = true
+            }
+        }
+        color = `--elbg: hsl(${hue}, ${calc}%, ${calc2}%);`
+    }
+
+    let output = color;
+    if(l) {
+        output = textColor
+    }
+    return output
 }
 
 function changePeriodicPage() {

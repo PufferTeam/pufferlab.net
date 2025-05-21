@@ -542,6 +542,8 @@ let PagePeriodicInfoElementTable = document.getElementById("periodicInfoElementT
 let lastElementDisplay = ''
 let lastType = 'non_metal'
 let lastConfigType = 's'
+
+let currentElementDisplayed = 'He'
 function updateElementPage(name, display) {
     let elementMap = elements.get(name);
     let elementType = elementMap.type;
@@ -552,6 +554,9 @@ function updateElementPage(name, display) {
             periodSquareCE.innerHTML = elementText(elementMap.atomic_number, name, elementMap.name, ' element-info', 'lang lang-element', '-Info');
             let periodSquareCED = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data-Info`)
             let data = getElementData(elementMap)
+
+            replaceColorStyleInfo(name)
+            currentElementDisplayed = name
             periodSquareCED.innerHTML = data;
             let PagePeriodicInfoElementTableRows = [
                 elementTableRow('atomic_number', false, elementMap.atomic_number, ''),
@@ -700,6 +705,18 @@ function replaceColorStyle() {
         let addClass = getElementColor(theme, data, true)
         main.change(`Periodic-Period${elementMap.period}-Group${elementMap.group}`, addClass, 'opposite')
     })
+    replaceColorStyleInfo(currentElementDisplayed);
+}
+
+function replaceColorStyleInfo(name) {
+    let elementMap = elements.get(name);
+    let data = getElementData(elementMap)
+    let currentSquare = document.getElementById(`Periodic-Period${elementMap.period}-Group${elementMap.group}`)
+    let periodSquareCE = document.getElementById(`periodicInfoElementSquare`)
+    periodSquareCE.setAttribute('style', currentSquare.getAttribute("style"))
+
+    let isOpp = getElementColor(localStorage.getItem("savedMode"), data, true)
+    main.change("periodicInfoElementSquare", isOpp, 'opposite')
 }
 
 window.replaceColorStyle = replaceColorStyle;
@@ -719,13 +736,13 @@ function getElementColor(theme, value, l) {
     if (h_value !== undefined) {
         let calc = (100 * value) / h_value;
         let calc2 = calc
-        if(theme == 'mode.light') {
+        if (theme == 'mode.light') {
             calc2 = 100 - calc
-            if(calc2 < 35) {
+            if (calc2 < 35) {
                 textColor = true
             }
         } else {
-            if(calc2 > 35) {
+            if (calc2 > 35) {
                 textColor = true
             }
         }
@@ -733,7 +750,7 @@ function getElementColor(theme, value, l) {
     }
 
     let output = color;
-    if(l) {
+    if (l) {
         output = textColor
     }
     return output

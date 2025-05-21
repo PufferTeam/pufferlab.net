@@ -483,32 +483,26 @@ for (let i = 1; i < periodicGroup + 1; i++) {
     periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
 }
 
-function elementText(elementMap, key, l, la, d) {
-    return `<small class="element-atomic-number${l}">${elementMap.atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element${elementMap.atomic_number}-Data${d}" class="element-atomic-mass${l}">${elementMap.atomic_mass}</small>`
+function elementText(atomic_number, key, name, l, la, d) {
+    return `<small class="element-atomic-number${l}">${atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${name}"></abbr><small id="Periodic-Element${atomic_number}-Data${d}" class="element-atomic-mass${l}"></small>`
 }
 
-function elementTableRow(e, isL, l) {
+function elementTableRow(e, isL, l, s) {
     let p = ``;
     if (isL) {
         p = ` lang lang-element" name="tools.element.${l}`
         l = ``
     }
 
-    let r = `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}">Chemical Group</small><small class="table-el-desc${p}">${l}</small></li>`
-    if (l == undefined || l == 'null eV') {
+    let r = `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}"></small><small class="table-el-desc${p}">${l}${s}</small></li>`
+    if (l == undefined) {
         r = ''
     }
     return r
 }
 let PagePeriodicInfo = document.getElementById("PagePeriodicInfo");
 
-elements.forEach((value, key) => {
-    let elementMap = elements.get(key);
-    let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
-    let periodSquare = document.getElementById(periodSquareID);
-    let elementMapGroup = elementMap.group;
-    let elementMapPeriod = elementMap.period;
-
+function getConfigType(elementMapGroup, elementMapPeriod) {
     let configType = ''
     if (elementMapPeriod <= 7) {
         if (elementMapGroup <= 2 || elementMapPeriod == 1) {
@@ -522,12 +516,20 @@ elements.forEach((value, key) => {
         configType = 'f'
     }
 
+    return configType;
+}
+
+elements.forEach((value, key) => {
+    let elementMap = elements.get(key);
+    let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
+    let periodSquare = document.getElementById(periodSquareID);
+
     main.change(periodSquareID, true, 'chemical-element')
     main.change(periodSquareID, true, `element-${elementMap.atomic_number}`)
     main.change(periodSquareID, true, `${elementMap.type}`)
-    main.change(periodSquareID, true, `${configType}-block`)
+    main.change(periodSquareID, true, `${getConfigType(elementMap.group, elementMap.period)}-block`)
 
-    let periodSquareContent = elementText(elementMap, key, '', 'lang', '');
+    let periodSquareContent = elementText(elementMap.atomic_number, key, elementMap.name, '', 'lang', '');
     periodSquare.innerHTML = periodSquareContent
 
     periodSquare.onclick = function () { changeElementPage(key); };
@@ -539,22 +541,27 @@ let PagePeriodicInfoElementTable = document.getElementById("periodicInfoElementT
 
 let lastElementDisplay = ''
 let lastType = 'non_metal'
+let lastConfigType = 's'
 function updateElementPage(name, display) {
     let elementMap = elements.get(name);
     let elementType = elementMap.type;
+    let elementConfig = getConfigType(elementMap.group, elementMap.period) + '-block';
     if (display) {
         if (lastElementDisplay !== name) {
             let periodSquareCE = document.getElementById("periodicInfoElementSquare");
-            periodSquareCE.innerHTML = elementText(elementMap, name, ' element-info', 'lang lang-element', '-Info');
+            periodSquareCE.innerHTML = elementText(elementMap.atomic_number, name, elementMap.name, ' element-info', 'lang lang-element', '-Info');
+            let periodSquareCED = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data-Info`)
+            let data = getElementData(elementMap)
+            periodSquareCED.innerHTML = data;
             let PagePeriodicInfoElementTableRows = [
-                elementTableRow('atomic_number', false, elementMap.atomic_number),
-                elementTableRow('symbol', false, name),
-                elementTableRow('name', true, elementMap.name),
-                elementTableRow('atomic_mass', false, elementMap.atomic_mass + " u"),
-                elementTableRow('group', true, elementMap.type),
-                elementTableRow('config', false, elementMap.config),
-                elementTableRow('electronegativity', false, elementMap.negativity),
-                elementTableRow('ionization', false, elementMap.ionization + " eV"),
+                elementTableRow('atomic_number', false, elementMap.atomic_number, ''),
+                elementTableRow('symbol', false, name, ''),
+                elementTableRow('name', true, elementMap.name, ''),
+                elementTableRow('atomic_mass', false, elementMap.atomic_mass, ' u'),
+                elementTableRow('group', true, elementMap.type, ''),
+                elementTableRow('config', false, elementMap.config, ''),
+                elementTableRow('electronegativity', false, elementMap.negativity, ''),
+                elementTableRow('ionization', false, elementMap.ionization, ' eV'),
             ]
             PagePeriodicInfoElementTable.innerHTML = PagePeriodicInfoElementTableRows.join("");
             main.updateIn('lang-element');
@@ -564,7 +571,12 @@ function updateElementPage(name, display) {
             main.change("periodicInfoElementSquare", false, lastType)
             lastType = elementType
         }
+        if (lastConfigType !== elementConfig) {
+            main.change("periodicInfoElementSquare", false, lastConfigType)
+            lastConfigType = elementConfig
+        }
         main.change("periodicInfoElementSquare", true, elementType)
+        main.change("periodicInfoElementSquare", true, elementConfig)
         main.change("PagePeriodicInfoContainer", true)
     } else {
         main.change("PagePeriodicInfoContainer", false)
@@ -620,6 +632,7 @@ if (periodicPage == null) {
 }
 
 let lastPage = 'group'
+let lastPeriodicPage2 = 'group'
 function updatePeriodicPage() {
     periodicPageSL.value = periodicPage;
 
@@ -627,28 +640,43 @@ function updatePeriodicPage() {
         main.change("PagePeriodic", false, lastPage)
         lastPage = periodicPage;
     }
+    if (lastPeriodicPage2 !== periodicPage) {
+        main.change("PagePeriodicInfo", false, lastPeriodicPage2)
+        lastPeriodicPage2 = periodicPage
+    }
+    main.change("PagePeriodicInfo", true, periodicPage)
 
     main.change("PagePeriodic", true, periodicPage)
+
     elements.forEach((value, key) => {
         let elementMap = elements.get(key);
         let element = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data`)
+        let element2 = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data-Info`)
 
-        let data = ''
-        if (periodicPage == 'group') {
-            data = elementMap.atomic_mass
-        }
-        if(periodicPage == 'config') {
-            data = elementMap.config
-            if(elementMap.period >= 2) {
-                data = elementMap.config.slice(4)
-            }
-        }
-
+        let data = getElementData(elementMap);
         element.innerHTML = data;
+        if (element2 !== null) {
+            element2.innerHTML = data;
+        }
     })
 
 }
 updatePeriodicPage()
+
+function getElementData(elementMap) {
+    let data = ''
+    if (periodicPage == 'group') {
+        data = elementMap.atomic_mass
+    }
+    if (periodicPage == 'config') {
+        data = elementMap.config
+        if (elementMap.period >= 2) {
+            data = elementMap.config.slice(4)
+        }
+    }
+
+    return data
+}
 
 function changePeriodicPage() {
     if (periodicPage != periodicPageSL.value) {

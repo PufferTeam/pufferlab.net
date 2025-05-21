@@ -758,7 +758,7 @@ function getElementColor(theme, value, l) {
                     textColor = true
                 }
             } else {
-                if (calc2 > 35) {
+                if (calc2 > 20) {
                     textColor = true
                 }
             }

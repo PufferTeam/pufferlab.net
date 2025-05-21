@@ -175,6 +175,12 @@ p {
     padding: 0.5em;
 }
 
+.container-top {
+    position: relative;
+    margin: 0;
+    bottom: -1em;
+}
+
 .container-set {
     width: 30em;
 }
@@ -296,6 +302,73 @@ p {
     }
 }
 
+.periodic-table {
+    display: flex;
+    flex-direction: column;
+
+    --elbg: transparent;
+}
+
+.group {
+    .non_metal {
+        --elbg: hsl(140, 100%, var(--p));
+    }
+
+    .transition_metal {
+        --elbg: hsl(0, 100%, var(--p));
+    }
+
+    .post_transition_metal {
+        --elbg: hsl(190, 100%, var(--p));
+    }
+
+    .metalloid {
+        --elbg: hsl(200, 100%, var(--p));
+    }
+
+    .noble_gas {
+        --elbg: hsl(264, 100%, var(--p));
+    }
+
+    .alkali_metal {
+        --elbg: hsl(60, 100%, var(--p));
+    }
+
+    .alkaline_earth_metal {
+        --elbg: hsl(40, 100%, var(--p));
+    }
+
+    .lanthanide {
+        --elbg: hsl(300, 100%, var(--p));
+    }
+
+    .actinide {
+        --elbg: hsl(280, 100%, var(--p));
+    }
+
+    .unknown {
+        --elbg: hsl(0, 10%, var(--p));
+    }
+}
+
+.config {
+    .s-block {
+        --elbg: hsl(300, 75%, var(--p))
+    }
+
+    .d-block {
+        --elbg: hsl(248, 53%, var(--p))
+    }
+
+    .p-block {
+        --elbg: hsl(172, 100%, var(--p))
+    }
+
+    .f-block {
+        --elbg: hsl(35, 100%, var(--p))
+    }
+}
+
 .period-number {
     align-content: center;
     height: 100%;
@@ -322,7 +395,6 @@ p {
     border: solid;
     border-width: 0.1em;
     border-color: transparent;
-    --elbg: transparent;
 
     &.chemical-element {
         border-color: var(--ns);
@@ -332,46 +404,6 @@ p {
         margin: 0;
         height: 6.4em;
         width: 6.4em;
-    }
-
-    &.non_metal {
-        --elbg: hsl(140, 100%, var(--p));
-    }
-
-    &.transition_metal {
-        --elbg: hsl(0, 100%, var(--p));
-    }
-
-    &.post_transition_metal {
-        --elbg: hsl(190, 100%, var(--p));
-    }
-
-    &.metalloid {
-        --elbg: hsl(200, 100%, var(--p));
-    }
-
-    &.noble_gas {
-        --elbg: hsl(264, 100%, var(--p));
-    }
-
-    &.alkali_metal {
-        --elbg: hsl(60, 100%, var(--p));
-    }
-
-    &.alkaline_earth_metal {
-        --elbg: hsl(40, 100%, var(--p));
-    }
-
-    &.lanthanide {
-        --elbg: hsl(300, 100%, var(--p));
-    }
-
-    &.actinide {
-        --elbg: hsl(280, 100%, var(--p));
-    }
-
-    &.unknown {
-        --elbg: hsl(0, 10%, var(--p));
     }
 
     background-color: var(--elbg);

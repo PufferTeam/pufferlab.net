@@ -459,7 +459,7 @@ let periodicPeriod = 9;
 let periodicGroup = 18;
 
 function element(atomic_number, symbol, name, atomic_mass, type, period, group, config, negativity, ionization) {
-    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, group: group, config: config, negativity: negativity, ionization: ionization});
+    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, group: group, config: config, negativity: negativity, ionization: ionization });
 }
 
 let PagePeriodicContent = [];
@@ -483,19 +483,19 @@ for (let i = 1; i < periodicGroup + 1; i++) {
     periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
 }
 
-function elementText(elementMap, key, l, la) {
-    return `<small class="element-atomic-number${l}">${elementMap.atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${elementMap.name}"></abbr><small class="element-atomic-mass${l}">${elementMap.atomic_mass}</small>`
+function elementText(elementMap, key, l, la, d) {
+    return `<small class="element-atomic-number${l}">${elementMap.atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element${elementMap.atomic_number}-Data${d}" class="element-atomic-mass${l}">${elementMap.atomic_mass}</small>`
 }
 
 function elementTableRow(e, isL, l) {
     let p = ``;
-    if(isL) {
+    if (isL) {
         p = ` lang lang-element" name="tools.element.${l}`
         l = ``
     }
-    
+
     let r = `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}">Chemical Group</small><small class="table-el-desc${p}">${l}</small></li>`
-    if(l == undefined || l == 'null eV') {
+    if (l == undefined || l == 'null eV') {
         r = ''
     }
     return r
@@ -506,12 +506,28 @@ elements.forEach((value, key) => {
     let elementMap = elements.get(key);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
     let periodSquare = document.getElementById(periodSquareID);
+    let elementMapGroup = elementMap.group;
+    let elementMapPeriod = elementMap.period;
+
+    let configType = ''
+    if (elementMapPeriod <= 7) {
+        if (elementMapGroup <= 2 || elementMapPeriod == 1) {
+            configType = 's'
+        } else if (elementMapGroup <= 12) {
+            configType = 'd'
+        } else if (elementMapGroup >= 13) {
+            configType = 'p'
+        }
+    } else if (elementMapPeriod >= 8) {
+        configType = 'f'
+    }
 
     main.change(periodSquareID, true, 'chemical-element')
     main.change(periodSquareID, true, `element-${elementMap.atomic_number}`)
     main.change(periodSquareID, true, `${elementMap.type}`)
+    main.change(periodSquareID, true, `${configType}-block`)
 
-    let periodSquareContent = elementText(elementMap, key, '', 'lang');
+    let periodSquareContent = elementText(elementMap, key, '', 'lang', '');
     periodSquare.innerHTML = periodSquareContent
 
     periodSquare.onclick = function () { changeElementPage(key); };
@@ -529,7 +545,7 @@ function updateElementPage(name, display) {
     if (display) {
         if (lastElementDisplay !== name) {
             let periodSquareCE = document.getElementById("periodicInfoElementSquare");
-            periodSquareCE.innerHTML = elementText(elementMap, name, ' element-info', 'lang lang-element');
+            periodSquareCE.innerHTML = elementText(elementMap, name, ' element-info', 'lang lang-element', '-Info');
             let PagePeriodicInfoElementTableRows = [
                 elementTableRow('atomic_number', false, elementMap.atomic_number),
                 elementTableRow('symbol', false, name),
@@ -584,3 +600,62 @@ function changeElementPage(name) {
 }
 
 window.changeElementPage = changeElementPage;
+
+let periodicStates = [
+    "group",
+    "config",
+    "electronegativity",
+    "ionization",
+]
+
+let periodicPageSL = document.getElementById("changePeriodicType");
+
+periodicStates.forEach((e) => {
+    periodicPageSL.insertAdjacentHTML("beforeend", `<option value="${e}" class="lang lang-periodic" name="tools.element.${e}"></option>`)
+})
+
+export var periodicPage = sessionStorage.getItem("savedPeriodicType");
+if (periodicPage == null) {
+    periodicPage = "group";
+}
+
+let lastPage = 'group'
+function updatePeriodicPage() {
+    periodicPageSL.value = periodicPage;
+
+    if (lastPage !== periodicPage) {
+        main.change("PagePeriodic", false, lastPage)
+        lastPage = periodicPage;
+    }
+
+    main.change("PagePeriodic", true, periodicPage)
+    elements.forEach((value, key) => {
+        let elementMap = elements.get(key);
+        let element = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data`)
+
+        let data = ''
+        if (periodicPage == 'group') {
+            data = elementMap.atomic_mass
+        }
+        if(periodicPage == 'config') {
+            data = elementMap.config
+            if(elementMap.period >= 2) {
+                data = elementMap.config.slice(4)
+            }
+        }
+
+        element.innerHTML = data;
+    })
+
+}
+updatePeriodicPage()
+
+function changePeriodicPage() {
+    if (periodicPage != periodicPageSL.value) {
+        periodicPage = periodicPageSL.value
+        sessionStorage.setItem("savedPeriodicType", periodicPage);
+        updatePeriodicPage()
+    }
+}
+
+window.changePeriodicPage = changePeriodicPage;

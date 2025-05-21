@@ -88,15 +88,20 @@
         <div id="tools.periodic-tablePage" class="page">
             <h2 class="lang" name="tools.periodic-table"></h2>
             <p class="lang" name="tools.periodic-table.desc"></p>
-            <div class="periodic scroll">
+            <div class="periodic scroll container-top">
                 <div id="PagePeriodicInfoContainer" class="page">
-                    <div id="PagePeriodicInfo" class="flex-in-row">
+                    <div id="PagePeriodicInfo" class="flex-in-row group">
                     </div>
                 </div>
             </div>
+            <div class="periodic container container-top container-set">
+                <select name="periodicSL" id="changePeriodicType" class="periodic trigger select in row"
+                    onchange="changePeriodicPage()">
+                </select>
+            </div>
             <div class="periodic scroll">
                 <div class="periodic container">
-                    <div id="PagePeriodic" class="flex-column">
+                    <div id="PagePeriodic" class="periodic-table">
                     </div>
                 </div>
             </div>

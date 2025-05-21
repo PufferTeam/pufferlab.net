@@ -723,18 +723,21 @@ window.replaceColorStyle = replaceColorStyle;
 
 function getElementColor(theme, value, l) {
     let h_value = undefined
+    let l_value = undefined
     let hue = 0
     if (periodicPage == 'electronegativity') {
         h_value = 4
+        l_value = 0.5
         hue = 185
     } else if (periodicPage == 'ionization') {
         h_value = 24
+        l_value = 4
         hue = 251
     }
     let color = '';
     let textColor = false
     if (h_value !== undefined) {
-        let calc = (100 * value) / h_value;
+        let calc = (100 * value - l_value) / h_value - l_value;
         let calc2 = calc
         if (theme == 'mode.light') {
             calc2 = 100 - calc

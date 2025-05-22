@@ -132,7 +132,7 @@ export function change(id, add, t) {
     } else {
         e = id
     }
-    
+
     if (e != null) {
         let tag = "active";
         if (t != undefined) {
@@ -316,6 +316,8 @@ function updateLang() {
 updateLang();
 
 function updateMode() {
+    let e = document.getElementById("main");
+    e.style.backgroundColor = ''
     let el = "main";
     if (mode == "mode.dark") {
         change(el, true, "dark");

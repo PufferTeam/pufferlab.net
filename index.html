@@ -14,6 +14,15 @@
 </head>
 
 <body id="main" class="site">
+    <script>var mode = localStorage.getItem("savedMode");
+        let e = document.getElementById("main");
+        if (mode == "mode.dark") {
+            e.style.backgroundColor = "#0d0d0d";
+        } else {
+            e.style.backgroundColor = "#ffffff";
+        }
+    </script>
+    
     <div id="menuPage" class="overlay menu page">
         <nav class="nav menu top-page">
             <ul id="PageMenu" class="page default overlay nav menu set">

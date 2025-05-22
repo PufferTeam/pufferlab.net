@@ -22,16 +22,25 @@ export const validPages = [
 hiddenPages.forEach((e) => { validPages.push(e) })
 pages.forEach((e) => { validPages.push(e) })
 
-export function replace(e, v, c) {
-    let el = document.getElementById(e)
-    if(Array.isArray(v)) {
-        v = v.join("")
+export function replace(id, value, label, insertOrder) {
+    let el = null;
+    if (typeof id === 'string' || id instanceof String) {
+        el = document.getElementById(id)
+    } else {
+        el = id
+    }
+    if (Array.isArray(value)) {
+        value = value.join("")
     }
     if (el !== null) {
-        if (c == undefined) {
-            el.innerHTML = v
+        if (label == undefined) {
+            if (insertOrder !== undefined) {
+                el.insertAdjacentHTML(insertOrder, value);
+            } else {
+                el.innerHTML = value
+            }
         } else {
-            el.setAttribute(c, v)
+            el.setAttribute(label, value)
         }
     }
 }
@@ -117,7 +126,13 @@ function readURL() {
 readURL();
 
 export function change(id, add, t) {
-    let e = document.getElementById(id);
+    let e = null;
+    if (typeof id === 'string' || id instanceof String) {
+        e = document.getElementById(id)
+    } else {
+        e = id
+    }
+    
     if (e != null) {
         let tag = "active";
         if (t != undefined) {

@@ -174,78 +174,78 @@ let converterRows = [
     "output"
 ]
 
-function unitOption(name, suffix) {
-    return `<option value="${name}" class="lang" name="tools.unit.${name}${suffix}"></option>`
+function unitOption(name, suffix, langsuffix) {
+    return `<option value="${name}" class="lang${langsuffix}" name="tools.unit.${name}${suffix}"></option>`
 }
 
-function unitGroup(type, name) {
-    return `<optgroup class="lang ${type}-${name}" name="tools.unit.${name}"></optgroup>`
+function unitGroup(name) {
+    return `<optgroup class="lang lang-unit converter-select-group-${name}" name="tools.unit.${name}"></optgroup>`
 }
+
+let converterPageSLContent = []
+unitTypes.forEach((e, i) => {
+    converterPageSLContent[i] = unitOption(e, ``, '')
+})
+main.replace("changeUnit", converterPageSLContent)
 
 let PageConverterContent = [];
-unitTypes.forEach((e) => {
-    converterPageSL.insertAdjacentHTML("beforeend", unitOption(e, ``));
-    let eu = main.capitalize(e)
-    PageConverterContent.push(`<div id="Page${eu}Converter" class="converter page">`)
-    converterRows.forEach((r) => {
-        let ru = main.capitalize(r)
-        PageConverterContent.push(`<div class="converter row ${r}"><label for="${e}Converter${ru}"><select name="${e}Converter${ru}SL" id="${e}Converter${ru}SL" class="trigger select ${e} in" onchange="changeUnit('${e}', '${ru}', false)"></select>:</label><input type="number" id="${e}Converter${ru}" class="trigger text in" name="${e}Converter${ru}" onkeyup="changeUnit('${e}', '${ru}', true)" required minlength="1" /></div>`);
-    })
-    PageConverterContent.push(`</div>`)
+converterRows.forEach((r, i) => {
+    let ru = main.capitalize(r)
+    PageConverterContent[i] = `<div class="converter row ${r}"><label for="Converter-${ru}-Text"><select name="Converter-${ru}-Select" id="Converter-${ru}-Select" class="trigger select converter-select in" onchange="changeUnit('${ru}', false)"></select>:</label><input type="number" id="Converter-${ru}-Text" class="trigger text converter-input in" name="Converter-${ru}-Text" onkeyup="changeUnit('${ru}', true)" required minlength="1" /></div>`
 })
+main.replace("PageConverter", PageConverterContent)
 
-PageConverter.innerHTML = PageConverterContent.join("");
-
-unitsCategories.forEach((value, key) => {
-    let categoryMap = unitsCategories.get(key)
-    let unitSL0 = document.getElementsByClassName(key);
-    for (let i = 0; i < unitSL0.length; i++) {
-        for (let j = 0; j < categoryMap.length; j++) {
-            unitSL0[i].insertAdjacentHTML("beforeend", unitGroup(key, categoryMap[j]))
-        }
-    }
-})
-
-function updateConverterPage() {
+function updateConverterPage(change) {
     converterPageSL.value = converterPage;
-    let pageu = main.capitalize(converterPage)
-    for (let i = 0; i < unitTypes.length; i++) {
-        let pageID = unitTypes[i];
-        let pageIDu = main.capitalize(pageID)
-        if (pageID != converterPage) {
-            main.change(`Page${pageIDu}Converter`, false);
+
+    let category = unitsCategories.get(converterPage);
+    let selectBarContent = []
+    if (category !== undefined) {
+        category.forEach((e, i) => {
+            selectBarContent[i] = unitGroup(e)
+        })
+    } else {
+        selectBarContent = []
+    }
+
+    let selectBars = document.getElementsByClassName('converter-select')
+    for (let i = 0; i < selectBars.length; i++) {
+        main.replace(selectBars[i], selectBarContent)
+    }
+
+    units.forEach((value, key) => {
+        let unitMap = units.get(key)
+        if (unitMap.type == converterPage) {
+            let selectBarsAdd = selectBars
+            if (category !== undefined) {
+                selectBarsAdd = document.getElementsByClassName(`converter-select-group-${unitMap.category}`)
+            }
+            let symbolU = `: [${unitMap.symbol}]`;
+            if (unitMap.symbol == '') {
+                symbolU = ''
+            }
+
+            for (let i = 0; i < selectBarsAdd.length; i++) {
+                main.replace(selectBarsAdd[i], unitOption(key, symbolU, ' lang-unit'), undefined, "beforeend")
+            }
+
+            if (unitMap.defaultUnit) {
+                for (let i = 0; i < selectBars.length; i++) {
+                    selectBars[i].value = key
+                }
+            }
+        }
+    })
+
+    if (change) {
+        main.updateIn('lang-unit')
+        let inputBars = document.getElementsByClassName('converter-input')
+        for (let i = 0; i < inputBars.length; i++) {
+            inputBars[i].value = ''
         }
     }
-    main.change(`Page${pageu}Converter`, true);
 }
 updateConverterPage();
-
-let unitSL = [];
-units.forEach((value, key) => {
-    let unitsMap = units.get(key);
-    let type = unitsMap.type;
-    let categoryI = unitsMap.category;
-    let symbol = unitsMap.symbol;
-    let isDefault = unitsMap.defaultUnit
-    if (categoryI == undefined) {
-        unitSL = document.getElementsByClassName(type);
-    } else {
-        unitSL = document.getElementsByClassName(type + '-' + categoryI);
-    }
-    for (let i = 0; i < unitSL.length; i++) {
-        let symbolU = `: [${symbol}]`;
-        if (symbol == '') {
-            symbolU = ''
-        }
-
-        unitSL[i].insertAdjacentHTML("beforeend", unitOption(key, symbolU))
-
-        if (isDefault) {
-            document.getElementsByClassName(type)[i].value = key;
-        }
-    }
-
-})
 
 function invertEquation(o, i, e, s) {
     let result = 0;
@@ -298,14 +298,14 @@ function changeConverterPage() {
     if (converterPage != converterPageSL.value) {
         converterPage = converterPageSL.value
         sessionStorage.setItem("savedUnitType", converterPage);
-        updateConverterPage()
+        updateConverterPage(true)
     }
 }
 window.changeConverterPage = changeConverterPage;
 
 let lastUsedText = ''
-function changeUnit(id1, type, isText) {
-    id1 = id1 + "Converter"
+function changeUnit(type, isText) {
+    let pr = "Converter-"
     if (isText) {
         lastUsedText = type;
     }
@@ -313,22 +313,22 @@ function changeUnit(id1, type, isText) {
         type = lastUsedText
     }
 
-    let id = id1 + type;
+    let id = pr + type;
     if (type == 'Input') {
         type = 'Output'
     } else {
         type = 'Input'
     }
-    let id2 = id1 + type;
-    let el = document.getElementById(id).value;
-    let elsl = document.getElementById(id + "SL").value;
-    let elsl2 = document.getElementById(id2 + "SL").value;
+    let id2 = pr + type;
+    let el = document.getElementById(id + "-Text").value;
+    let elsl = document.getElementById(id + "-Select").value;
+    let elsl2 = document.getElementById(id2 + "-Select").value;
 
     let result = convertUnit(elsl, elsl2, el)
     if (el == '') {
         result = ''
     }
-    document.getElementById(id2).value = result;
+    document.getElementById(id2 + "-Text").value = result;
 }
 window.changeUnit = changeUnit;
 

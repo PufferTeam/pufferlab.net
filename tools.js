@@ -453,10 +453,11 @@ element(116, 'Lv', 'livermorium', 293.205, 'unknown', 7, 16, '[Rn] 7s² 5f¹⁴ 
 element(117, 'Ts', 'tennessine', 294.211, 'unknown', 7, 17, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁵', null, null, 7.2, 700, 883, null, null, 'synthetic')
 element(118, 'Og', 'oganesson', 295.216, 'unknown', 7, 18, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁶', null, null, 7, 325, 450, null, null, 'synthetic')
 
-elementType('atomic_mass', null, null, null, 'u')
+elementType('atomic_mass', 100, 300, 0, 'u')
 elementType('density', 200, 28, 0, 'g/cm³')
-elementType('heat_capacity', 50, 1.5, -10, 'J/g ⋅ K')
-elementType('melting', 0, 3800, 0, 'K')
+elementType('config', 160, 14, 1, '')
+elementType('heat_capacity', 50, 1.5, 0, 'J/g ⋅ K')
+elementType('melting', 0, 4000, 0, 'K')
 elementType('boiling', 0, 6000, 0, 'K')
 elementType('electronegativity', 185, 4, 1, '')
 elementType('ionization', 251, 24, 4, 'eV')
@@ -510,6 +511,22 @@ function getConfigType(elementMapGroup, elementMapPeriod) {
     }
 
     return configType;
+}
+
+let unicodeNum = ['⁰', '¹', '²', '³', '⁴', '⁵', '⁶', '⁷', '⁸', '⁹']
+function getNumberFromExp(exp) {
+    let exps = exp.split("")
+    let number = []
+    exps.forEach((e, i) => {
+        unicodeNum.forEach((y, u) => {
+            if(y == e) {
+                number.push(u)
+            }
+        }) 
+    })
+    let output = number.join("")
+
+    return output
 }
 
 elements.forEach((value, key) => {
@@ -646,6 +663,8 @@ window.changeElementPage = changeElementPage;
 
 let periodicStates = [
     "group",
+    "block",
+    "atomic_mass",
     "config",
     'density',
     "electronegativity",
@@ -708,7 +727,7 @@ function getElementData(key, element, l) {
             data = elementMap[periodicPage]
             if (periodicPage == 'group') {
                 data = elementMap.atomic_mass
-            } else if (periodicPage == 'config') {
+            } else if (periodicPage == 'block' || periodicPage == 'config') {
                 data = elementMap.config
                 if (elementMap.period >= 2) {
                     data = elementMap.config.slice(4)
@@ -756,6 +775,17 @@ function getElementColor(theme, value, l) {
     let concap = 35;
     if (elementCMap !== undefined) {
         if (elementCMap.h_value !== undefined) {
+            if(typeof value === 'string' || value instanceof String) {
+                let valueS = value.split(" ")
+                let valueA = valueS[valueS.length - 1].split("")
+                let valueT = []
+                valueA.forEach((e) => {
+                    if (unicodeNum.includes(e)) {
+                        valueT.push(e)
+                    }
+                })
+                value = getNumberFromExp(valueT.join(""))
+            }
             let calc = (100 * value - elementCMap.l_value) / elementCMap.h_value - elementCMap.l_value;
             let calc2 = calc
             if (theme == 'mode.light') {

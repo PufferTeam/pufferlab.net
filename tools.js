@@ -744,8 +744,6 @@ function getElementData(key, element, l) {
             }
         }
         output = data
-
-        console.log(data)
     }
 
     return output

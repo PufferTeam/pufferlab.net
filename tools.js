@@ -1,6 +1,5 @@
 import * as main from "./main.js";
 
-let PageConverter = document.getElementById("PageConverter");
 let converterPageSL = document.getElementById("changeUnit");
 
 const units = new Map();

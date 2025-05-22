@@ -492,24 +492,6 @@ for (let i = 1; i <= periodicGroup; i++) {
     main.replace(`Periodic-Period0-Group${i}`, `<small class="group-number">${i}</small>`)
 }
 
-function elementText(atomic_number, key, name, l, la, d) {
-    return `<small class="element-atomic-number${l}">${atomic_number}</small><b class="element-symbol${l}">${key}</b><abbr class="${la} element-name${l}" name="tools.element.${name}"></abbr><small id="Periodic-Element${atomic_number}-Data${d}" class="element-atomic-mass${l}"></small>`
-}
-
-function elementTableRow(e, isL, l, s) {
-    let p = ``;
-    if (isL) {
-        p = ` lang lang-element" name="tools.element.${l}`
-        l = ``
-    }
-
-    let r = `<li class="table-row"><small class="lang lang-element table-el" name="tools.element.${e}"></small><small class="table-el-desc${p}">${l}${s}</small></li>`
-    if (l == undefined) {
-        r = ''
-    }
-    return r
-}
-
 function getConfigType(elementMapGroup, elementMapPeriod) {
     let configType = ''
     if (elementMapPeriod <= 7) {

@@ -22,8 +22,19 @@ export const validPages = [
 hiddenPages.forEach((e) => { validPages.push(e) })
 pages.forEach((e) => { validPages.push(e) })
 
-let PageNav = document.getElementById("PageNav");
-let PageMenu = document.getElementById("PageMenu");
+export function replace(e, v, c) {
+    let el = document.getElementById(e)
+    if(Array.isArray(v)) {
+        v = v.join("")
+    }
+    if (el !== null) {
+        if (c == undefined) {
+            el.innerHTML = v
+        } else {
+            el.setAttribute(c, v)
+        }
+    }
+}
 
 let subPages = [];
 let PageNavContent = [];
@@ -58,8 +69,8 @@ for (let i = 0; i < pages.length; i++) {
     }
 };
 
-PageNav.innerHTML = PageNavContent.join("");
-PageMenu.innerHTML = PageMenuContent.join("");
+replace("PageNav", PageNavContent)
+replace("PageMenu", PageMenuContent)
 
 export function capitalize(str) {
     let e = str.split("");

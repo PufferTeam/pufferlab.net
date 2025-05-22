@@ -332,10 +332,8 @@ function changeUnit(id1, type, isText) {
 }
 window.changeUnit = changeUnit;
 
-let PagePeriodic = document.getElementById("PagePeriodic");
-
 const elements = new Map();
-const elementsColor = new Map();
+const elementsTypes = new Map();
 
 element(1, 'H', 'hydrogen', 1.00784, 'non_metal', 1, 1, '1s¹', 2.20, 13.598, 0.00008988, 14.01, 20.28, 14.304, 1400, 'primordial')
 element(2, 'He', 'helium', 4.00260, 'noble_gas', 1, 18, '1s²', null, 24.587, 0.0001785, null, 4.22, 5.193, 0.008, 'primordial')
@@ -456,23 +454,25 @@ element(116, 'Lv', 'livermorium', 293.205, 'unknown', 7, 16, '[Rn] 7s² 5f¹⁴ 
 element(117, 'Ts', 'tennessine', 294.211, 'unknown', 7, 17, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁵', null, null, 7.2, 700, 883, null, null, 'synthetic')
 element(118, 'Og', 'oganesson', 295.216, 'unknown', 7, 18, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁶', null, null, 7, 325, 450, null, null, 'synthetic')
 
-elementColor('density', 200, 28, 0)
-elementColor('heat_capacity', 50, 1.5, -10)
-elementColor('melting', 0, 3800, 0)
-elementColor('boiling', 0, 6000, 0)
-elementColor('electronegativity', 185, 4, 1)
-elementColor('ionization', 251, 24, 4)
+elementType('atomic_mass', null, null, null, 'u')
+elementType('density', 200, 28, 0, 'g/cm³')
+elementType('heat_capacity', 50, 1.5, -10, 'J/g ⋅ K')
+elementType('melting', 0, 3800, 0, 'K')
+elementType('boiling', 0, 6000, 0, 'K')
+elementType('electronegativity', 185, 4, 1, '')
+elementType('ionization', 251, 24, 4, 'eV')
+elementType('abundance', null, null, null, 'mg/kg')
+
+function element(atomic_number, symbol, name, atomic_mass, type, period, group, config, electronegativity, ionization, density, melting, boiling, heat_capacity, abundance, origin) {
+    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, group: group, config: config, electronegativity: electronegativity, ionization: ionization, density: density, melting: melting, boiling: boiling, heat_capacity: heat_capacity, abundance: abundance, origin: origin });
+}
+
+function elementType(type, hue, h_value, l_value, unit) {
+    elementsTypes.set(type, { hue: hue, h_value: h_value, l_value: l_value, unit: unit })
+}
 
 let periodicPeriod = 9;
 let periodicGroup = 18;
-
-function element(atomic_number, symbol, name, atomic_mass, type, period, group, config, negativity, ionization, density, melting, boiling, heat_capacity, abundance, origin) {
-    elements.set(symbol, { atomic_number: atomic_number, name: name, atomic_mass: atomic_mass, type: type, period: period, group: group, config: config, negativity: negativity, ionization: ionization, density: density, melting: melting, boiling: boiling, heat_capacity: heat_capacity, abundance: abundance, origin: origin });
-}
-
-function elementColor(type, hue, h_value, l_value) {
-    elementsColor.set(type, { hue: hue, h_value: h_value, l_value: l_value })
-}
 
 let PagePeriodicContent = [];
 for (let i = 0; i <= periodicPeriod; i++) {
@@ -482,17 +482,14 @@ for (let i = 0; i <= periodicPeriod; i++) {
     }
     PagePeriodicContent.push(`</ul>`)
 }
+main.replace("PagePeriodic", PagePeriodicContent)
 
-PagePeriodic.innerHTML = PagePeriodicContent.join("");
-
-for (let i = 1; i < periodicPeriod - 1; i++) {
-    let periodicPeriodSquare = document.getElementById(`Periodic-Period${i}-Group0`)
-    periodicPeriodSquare.innerHTML = `<small class="period-number">${i}</small>`
+for (let i = 1; i <= periodicPeriod - 2; i++) {
+    main.replace(`Periodic-Period${i}-Group0`, `<small class="period-number">${i}</small>`)
 }
 
-for (let i = 1; i < periodicGroup + 1; i++) {
-    let periodicGroupSquare = document.getElementById(`Periodic-Period0-Group${i}`)
-    periodicGroupSquare.innerHTML = `<small class="group-number">${i}</small>`
+for (let i = 1; i <= periodicGroup; i++) {
+    main.replace(`Periodic-Period0-Group${i}`, `<small class="group-number">${i}</small>`)
 }
 
 function elementText(atomic_number, key, name, l, la, d) {
@@ -512,7 +509,6 @@ function elementTableRow(e, isL, l, s) {
     }
     return r
 }
-let PagePeriodicInfo = document.getElementById("PagePeriodicInfo");
 
 function getConfigType(elementMapGroup, elementMapPeriod) {
     let configType = ''
@@ -538,76 +534,103 @@ function getConfigType(elementMapGroup, elementMapPeriod) {
 elements.forEach((value, key) => {
     let elementMap = elements.get(key);
     let periodSquareID = `Periodic-Period${elementMap.period}-Group${elementMap.group}`
-    let periodSquare = document.getElementById(periodSquareID);
 
     main.change(periodSquareID, true, 'chemical-element')
     main.change(periodSquareID, true, `element-${elementMap.atomic_number}`)
     main.change(periodSquareID, true, `${elementMap.type}`)
     main.change(periodSquareID, true, `${getConfigType(elementMap.group, elementMap.period)}-block`)
 
-    let periodSquareContent = elementText(elementMap.atomic_number, key, elementMap.name, '', 'lang', '');
-    periodSquare.innerHTML = periodSquareContent
+    let periodSquareContent = `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element${elementMap.atomic_number}-Data" class="element-atomic-mass"></small>`
+    main.replace(periodSquareID, periodSquareContent)
 
+    let periodSquare = document.getElementById(periodSquareID);
     periodSquare.onclick = function () { changeElementPage(key); };
 })
 
-PagePeriodicInfo.innerHTML = `<div id="periodicInfoElementSquare" class="periodic-square display-square chemical-element"></div><ul id="periodicInfoElementTable" class="periodic table-container"></ul>`;
+let PagePeriodicInfoContent = `<div id="Periodic-Info-ElementSquare" class="periodic-square display-square chemical-element"></div><ul id="Periodic-Info-ElementTable" class="periodic table-container"></ul>`;
+main.replace("PagePeriodicInfo", PagePeriodicInfoContent)
 
-let PagePeriodicInfoElementTable = document.getElementById("periodicInfoElementTable");
+let elementInfoRows = [
+    "atomic_number",
+    "symbol",
+    "name",
+    "atomic_mass",
+    "group",
+    "block",
+    "config",
+    "density",
+    "melting",
+    "boiling",
+    "heat_capacity",
+    "electronegativity",
+    "ionization",
+    "abundance"
+]
+
+let PeriodicInfoElementTableRows = []
+elementInfoRows.forEach((e, i) => {
+    PeriodicInfoElementTableRows[i] = `<li id="Periodic-Info-${e}" class="table-row"><small class="lang table-el" name="tools.element.${e}"></small><small id="Periodic-Info-${e}-Data" class="table-el-desc"></small></li>`
+})
+main.replace("Periodic-Info-ElementTable", PeriodicInfoElementTableRows)
 
 let lastElementDisplay = ''
 let lastType = 'non_metal'
-let lastConfigType = 's'
-
+let lastConfigType = 's-block'
 let currentElementDisplayed = 'He'
 function updateElementPage(name, display) {
+    let squareName = "Periodic-Info-ElementSquare"
     let elementMap = elements.get(name);
     let elementType = elementMap.type;
     let elementConfig = getConfigType(elementMap.group, elementMap.period) + '-block';
+    let displayActive = false
     if (display) {
         if (lastElementDisplay !== name) {
-            let periodSquareCE = document.getElementById("periodicInfoElementSquare");
-            periodSquareCE.innerHTML = elementText(elementMap.atomic_number, name, elementMap.name, ' element-info', 'lang lang-element', '-Info');
-            let periodSquareCED = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data-Info`)
-            let data = getElementData(elementMap)
+            let content = `<small class="element-atomic-number element-info">${elementMap.atomic_number}</small><b class="element-symbol element-info">${name}</b><abbr class="lang lang-element element-name element-info" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element-Data-Info" class="element-atomic-mass element-info"></small>`
+            main.replace(squareName, content)
+            main.replace(`Periodic-Element-Data-Info`, getElementData(name))
+            elementInfoRows.forEach((e) => {
+                let elementTypeMap = elementsTypes.get(e)
+                let elementUnit = ''
+                if (elementTypeMap != undefined) {
+                    elementUnit = ' ' + elementTypeMap.unit
+                }
+                let elementTypeData = getElementData(name, e)
+                let hideRow = false
+                if (elementTypeData != null) {
+                    let elementTypeDataLang = getElementData(name, e, true)
+                    let attr = undefined
+                    let pr_attr = ''
+                    if (elementTypeDataLang) {
+                        attr = 'name'
+                        pr_attr = 'tools.element.'
+                        main.change(`Periodic-Info-${e}-Data`, true, 'lang')
+                        main.change(`Periodic-Info-${e}-Data`, true, 'lang-element')
+                    }
+                    main.replace(`Periodic-Info-${e}-Data`, pr_attr + elementTypeData + elementUnit, attr)
+                } else {
+                    hideRow = true
+                }
+                main.change(`Periodic-Info-${e}`, hideRow, 'hidden')
+            })
 
-            replaceColorStyleInfo(name)
+            replaceColor(name, squareName)
             currentElementDisplayed = name
-            periodSquareCED.innerHTML = data;
-            let PagePeriodicInfoElementTableRows = [
-                elementTableRow('atomic_number', false, elementMap.atomic_number, ''),
-                elementTableRow('symbol', false, name, ''),
-                elementTableRow('name', true, elementMap.name, ''),
-                elementTableRow('atomic_mass', false, elementMap.atomic_mass, ' u'),
-                elementTableRow('group', true, elementMap.type, ''),
-                elementTableRow('block', false, getConfigType(elementMap.group, elementMap.period), ''),
-                elementTableRow('config', false, elementMap.config, ''),
-                elementTableRow('density', false, elementMap.density, ' g/cm³'),
-                elementTableRow('melting', false, elementMap.melting, ' K'),
-                elementTableRow('boiling', false, elementMap.boiling, ' K'),
-                elementTableRow('heat_capacity', false, elementMap.heat_capacity, ' J/g ⋅ K'),
-                elementTableRow('electronegativity', false, elementMap.negativity, ''),
-                elementTableRow('ionization', false, elementMap.ionization, ' eV'),
-                elementTableRow('abundance', false, elementMap.abundance, 'mg/kg'),
-            ]
-            PagePeriodicInfoElementTable.innerHTML = PagePeriodicInfoElementTableRows.join("");
             main.updateIn('lang-element');
             lastElementDisplay = name
         }
         if (lastType !== elementType) {
-            main.change("periodicInfoElementSquare", false, lastType)
+            main.change(squareName, false, lastType)
             lastType = elementType
         }
         if (lastConfigType !== elementConfig) {
-            main.change("periodicInfoElementSquare", false, lastConfigType)
+            main.change(squareName, false, lastConfigType)
             lastConfigType = elementConfig
         }
-        main.change("periodicInfoElementSquare", true, elementType)
-        main.change("periodicInfoElementSquare", true, elementConfig)
-        main.change("PagePeriodicInfoContainer", true)
-    } else {
-        main.change("PagePeriodicInfoContainer", false)
+        main.change(squareName, true, elementType)
+        main.change(squareName, true, elementConfig)
+        displayActive = true
     }
+    main.change("PagePeriodicInfoContainer", displayActive)
 }
 
 let currentElement = ''
@@ -653,9 +676,11 @@ let periodicStates = [
 
 let periodicPageSL = document.getElementById("changePeriodicType");
 
-periodicStates.forEach((e) => {
-    periodicPageSL.insertAdjacentHTML("beforeend", `<option value="${e}" class="lang lang-periodic" name="tools.element.${e}"></option>`)
+let periodicStatesContent = []
+periodicStates.forEach((e, i) => {
+    periodicStatesContent[i] = `<option value="${e}" class="lang lang-periodic" name="tools.element.${e}"></option>`
 })
+main.replace("changePeriodicType", periodicStatesContent)
 
 export var periodicPage = sessionStorage.getItem("savedPeriodicType");
 if (periodicPage == null) {
@@ -675,90 +700,92 @@ function updatePeriodicPage() {
         main.change("PagePeriodicInfo", false, lastPeriodicPage2)
         lastPeriodicPage2 = periodicPage
     }
+    main.change("PagePeriodic", true, periodicPage)
     main.change("PagePeriodicInfo", true, periodicPage)
 
-    main.change("PagePeriodic", true, periodicPage)
     elements.forEach((value, key) => {
         let elementMap = elements.get(key);
-        let element = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data`)
-        let element2 = document.getElementById(`Periodic-Element${elementMap.atomic_number}-Data-Info`)
-
-        let data = getElementData(elementMap);
-        element.innerHTML = data;
-        if (element2 !== null) {
-            element2.innerHTML = data;
-        }
+        main.replace(`Periodic-Element${elementMap.atomic_number}-Data`, getElementData(key))
     })
+    main.replace(`Periodic-Element-Data-Info`, getElementData(currentElementDisplayed))
 
     replaceColorStyle()
 }
 updatePeriodicPage()
 
-function getElementData(elementMap) {
+function getElementData(key, element, l) {
+    let elementMap = elements.get(key)
     let data = ''
-    if (periodicPage == 'group') {
-        data = elementMap.atomic_mass
-    } else if (periodicPage == 'config') {
-        data = elementMap.config
-        if (elementMap.period >= 2) {
-            data = elementMap.config.slice(4)
+    let output = data;
+    if (l) {
+        output = false;
+        if (element == 'group' || element == 'block' || element == 'name') {
+            output = true
         }
-    } else if (periodicPage == 'electronegativity') {
-        data = elementMap.negativity;
     } else {
-        data = elementMap[periodicPage]
+        if (element == undefined) {
+            data = elementMap[periodicPage]
+            if (periodicPage == 'group') {
+                data = elementMap.atomic_mass
+            } else if (periodicPage == 'config') {
+                data = elementMap.config
+                if (elementMap.period >= 2) {
+                    data = elementMap.config.slice(4)
+                }
+            }
+        } else {
+            data = elementMap[element]
+            if (element == 'group') {
+                data = elementMap.type
+            } else if (element == 'block') {
+                data = getConfigType(elementMap.group, elementMap.period)
+            } else if (element == 'symbol') {
+                data = key
+            }
+        }
+        output = data
+
+        console.log(data)
     }
 
-    return data
+    return output
+}
+
+function replaceColor(key, square) {
+    let theme = localStorage.getItem("savedMode");
+    let data = getElementData(key);
+    let color = getElementColor(theme, data);
+    main.replace(square, color, 'style')
+
+    let addClass = getElementColor(theme, data, true);
+    main.change(square, addClass, 'opposite');
 }
 
 function replaceColorStyle() {
-    let theme = localStorage.getItem("savedMode");
     elements.forEach((value, key) => {
         let elementMap = elements.get(key);
-        let elementSquare = document.getElementById(`Periodic-Period${elementMap.period}-Group${elementMap.group}`)
-        let elementSquare2 = document.getElementById(`periodicInfoElementSquare`)
-        let data = getElementData(elementMap);
-        let color = getElementColor(theme, data)
-        elementSquare.setAttribute("style", color)
-        if (elementSquare2 !== null) {
-            elementSquare2.setAttribute("style", color)
-        }
-
-        let addClass = getElementColor(theme, data, true)
-        main.change(`Periodic-Period${elementMap.period}-Group${elementMap.group}`, addClass, 'opposite')
+        replaceColor(key, `Periodic-Period${elementMap.period}-Group${elementMap.group}`)
     })
-    replaceColorStyleInfo(currentElementDisplayed);
+    replaceColor(currentElementDisplayed, `Periodic-Info-ElementSquare`);
 }
-
-function replaceColorStyleInfo(name) {
-    let elementMap = elements.get(name);
-    let data = getElementData(elementMap)
-    let currentSquare = document.getElementById(`Periodic-Period${elementMap.period}-Group${elementMap.group}`)
-    let periodSquareCE = document.getElementById(`periodicInfoElementSquare`)
-    periodSquareCE.setAttribute('style', currentSquare.getAttribute("style"))
-
-    let isOpp = getElementColor(localStorage.getItem("savedMode"), data, true)
-    main.change("periodicInfoElementSquare", isOpp, 'opposite')
-}
-
 window.replaceColorStyle = replaceColorStyle;
 
 function getElementColor(theme, value, l) {
-    let elementCMap = elementsColor.get(periodicPage)
+    let elementCMap = elementsTypes.get(periodicPage)
     let color = '';
     let textColor = false
+    let concap = 35;
     if (elementCMap !== undefined) {
         if (elementCMap.h_value !== undefined) {
             let calc = (100 * value - elementCMap.l_value) / elementCMap.h_value - elementCMap.l_value;
             let calc2 = calc
             if (theme == 'mode.light') {
                 calc2 = 100 - calc
-                if (calc2 < 35) {
+                if (calc2 < concap) {
                     textColor = true
                 }
             } else {
-                if (calc2 > 20) {
+                if (calc2 > 100 - concap) {
                     textColor = true
                 }
             }

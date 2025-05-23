@@ -174,11 +174,11 @@ let converterRows = [
 ]
 
 function unitOption(name, suffix, langsuffix) {
-    return `<option value="${name}" class="lang${langsuffix}" name="tools.unit.${name}${suffix}"></option>`
+    return `<option value="${name}" class="lang${langsuffix}" name="unit.${name}${suffix}"></option>`
 }
 
 function unitGroup(name) {
-    return `<optgroup class="lang lang-unit converter-select-group-${name}" name="tools.unit.${name}"></optgroup>`
+    return `<optgroup class="lang lang-unit converter-select-group-${name}" name="unit.${name}"></optgroup>`
 }
 
 let converterPageSLContent = []
@@ -538,7 +538,7 @@ elements.forEach((value, key) => {
     main.change(periodSquareID, true, `${elementMap.type}`)
     main.change(periodSquareID, true, `${getConfigType(elementMap.group, elementMap.period)}-block`)
 
-    let periodSquareContent = `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element${elementMap.atomic_number}-Data" class="element-atomic-mass"></small>`
+    let periodSquareContent = `<small class="element-atomic-number">${elementMap.atomic_number}</small><b class="element-symbol">${key}</b><abbr class="lang element-name" name="element.${elementMap.name}"></abbr><small id="Periodic-Element${elementMap.atomic_number}-Data" class="element-atomic-mass"></small>`
     main.replace(periodSquareID, periodSquareContent)
 
     let periodSquare = document.getElementById(periodSquareID);
@@ -567,7 +567,7 @@ let elementInfoRows = [
 
 let PeriodicInfoElementTableRows = []
 elementInfoRows.forEach((e, i) => {
-    PeriodicInfoElementTableRows[i] = `<li id="Periodic-Info-${e}" class="table-row"><small class="lang table-el" name="tools.element.${e}"></small><small id="Periodic-Info-${e}-Data" class="table-el-desc"></small></li>`
+    PeriodicInfoElementTableRows[i] = `<li id="Periodic-Info-${e}" class="table-row"><small class="lang table-el" name="element.${e}"></small><small id="Periodic-Info-${e}-Data" class="table-el-desc"></small></li>`
 })
 main.replace("Periodic-Info-ElementTable", PeriodicInfoElementTableRows)
 
@@ -583,7 +583,7 @@ function updateElementPage(name, display) {
     let displayActive = false
     if (display) {
         if (lastElementDisplay !== name) {
-            let content = `<small class="element-atomic-number element-info">${elementMap.atomic_number}</small><b class="element-symbol element-info">${name}</b><abbr class="lang lang-element element-name element-info" name="tools.element.${elementMap.name}"></abbr><small id="Periodic-Element-Data-Info" class="element-atomic-mass element-info"></small>`
+            let content = `<small class="element-atomic-number element-info">${elementMap.atomic_number}</small><b class="element-symbol element-info">${name}</b><abbr class="lang lang-element element-name element-info" name="element.${elementMap.name}"></abbr><small id="Periodic-Element-Data-Info" class="element-atomic-mass element-info"></small>`
             main.replace(squareName, content)
             main.replace(`Periodic-Element-Data-Info`, getElementData(name))
             elementInfoRows.forEach((e) => {
@@ -600,7 +600,7 @@ function updateElementPage(name, display) {
                     let pr_attr = ''
                     if (elementTypeDataLang) {
                         attr = 'name'
-                        pr_attr = 'tools.element.'
+                        pr_attr = 'element.'
                         main.change(`Periodic-Info-${e}-Data`, true, 'lang')
                         main.change(`Periodic-Info-${e}-Data`, true, 'lang-element')
                     }
@@ -678,7 +678,7 @@ let periodicPageSL = document.getElementById("changePeriodicType");
 
 let periodicStatesContent = []
 periodicStates.forEach((e, i) => {
-    periodicStatesContent[i] = `<option value="${e}" class="lang lang-periodic" name="tools.element.${e}"></option>`
+    periodicStatesContent[i] = `<option value="${e}" class="lang lang-periodic" name="element.${e}"></option>`
 })
 main.replace("changePeriodicType", periodicStatesContent)
 

@@ -453,14 +453,14 @@ element(116, 'Lv', 'livermorium', 293.205, 'unknown', 7, 16, '[Rn] 7s² 5f¹⁴ 
 element(117, 'Ts', 'tennessine', 294.211, 'unknown', 7, 17, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁵', null, null, 7.2, 700, 883, null, null, 'synthetic')
 element(118, 'Og', 'oganesson', 295.216, 'unknown', 7, 18, '[Rn] 7s² 5f¹⁴ 6d¹⁰ 7p⁶', null, null, 7, 325, 450, null, null, 'synthetic')
 
-elementType('atomic_mass', 100, 300, 0, 'u')
+elementType('atomic_mass', 100, 300, 10, 'u')
 elementType('density', 200, 28, 0, 'g/cm³')
-elementType('config', 160, 14, 1, '')
+elementType('config', 160, 14, 0, '')
 elementType('heat_capacity', 50, 1.5, 0, 'J/g ⋅ K')
-elementType('melting', 0, 4000, 0, 'K')
-elementType('boiling', 0, 6000, 0, 'K')
-elementType('electronegativity', 185, 4, 1, '')
-elementType('ionization', 251, 24, 4, 'eV')
+elementType('melting', 0, 4000, 100, 'K')
+elementType('boiling', 0, 6000, 100, 'K')
+elementType('electronegativity', 185, 4, 0.5, '')
+elementType('ionization', 251, 24, 3.5, 'eV')
 elementType('abundance', null, null, null, 'mg/kg')
 
 function element(atomic_number, symbol, name, atomic_mass, type, period, group, config, electronegativity, ionization, density, melting, boiling, heat_capacity, abundance, origin) {
@@ -786,7 +786,7 @@ function getElementColor(theme, value, l) {
                 })
                 value = getNumberFromExp(valueT.join(""))
             }
-            let calc = (100 * value - elementCMap.l_value) / elementCMap.h_value - elementCMap.l_value;
+            let calc = ((100 * (value - elementCMap.l_value)) / (elementCMap.h_value - elementCMap.l_value));
             let calc2 = calc
             if (theme == 'mode.light') {
                 calc2 = 100 - calc
@@ -798,7 +798,7 @@ function getElementColor(theme, value, l) {
                     textColor = true
                 }
             }
-            color = `--elbg: hsl(${elementCMap.hue}, ${calc}%, ${calc2}%);`
+            color = `--elbg: hsl(${elementCMap.hue}, ${calc.toFixed(2)}%, ${calc2.toFixed(2)}%);`
         }
     }
     let output = color;

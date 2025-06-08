@@ -12,7 +12,8 @@ let pages = [
     "tools",
     "tools.unit-converter",
     "tools.periodic-table",
-    "tools.molecular-calculator",
+    "guides",
+    "guides.install-minecraft",
     "about"
 ]
 
@@ -308,12 +309,15 @@ updateTitle();
 
 updateIn("svg");
 
+let oldLang = lang;
 function updateLang() {
     changeLangSL.value = lang;
     updateTitle();
     updateIn("lang");
+    change("main", false, oldLang);
+    oldLang = lang;
+    change("main", true, lang);
 }
-updateLang();
 
 function updateMode() {
     let e = document.getElementById("main");
@@ -327,6 +331,7 @@ function updateMode() {
     replaceHTML(changeModeBT, getSvg(mode));
 }
 updateMode();
+updateLang();
 
 function toggleMenu() {
     if (menu == "menu.hide") {

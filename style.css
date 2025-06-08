@@ -36,6 +36,14 @@
     --p: 10%;
 }
 
+.en {
+    --lang: 'en';
+}
+
+.fr {
+    --lang: 'fr';
+}
+
 body {
     height: 500px;
     background-color: var(--bg);
@@ -175,6 +183,13 @@ p {
     padding: 0.5em;
 }
 
+.container-text {
+    position: relative;
+    background-color: var(--no);
+    padding-top: 0.1em;
+    padding-bottom: 0.1em;
+}
+
 .container-top {
     position: relative;
     margin: 0;
@@ -271,6 +286,10 @@ p {
     width: 100%;
     overflow-y: hidden;
     overflow-x: auto;
+}
+
+img {
+    max-width: 100%;
 }
 
 .flex-column {
@@ -563,6 +582,64 @@ ul.menu {
     background-color: var(--bg);
 }
 
+.icon {
+    --img: url();
+    background-repeat: no-repeat;
+    padding-left: 1.5em;
+    display: block;
+
+    &.prism-launcher {
+        --img: url('./img/prism_launcher.svg');
+    }
+
+    &.polymc {
+        --img: url('./img/polymc.svg');
+    }
+
+    &.java-icon {
+        --img: url('./img/java_icon.svg');
+    }
+
+
+    background-image: var(--img);
+}
+
+.icon-img {
+    height: 1.5em;
+    width: 1.5em;
+}
+
+h3 {
+    margin-bottom: 0.6em;
+}
+
+.p3 {
+    margin-top: 0.6em;
+}
+
+h4 {
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
+    margin-left: 0.5em;
+}
+
+.p4 {
+    font-size: 0.95em;
+    margin-left: 0.5em;
+}
+
+a {
+    color: var(--fs);
+
+    &:hover {
+        color: var(--fg);
+    }
+}
+
+br {
+    margin: 0.1em;
+}
+
 li {
     &.navigator {
         padding: 0.92em 0;
@@ -599,6 +676,20 @@ li {
 
 li.sep {
     padding: 0.3em 0.5em;
+}
+
+.text-list {
+    margin-left: -1em;
+
+    & li {
+        margin-top: 0.4em;
+
+    }
+
+    & li a {
+        text-decoration: underline;
+        padding: 0.5em;
+    }
 }
 
 .selected {

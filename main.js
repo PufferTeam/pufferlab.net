@@ -51,6 +51,15 @@ export function replace(id, value, label, insertOrder) {
     }
 }
 
+function contains(list, word) {
+    for(let i = 0; i < list.length; i++) {
+        if(list[i] == word) {
+            return true;
+        }
+    }
+    return false;
+}
+
 let subPages = [];
 let PageNavContent = [];
 let PageMenuContent = [];
@@ -64,7 +73,7 @@ for (let i = 0; i < pages.length; i++) {
         PageNavContent.push(`<li class="navigator"><a href="?${e}" id="${e}" class="lang navlink" name="${e}" onclick="changePage('${e}')"></a></li>`);
         PageMenuContent.push(`<li class="menu"><a href="?${e}" id="${e}Menu" class="lang menu navlink" name="${e}" onclick="changePage('${e}')"></a></li>`);
 
-        if (subPages.includes(e)) {
+        if (contains(subPages, e)) {
             PageMenuContent.push(`<li class="menu"><ul id="${e}PageMenu" class="sub page overlay nav menu set">`)
         }
     }
@@ -170,7 +179,7 @@ function updatePageClass(page, show) {
 }
 
 function updatePage() {
-    if (!validPages.includes(page)) {
+    if (!contains(validPages, page)) {
         page = "error";
     }
     for (let i = 0; i < validPages.length; i++) {
@@ -185,8 +194,8 @@ function updatePage() {
 function changePage(pg) {
     if (page != pg) {
         page = pg;
-        loadPage();
         changeURL();
+        loadPage();
         updatePage();
         updateTitle();
     }
@@ -242,13 +251,13 @@ export var svgFile = sendJSONRequest("svg");
 export var linkFile = sendJSONRequest("link");
 
 function loadPage() {
-    if (!pagesVisited.includes(page)) {
+    if (!contains(pagesVisited, page) && contains(pages, page)) {
         pagesVisited.push(page);
         let htmlC = sendHTMLRequest('/pages/' + page)
         let el = document.getElementById(page + 'Page');
         el.innerHTML = htmlC;
-        if(pagesJS.includes(page)) {
-            loadScript('/pages/' + page + ".js");
+        if (contains(pagesJS, page)) {
+            loadScript('/pages/' + page);
         }
         updateIn("lang");
     }
@@ -257,7 +266,7 @@ loadPage();
 
 function loadScript(src) {
     const script = document.createElement('script');
-    script.src = src;
+    script.src = src + ".js";
     script.type = "module";
     document.head.appendChild(script);
     return new Promise((resolve, reject) => {
@@ -303,7 +312,8 @@ export function getLang(key) {
 }
 
 function hasClass(e, cl) {
-    if(e.getAttribute("class").includes(cl) && !e.getAttribute("class").includes("navlink")) {
+    let at = e.getAttribute("class").split(" ");
+    if (contains(at, cl)) {
         return true;
     }
     return false;
@@ -334,7 +344,7 @@ export function updateIn(cl) {
             replaceHTML(e, getSvg(r));
         } else {
             replaceHTML(e, getLang(r), re);
-            if(hasClass(e, "link")) {
+            if (hasClass(e, "link")) {
                 replace(e, getLink(r), undefined, "beforeend");
             }
             if (rs[1] !== undefined) {
@@ -434,6 +444,9 @@ function changeMode() {
     }
     localStorage.setItem("savedMode", mode);
     updateMode();
+    if (contains(pagesVisited, "tools.periodic-table")) {
+        replaceColorStyle();
+    }
 }
 window.changeMode = changeMode;
 

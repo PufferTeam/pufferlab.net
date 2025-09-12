@@ -9,6 +9,7 @@
     --ns: #cccccc;
     --na: #bfbfbf;
     --p: 90%;
+    --bp: 70%;
 }
 
 .page {
@@ -34,6 +35,7 @@
     --ns: #404040;
     --na: #4d4d4d;
     --p: 10%;
+    --bp: 30%;
 }
 
 .en {
@@ -68,6 +70,7 @@ body {
     right: 0;
     height: 100%;
     width: 100%;
+    backdrop-filter: brightness(var(--bp));
     z-index: 2;
 }
 
@@ -590,15 +593,15 @@ ul.menu {
     font-size: 1em;
 
     &.prism-launcher {
-        --img: url('./img/prism_launcher.svg');
+        --img: url('/img/prism_launcher.svg');
     }
 
     &.polymc {
-        --img: url('./img/polymc.svg');
+        --img: url('/img/polymc.svg');
     }
 
     &.java-icon {
-        --img: url('./img/java_icon.svg');
+        --img: url('/img/java_icon.svg');
     }
 
 

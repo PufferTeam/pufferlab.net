@@ -1,5 +1,3 @@
-import * as tools from "./tools.js";
-
 export var page = "home";
 
 let hiddenPages = [
@@ -16,6 +14,13 @@ let pages = [
     "guides.install-minecraft",
     "about"
 ]
+
+let pagesJS = [
+    "tools.unit-converter",
+    "tools.periodic-table"
+];
+
+let pagesVisited = [];
 
 export const validPages = [
 ];
@@ -49,6 +54,7 @@ export function replace(id, value, label, insertOrder) {
 let subPages = [];
 let PageNavContent = [];
 let PageMenuContent = [];
+let PageMainContent = [];
 for (let i = 0; i < pages.length; i++) {
 
     let e = pages[i];
@@ -77,10 +83,13 @@ for (let i = 0; i < pages.length; i++) {
             subPages.push(r);
         }
     }
+
+    PageMainContent.push(`<div id="${e}Page" class="page"></div>`)
 };
 
 replace("PageNav", PageNavContent)
 replace("PageMenu", PageMenuContent)
+replace("pages", PageMainContent)
 
 export function capitalize(str) {
     let e = str.split("");
@@ -93,6 +102,7 @@ export function capitalize(str) {
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
 var toggleMenuBT = document.getElementById("toggleMenu");
+var reloadingFixSC = document.getElementById("reloadingFix");
 
 var defaultElements = document.getElementsByClassName("default");
 for (let i = 0; i < defaultElements.length; i++) {
@@ -175,6 +185,7 @@ function updatePage() {
 function changePage(pg) {
     if (page != pg) {
         page = pg;
+        loadPage();
         changeURL();
         updatePage();
         updateTitle();
@@ -210,7 +221,7 @@ if (lang == null) {
 
 export var menu = "menu.hide";
 
-function sendRequest(name) {
+function sendJSONRequest(name) {
     let request = new XMLHttpRequest();
     request.open("GET", name + ".json", false);
     request.send(null);
@@ -219,8 +230,41 @@ function sendRequest(name) {
     return o;
 }
 
-export var langFile = sendRequest("lang");
-export var svgFile = sendRequest("svg");
+function sendHTMLRequest(name) {
+    let request = new XMLHttpRequest();
+    request.open("GET", name + ".html", false);
+    request.send(null);
+    return request.responseText;
+}
+
+export var langFile = sendJSONRequest("lang");
+export var svgFile = sendJSONRequest("svg");
+export var linkFile = sendJSONRequest("link");
+
+function loadPage() {
+    if (!pagesVisited.includes(page)) {
+        pagesVisited.push(page);
+        let htmlC = sendHTMLRequest('/pages/' + page)
+        let el = document.getElementById(page + 'Page');
+        el.innerHTML = htmlC;
+        if(pagesJS.includes(page)) {
+            loadScript('/pages/' + page + ".js");
+        }
+        updateIn("lang");
+    }
+}
+loadPage();
+
+function loadScript(src) {
+    const script = document.createElement('script');
+    script.src = src;
+    script.type = "module";
+    document.head.appendChild(script);
+    return new Promise((resolve, reject) => {
+        script.onload = resolve;
+        script.onerror = reject;
+    });
+}
 
 const svgStates = ["normal", "hover"];
 
@@ -238,6 +282,15 @@ function getSvg(key) {
     return svgO;
 }
 
+export function getLink(key) {
+    let fKey = linkFile[key];
+    if (fKey == undefined) {
+        return null;
+    }
+    let element = `<a href=${fKey} target='_blank' class='lang' name='download'></a>`;
+    return element;
+}
+
 export function getLang(key) {
     let fKey = langFile[lang][key];
     if (fKey == undefined) {
@@ -247,6 +300,13 @@ export function getLang(key) {
         fKey = key
     }
     return fKey;
+}
+
+function hasClass(e, cl) {
+    if(e.getAttribute("class").includes(cl) && !e.getAttribute("class").includes("navlink")) {
+        return true;
+    }
+    return false;
 }
 
 function replaceHTML(e, i, c) {
@@ -274,6 +334,9 @@ export function updateIn(cl) {
             replaceHTML(e, getSvg(r));
         } else {
             replaceHTML(e, getLang(r), re);
+            if(hasClass(e, "link")) {
+                replace(e, getLink(r), undefined, "beforeend");
+            }
             if (rs[1] !== undefined) {
                 replaceHTML(e, getLang(rs[0]) + `${rs[1]}`, re);
             }
@@ -382,4 +445,4 @@ subOverlay.addEventListener("click", function () {
     }
 });
 
-window.tools = tools;
+reloadingFixSC.innerHTML = "";

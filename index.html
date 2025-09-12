@@ -11,10 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
+    <script src="/main.js" type="module"></script>
 </head>
 
 <body id="main" class="site">
-    <script>var mode = localStorage.getItem("savedMode");
+    <script id="reloadingFix">var mode = localStorage.getItem("savedMode");
         let e = document.getElementById("main");
         if (mode == "mode.dark") {
             e.style.backgroundColor = "#0d0d0d";
@@ -69,78 +70,7 @@
         </div>
     </header>
     <main id="pages" class="pages">
-        <div id="errorPage" class="page">
-            <h2 class="lang" name="error"></h2>
-            <p class="lang" name="error.desc"></p>
-        </div>
-        <div id="homePage" class="page default">
-            <h2 class="lang" name="home"></h2>
-            <p class="lang" name="home.desc"></p>
-            <p class="lang" name="home.p1"></p>
-        </div>
-        <div id="toolsPage" class="page">
-            <h2 class="lang" name="tools"></h2>
-            <p class="lang" name="tools.desc"></p>
-        </div>
-        <div id="tools.unit-converterPage" class="page">
-            <h2 class="lang" name="tools.unit-converter"></h2>
-            <p class="lang" name="tools.unit-converter.desc"></p>
-            <div class="converter container container-set">
-                <select name="converterSL" id="changeUnit" class="trigger select in row"
-                    onchange="changeConverterPage()">
-                </select>
-                <div id="PageConverter">
-                </div>
-            </div>
-        </div>
-        </div>
-        <div id="tools.periodic-tablePage" class="page">
-            <h2 class="lang" name="tools.periodic-table"></h2>
-            <p class="lang" name="tools.periodic-table.desc"></p>
-            <div class="periodic scroll container-top">
-                <div id="PagePeriodicInfoContainer" class="page">
-                    <div id="PagePeriodicInfo" class="flex-in-row group">
-                    </div>
-                </div>
-            </div>
-            <div class="periodic container container-top container-set">
-                <select name="periodicSL" id="changePeriodicType" class="periodic trigger select in row"
-                    onchange="changePeriodicPage()">
-                </select>
-            </div>
-            <div class="periodic scroll">
-                <div class="periodic container">
-                    <div id="PagePeriodic" class="periodic-table">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div id="tools.molecular-calculatorPage" class="page">
-            <h2 class="lang" name="tools.molecular-calculator"></h2>
-            <p class="lang" name="tools.molecular-calculator.desc"></p>
-            <div class="molecular container container-set">
-            </div>
-        </div>
-        <div id="guidesPage" class="page">
-            <h2 class="lang" name="guides"></h2>
-            <p class="lang" name="guides.desc"></p>
-        </div>
-        <div id="guides.install-minecraftPage" class="page">
-            <h2 class="lang" name="guides.install-minecraft"></h2>
-            <p class="lang" name="guides.install-minecraft.desc"></p>
-            <h3 class="lang" name="guides.install-minecraft.step-1"></h3>
-            <p class="lang p3" name="guides.install-minecraft.step-1.desc"></p>
-            <h3 class="lang" name="guides.install-minecraft.step-2"></h3>
-            <p class="lang p3" name="guides.install-minecraft.step-2.desc"></p>
-            <h3 class="lang" name="guides.install-minecraft.step-3"></h3>
-            <p class="lang p3" name="guides.install-minecraft.step-3.desc"></p>
-        </div>
-        <div id="aboutPage" class="page">
-            <h2 class="lang" name="about"></h2>
-            <p class="lang" name="about.desc"></p>
-        </div>
     </main>
-    <script src="/main.js" type="module"></script>
 </body>
 
 </html>

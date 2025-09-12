@@ -1,0 +1,7 @@
+{
+    "guides.install-minecraft.java-21": "https://github.com/adoptium/temurin21-binaries/releases/download/jdk-21.0.7%2B6/OpenJDK21U-jdk_x64_windows_hotspot_21.0.7_6.msi",
+    "guides.install-minecraft.java-17": "https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.15%2B6/OpenJDK17U-jdk_x64_windows_hotspot_17.0.15_6.msi",
+    "guides.install-minecraft.java-8": "https://github.com/adoptium/temurin8-binaries/releases/download/jdk8u452-b09/OpenJDK8U-jdk_x64_windows_hotspot_8u452b09.msi",
+    "guides.install-minecraft.prism-launcher": "https://github.com/PrismLauncher/PrismLauncher/releases/download/9.4/PrismLauncher-Windows-MSVC-Setup-9.4.exe",
+    "guides.install-minecraft.polymc": "https://github.com/PolyMC/PolyMC/releases/download/7.0/PolyMC-Windows-Setup-7.0.exe"
+}

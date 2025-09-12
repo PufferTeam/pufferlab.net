@@ -587,6 +587,7 @@ ul.menu {
     background-repeat: no-repeat;
     padding-left: 1.5em;
     display: block;
+    font-size: 1em;
 
     &.prism-launcher {
         --img: url('./img/prism_launcher.svg');

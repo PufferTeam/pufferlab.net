@@ -95,6 +95,7 @@ for (let i = 0; i < pages.length; i++) {
 
     PageMainContent.push(`<div id="${e}Page" class="page"></div>`)
 };
+PageMainContent.push(`<div id="errorPage" class="page"></div>`)
 
 replace("PageNav", PageNavContent)
 replace("PageMenu", PageMenuContent)
@@ -251,7 +252,7 @@ export var svgFile = sendJSONRequest("svg");
 export var linkFile = sendJSONRequest("link");
 
 function loadPage() {
-    if (!contains(pagesVisited, page) && contains(pages, page)) {
+    if (!contains(pagesVisited, page) && contains(validPages, page)) {
         pagesVisited.push(page);
         let htmlC = sendHTMLRequest('/pages/' + page)
         let el = document.getElementById(page + 'Page');

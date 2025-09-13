@@ -126,3 +126,4 @@ function updateColorPreview() {
     let colorTxt = `--clbg: hsl(${(color).toFixed(2)}, ${(sat * 100).toFixed(2)}%, ${(lig * 100).toFixed(2)}%);`
     main.replace(gSH, colorTxt, 'style');
 }
+updateColorPreview();

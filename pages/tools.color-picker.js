@@ -123,6 +123,6 @@ gCV.addEventListener('click', function (event) {
 function updateColorPreview() {
     let lig = (clickedY / (gCV.height + 66));
     let sat = clickedX / (gCV.width + 66);
-    let colorTxt = `--clbg: hsl(${color}, ${sat * 100}%, ${lig * 100}%);`
+    let colorTxt = `--clbg: hsl(${(color).toFixed(2)}, ${(sat * 100).toFixed(2)}%, ${(lig * 100).toFixed(2)}%);`
     main.replace(gSH, colorTxt, 'style');
 }

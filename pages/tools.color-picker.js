@@ -1,42 +1,59 @@
 import * as main from "/main.js";
 
-let gradientCV = document.getElementById("PagePickerGradient");
-let gradientLineCV = document.getElementById("PagePickerGradientLine");
+let gCV = document.getElementById("PagePickerGradient");
+let glCV = document.getElementById("PagePickerGradientLine");
 
 const hue = 300;
 
-const gc = gradientCV.getContext("2d");
-const glc = gradientLineCV.getContext("2d");
+const gc = gCV.getContext("2d");
+const glc = glCV.getContext("2d");
 
-var gradient = gc.createLinearGradient(0, 0, 0, gradientCV.height);
-const gradientLine = glc.createLinearGradient(0, 0, 0, gradientLineCV.height);
+const glImg = glc.createImageData(glCV.width, glCV.height);
+const glImgData = glImg.data;
 
-function updateLineGradient() {
-    for(let i = 0; i < 360; i++) {
-        let i2 = i / 360;
-        let color = `hsl(${i}, 100%, 50%)`
-        gradientLine.addColorStop(i2, color);
+function generate() {
+    for (let y = 0; y < glCV.height; y++) {
+        let hue = ((y * (255 * 6)) / (glCV.height));
+        let [r, g, b] = getRGB(hue);
+        for (let x = 0; x < glCV.width; x++) {
+            let p = (y * glCV.width + x) * 4;
+            glImgData[p] = r;
+            glImgData[p + 1] = g;
+            glImgData[p + 2] = b;
+            glImgData[p + 3] = 255;
+        }
     }
+
 }
-updateLineGradient();
+generate();
 
-gc.clearRect(0, 0, gradientCV.width, gradientCV.height);
-
-gradient.addColorStop(0, `hsl(${hue}, 50%, 0%)`);
-gradient.addColorStop(1, `hsl(${hue}, 50%, 100%)`);
-
-gc.fillStyle = gradient;
-gc.fillRect(0, 0, gradientCV.width, gradientCV.height);
-
-gradient = gc.createLinearGradient(0, 0, gradientCV.width, 0);
-gradient.addColorStop(0, `hsl(${hue}, 0%, 50%)`);
-gradient.addColorStop(0.5, `hsl(${hue}, 50%, 50%)`);
-gradient.addColorStop(1, `hsl(${hue}, 100%, 50%)`);
-
-gc.fillStyle = gradient;
-gc.globalCompositeOperation = "multiply";
-gc.fillRect(0, 0, gradientCV.width, gradientCV.height);
-gc.globalCompositeOperation = "source-over";
-
-glc.fillStyle = gradientLine;
-glc.fillRect(0, 0, gradientLineCV.width, gradientLineCV.height);
+function getRGB(hue) {
+    let a = Math.floor(hue / 255);
+    let c = hue % 255;
+    let p = a % 2;
+    let e = c;
+    if(p == 1) {
+        e = 255 - c;
+    }
+    let rgb = [0, 0, 0];
+    if(a == 0) {
+        rgb = [255, e, 0];
+    }
+    if(a == 1) {
+        rgb = [e, 255, 0];
+    }
+    if(a == 2) {
+        rgb = [0, 255, e];
+    }
+    if(a == 3) {
+        rgb = [0, e, 255];
+    }
+    if(a == 4) {
+        rgb = [e, 0, 255];
+    }
+    if(a == 5) {
+        rgb = [255, 0, e];
+    }
+    return[rgb[0], rgb[1], rgb[2]]
+}
+glc.putImageData(glImg, 0, 0);

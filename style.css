@@ -9,6 +9,7 @@
     --ns: #cccccc;
     --na: #bfbfbf;
     --p: 90%;
+    --bp: 30%;
     --ep: 20%;
 }
 
@@ -35,6 +36,7 @@
     --ns: #404040;
     --na: #4d4d4d;
     --p: 10%;
+    --bp: 70%;
     --ep: 80%;
 }
 
@@ -73,7 +75,7 @@ body {
     z-index: 2;
 
     &::before {
-        background-color: hsla(0, 0, 0, 30%);
+        background-color: hsla(0, 0%, 0%, var(--bp));
         content: '';
         position: absolute;
         height: 100%;

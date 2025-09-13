@@ -9,7 +9,6 @@
     --ns: #cccccc;
     --na: #bfbfbf;
     --p: 90%;
-    --bp: 70%;
     --ep: 20%;
 }
 
@@ -36,7 +35,6 @@
     --ns: #404040;
     --na: #4d4d4d;
     --p: 10%;
-    --bp: 30%;
     --ep: 80%;
 }
 
@@ -72,9 +70,16 @@ body {
     right: 0;
     height: 100%;
     width: 100%;
-    -webkit-backdrop-filter: brightness(var(--bp));
-    backdrop-filter: brightness(var(--bp));
     z-index: 2;
+
+    &::before {
+        background-color: hsla(0, 0, 0, 30%);
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
 }
 
 .overlay {

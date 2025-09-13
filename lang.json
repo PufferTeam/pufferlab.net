@@ -643,6 +643,8 @@
         "element.tennessine": "Tennesse",
         "element.oganesson": "Oganesson",
         "tools.molecular-calculator": "Calculateur Moléculaire",
+        "tools.color-picker": "Sélecteur de couleur",
+        "tools.color-picker.desc": "Cet outil vous aidera à obtenir facilement des codes couleur grâce à un dégradé de sélection facile à utiliser.",
         "guides.desc": "De nombreux guides pour vous aider à faire une multitude de choses sont hébergés ici.",
         "guides.install-minecraft": "Installer Minecraft",
         "guides.install-minecraft.prism-launcher": "Prism Launcher : ",

@@ -11,10 +11,13 @@ const glc = glCV.getContext("2d");
 const glImg = glc.createImageData(glCV.width, glCV.height);
 const glImgData = glImg.data;
 
+const gImg = gc.createImageData(gCV.width, gCV.height);
+const gImgData = gImg.data;
+
 function generate() {
     for (let y = 0; y < glCV.height; y++) {
-        let hue = ((y * (255 * 6)) / (glCV.height));
-        let [r, g, b] = getRGB(hue);
+        let hue = ((y * (360)) / (glCV.height));
+        let [r, g, b] = hslToRgb(hue, 1, 0.5);
         for (let x = 0; x < glCV.width; x++) {
             let p = (y * glCV.width + x) * 4;
             glImgData[p] = r;
@@ -23,37 +26,77 @@ function generate() {
             glImgData[p + 3] = 255;
         }
     }
-
+    glc.putImageData(glImg, 0, 0);
 }
 generate();
 
-function getRGB(hue) {
-    let a = Math.floor(hue / 255);
-    let c = hue % 255;
-    let p = a % 2;
-    let e = c;
-    if(p == 1) {
-        e = 255 - c;
+function generateFromHue(color) {
+    for (let y = 0; y < gCV.height; y++) {
+        let lig = (y / (gCV.height - 1));
+        for (let x = 0; x < gCV.width; x++) {
+            let sat = x / (gCV.width - 1);
+            let [r, g, b] = hslToRgb(color, sat, lig);
+            let p = (y * gCV.width + x) * 4;
+            gImgData[p] = r;
+            gImgData[p + 1] = g;
+            gImgData[p + 2] = b;
+            gImgData[p + 3] = 255;
+        }
     }
-    let rgb = [0, 0, 0];
-    if(a == 0) {
-        rgb = [255, e, 0];
-    }
-    if(a == 1) {
-        rgb = [e, 255, 0];
-    }
-    if(a == 2) {
-        rgb = [0, 255, e];
-    }
-    if(a == 3) {
-        rgb = [0, e, 255];
-    }
-    if(a == 4) {
-        rgb = [e, 0, 255];
-    }
-    if(a == 5) {
-        rgb = [255, 0, e];
-    }
-    return[rgb[0], rgb[1], rgb[2]]
+    gc.putImageData(gImg, 0, 0);
+
 }
-glc.putImageData(glImg, 0, 0);
+generateFromHue(0);
+
+function hslToRgb(h, s, l) {
+    let rgb = [0, 0, 0];
+
+    if (0 <= h && h < 360 && 0 <= s && s <= 1 && 0 <= l && l <= 1) {
+        let C = (1 - Math.abs(2 * l - 1)) * s;
+        let X = C * (1 - Math.abs((h / 60) % 2 - 1))
+        let b = Math.floor((h * 6) / 360);
+        switch (b) {
+            case 0:
+                rgb = [C, X, 0];
+                break;
+            case 1:
+                rgb = [X, C, 0];
+                break;
+            case 2:
+                rgb = [0, C, X];
+                break;
+            case 3:
+                rgb = [0, X, C];
+                break;
+            case 4:
+                rgb = [X, 0, C];
+                break;
+            case 5:
+                rgb = [C, 0, X];
+                break;
+        }
+        rgb = [(rgb[0]) * 255, (rgb[1]) * 255, (rgb[2]) * 255]
+    }
+
+    return rgb;
+}
+
+glCV.addEventListener('mousedown', function (event) {
+    var totalOffsetX = 0;
+    var totalOffsetY = 0;
+    var canvasX = 0;
+    var canvasY = 0;
+    var currentElement = glCV;
+
+    do{
+        totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
+        totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
+    }
+    while(currentElement = currentElement.offsetParent)
+
+    canvasX = event.pageX - totalOffsetX;
+    canvasY = event.pageY - totalOffsetY;
+
+    let hue = ((canvasY * 360) / (glCV.height + 66));
+    generateFromHue(hue);
+});

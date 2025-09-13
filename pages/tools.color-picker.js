@@ -1,5 +1,6 @@
 import * as main from "/main.js";
 
+let gSH = document.getElementById("PagePickerShow");
 let gCV = document.getElementById("PagePickerGradient");
 let glCV = document.getElementById("PagePickerGradientLine");
 
@@ -44,6 +45,8 @@ function generateFromHue(color) {
         }
     }
     gc.putImageData(gImg, 0, 0);
+    let colorTxt = `--clbg: hsl(${color}, 100%, 50%);`
+    main.replace(gSH, colorTxt, 'style');
 
 }
 generateFromHue(0);

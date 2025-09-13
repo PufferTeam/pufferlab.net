@@ -4,7 +4,9 @@ let gSH = document.getElementById("PagePickerShow");
 let gCV = document.getElementById("PagePickerGradient");
 let glCV = document.getElementById("PagePickerGradientLine");
 
-const hue = 300;
+var color = 0;
+let clickedX = 0;
+let clickedY = 0;
 
 const gc = gCV.getContext("2d");
 const glc = glCV.getContext("2d");
@@ -31,7 +33,7 @@ function generate() {
 }
 generate();
 
-function generateFromHue(color) {
+function generateFromHue() {
     for (let y = 0; y < gCV.height; y++) {
         let lig = (y / (gCV.height - 1));
         for (let x = 0; x < gCV.width; x++) {
@@ -45,8 +47,6 @@ function generateFromHue(color) {
         }
     }
     gc.putImageData(gImg, 0, 0);
-    let colorTxt = `--clbg: hsl(${color}, 100%, 50%);`
-    main.replace(gSH, colorTxt, 'style');
 
 }
 generateFromHue(0);
@@ -57,6 +57,7 @@ function hslToRgb(h, s, l) {
     if (0 <= h && h < 360 && 0 <= s && s <= 1 && 0 <= l && l <= 1) {
         let C = (1 - Math.abs(2 * l - 1)) * s;
         let X = C * (1 - Math.abs((h / 60) % 2 - 1))
+        let m = l - C / 2;
         let b = Math.floor((h * 6) / 360);
         switch (b) {
             case 0:
@@ -78,28 +79,50 @@ function hslToRgb(h, s, l) {
                 rgb = [C, 0, X];
                 break;
         }
-        rgb = [(rgb[0]) * 255, (rgb[1]) * 255, (rgb[2]) * 255]
+        rgb = [Math.round((rgb[0] + m) * 255), Math.round((rgb[1] + m) * 255), Math.round((rgb[2] + m) * 255)]
     }
 
     return rgb;
 }
 
-glCV.addEventListener('click', function (event) {
+function getCanvasClick(event, canvas) {
     var totalOffsetX = 0;
     var totalOffsetY = 0;
     var canvasX = 0;
     var canvasY = 0;
-    var currentElement = glCV;
+    var currentElement = canvas;
 
-    do{
+    do {
         totalOffsetX += currentElement.offsetLeft - currentElement.scrollLeft;
         totalOffsetY += currentElement.offsetTop - currentElement.scrollTop;
     }
-    while(currentElement = currentElement.offsetParent)
+    while (currentElement = currentElement.offsetParent)
 
     canvasX = event.pageX - totalOffsetX;
     canvasY = event.pageY - totalOffsetY;
+    return [canvasX, canvasY];
+}
 
-    let hue = ((canvasY * 360) / (glCV.height + 66));
-    generateFromHue(hue);
+glCV.addEventListener('click', function (event) {
+    var coords = getCanvasClick(event, glCV);
+    color = ((coords[1] * 360) / (glCV.height + 66));
+    generateFromHue();
+        updateColorPreview();
+
 });
+
+gCV.addEventListener('click', function (event) {
+    var coords = getCanvasClick(event, gCV);
+
+    clickedX = coords[0];
+    clickedY = coords[1];
+
+    updateColorPreview();
+});
+
+function updateColorPreview() {
+    let lig = (clickedY / (gCV.height + 66));
+    let sat = clickedX / (gCV.width + 66);
+    let colorTxt = `--clbg: hsl(${color}, ${sat * 100}%, ${lig * 100}%);`
+    main.replace(gSH, colorTxt, 'style');
+}

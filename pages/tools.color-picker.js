@@ -84,7 +84,7 @@ function hslToRgb(h, s, l) {
     return rgb;
 }
 
-glCV.addEventListener('mousedown', function (event) {
+glCV.addEventListener('click', function (event) {
     var totalOffsetX = 0;
     var totalOffsetY = 0;
     var canvasX = 0;

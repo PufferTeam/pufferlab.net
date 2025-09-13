@@ -309,6 +309,8 @@
         "element.oganesson": "Oganesson",
         "tools.molecular-calculator": "Molecular Calculator",
         "tools.molecular-calculator.desc": "WIP",
+        "tools.color-picker": "Color Picker",
+        "tools.color-picker.desc": "This will help you to easily get color codes from a easy to use color selection gradiant.",
         "guides": "Guides",
         "guides.desc": "Multiple guides to help you do multitudes of things are hosted here.",
         "guides.install-minecraft": "Installing Minecraft",

@@ -11,19 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
         rel="stylesheet">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0">
-    <script src="/main.js" type="module"></script>
+    <script id="mainScript" src="/main.js" type="module"></script>
 </head>
 
 <body id="main" class="site">
-    <script id="reloadingFix">var mode = localStorage.getItem("savedMode");
-        let e = document.getElementById("main");
-        if (mode == "mode.dark") {
-            e.style.backgroundColor = "#0d0d0d";
-        } else {
-            e.style.backgroundColor = "#ffffff";
-        }
-    </script>
-
+    <script id="initScript" src="/init.js"></script>
     <div id="menuPage" class="overlay menu page">
         <nav class="nav menu top-page">
             <ul id="PageMenu" class="page default overlay nav menu set">

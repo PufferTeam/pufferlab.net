@@ -10,6 +10,7 @@ let pages = [
     "tools",
     "tools.unit-converter",
     "tools.periodic-table",
+    "tools.color-picker",
     "guides",
     "guides.install-minecraft",
     "about"
@@ -17,7 +18,8 @@ let pages = [
 
 let pagesJS = [
     "tools.unit-converter",
-    "tools.periodic-table"
+    "tools.periodic-table",
+    "tools.color-picker"
 ];
 
 let pagesVisited = [];
@@ -112,7 +114,7 @@ export function capitalize(str) {
 var changeModeBT = document.getElementById("changeMode");
 var changeLangSL = document.getElementById("changeLang");
 var toggleMenuBT = document.getElementById("toggleMenu");
-var reloadingFixSC = document.getElementById("reloadingFix");
+var initScript = document.getElementById("initScript");
 
 var defaultElements = document.getElementsByClassName("default");
 for (let i = 0; i < defaultElements.length; i++) {
@@ -459,4 +461,4 @@ subOverlay.addEventListener("click", function () {
     }
 });
 
-reloadingFixSC.innerHTML = "";
+initScript.innerHTML = "";

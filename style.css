@@ -10,6 +10,7 @@
     --na: #bfbfbf;
     --p: 90%;
     --bp: 70%;
+    --ep: 20%;
 }
 
 .page {
@@ -36,6 +37,7 @@
     --na: #4d4d4d;
     --p: 10%;
     --bp: 30%;
+    --ep: 80%;
 }
 
 .en {
@@ -474,6 +476,24 @@ img {
     &.element-atomic-mass {
         font-size: 100%;
     }
+}
+
+.color-picker {
+}
+
+.picker-color {
+    height: 8em;
+    width: 8em;
+}
+
+.picker-gradient {
+    height: 13em;
+    width: 13em;
+}
+
+.picker-gradient-line {
+    width: 3em;
+    height: 13em;
 }
 
 .text-right {

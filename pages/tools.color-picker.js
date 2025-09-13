@@ -3,6 +3,13 @@ import * as main from "/main.js";
 let gSH = document.getElementById("PagePickerShow");
 let gCV = document.getElementById("PagePickerGradient");
 let glCV = document.getElementById("PagePickerGradientLine");
+let clOU = document.getElementById("PagePicker-Color-Output");
+
+gCV.height = gCV.offsetHeight;
+gCV.width = gCV.offsetWidth;
+
+glCV.height = gCV.offsetHeight;
+glCV.width = gCV.offsetWidth;
 
 var color = 0;
 let clickedX = 0;
@@ -100,12 +107,12 @@ function getCanvasClick(event, canvas) {
 
     canvasX = event.pageX - totalOffsetX;
     canvasY = event.pageY - totalOffsetY;
-    return [canvasX, canvasY];
+    return [canvasX - 8, canvasY - 8];
 }
 
 glCV.addEventListener('click', function (event) {
     var coords = getCanvasClick(event, glCV);
-    color = ((coords[1] * 360) / (glCV.height + 66));
+    color = (((coords[1]) * 360) / (glCV.height));
     generateFromHue();
         updateColorPreview();
 
@@ -121,9 +128,11 @@ gCV.addEventListener('click', function (event) {
 });
 
 function updateColorPreview() {
-    let lig = (clickedY / (gCV.height + 66));
-    let sat = clickedX / (gCV.width + 66);
+    let lig = (clickedY / (gCV.height));
+    let sat = clickedX / (gCV.width);
     let colorTxt = `--clbg: hsl(${(color).toFixed(2)}, ${(sat * 100).toFixed(2)}%, ${(lig * 100).toFixed(2)}%);`
+    let colorHSL = `HSL: ${(color).toFixed(2)}°, ${(sat * 100).toFixed(2)}%, ${(lig * 100).toFixed(2)}%`
     main.replace(gSH, colorTxt, 'style');
+    main.replace(clOU, colorHSL);
 }
 updateColorPreview();

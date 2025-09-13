@@ -478,13 +478,12 @@ img {
     }
 }
 
-.color-picker {
-}
+.color-picker {}
 
 .picker-color {
     height: 8em;
     width: 8em;
-        border: solid;
+    border: solid;
     border-width: 0.1em;
     border-color: var(--nv);
     background-color: var(--clbg);

@@ -6,8 +6,14 @@
     <div id="PagePicker" class="flex-in-column color-picker">
         <div class="flex-in-row">
             <div id="PagePickerShow" class='picker-color'></div>
-            <canvas id="PagePickerGradient" class='picker-gradient'></canvas>
-            <canvas id="PagePickerGradientLine" class='picker-gradient-line'></canvas>
+            <div class="picker-gradient">
+                <div id="PagePickerGradientSelect" class="pos picker-select hidden"></div>
+                <canvas id="PagePickerGradient" class='picker-gradient'></canvas>
+            </div>
+            <div class="picker-gradient-line">
+                <div id="PagePickerGradientLineSelect" class="pos picker-select hidden"></div>
+                <canvas id="PagePickerGradientLine" class='picker-gradient-line'></canvas>
+            </div>
         </div>
         <div class="flex-in-column">
             <p id="PagePicker-Color-Output-RGB"></p>

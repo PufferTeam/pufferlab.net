@@ -505,6 +505,25 @@ img {
 .picker-gradient-line {
     width: 3em;
     height: 13em;
+    margin-left: 1px;
+}
+
+.pos {
+    --x: 0;
+    --y: 0;
+}
+
+.picker-select {
+    height: 15px;
+    width: 15px;
+    border: 1px var(--fg) solid;
+    border-radius: 5px;
+    position: absolute;
+    cursor: pointer;
+    background-color: var(--clbg);
+    z-index: 1;
+    left: var(--x);
+    top: var(--y);
 }
 
 .text-right {

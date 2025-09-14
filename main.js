@@ -257,8 +257,7 @@ function loadPage() {
     if (!contains(pagesVisited, page) && contains(validPages, page)) {
         pagesVisited.push(page);
         let htmlC = sendHTMLRequest('/pages/' + page)
-        let el = document.getElementById(page + 'Page');
-        el.innerHTML = htmlC;
+        replace(page + 'Page', htmlC);
         if (contains(pagesJS, page)) {
             loadScript('/pages/' + page);
         }
@@ -322,16 +321,6 @@ function hasClass(e, cl) {
     return false;
 }
 
-function replaceHTML(e, i, c) {
-    if (c == undefined) {
-        if (e.innerHTML != i) {
-            e.innerHTML = i
-        }
-    } else {
-        e.setAttribute(c, i.toString())
-    }
-}
-
 export function updateIn(cl) {
     let el = document.getElementsByClassName(cl);
     for (let i = 0; i < el.length; i++) {
@@ -344,14 +333,14 @@ export function updateIn(cl) {
         }
         let rs = r.split(":");
         if (cl == "svg") {
-            replaceHTML(e, getSvg(r));
+            replace(e, getSvg(r));
         } else {
-            replaceHTML(e, getLang(r), re);
+            replace(e, getLang(r), re);
             if (hasClass(e, "link")) {
                 replace(e, getLink(r), undefined, "beforeend");
             }
             if (rs[1] !== undefined) {
-                replaceHTML(e, getLang(rs[0]) + `${rs[1]}`, re);
+                replace(e, getLang(rs[0]) + `${rs[1]}`, re);
             }
         }
     }
@@ -372,7 +361,7 @@ function updateMenu() {
     change(el2, show);
     change(el3, show, "open");
     change(el4, show, "open");
-    replaceHTML(toggleMenuBT, getSvg(menu));
+    replace(toggleMenuBT, getSvg(menu));
 }
 updateMenu();
 
@@ -404,7 +393,7 @@ function updateMode() {
     } else {
         change(el, false, "dark");
     }
-    replaceHTML(changeModeBT, getSvg(mode));
+    replace(changeModeBT, getSvg(mode));
 }
 updateMode();
 updateLang();
@@ -459,6 +448,21 @@ subOverlay.addEventListener("click", function () {
         menu = "menu.hide";
         updateMenu();
     }
+});
+
+export var dragging = false;
+
+document.addEventListener('mousedown', function (event) {
+    dragging = true;
+});
+document.addEventListener('mouseup', function (event) {
+    dragging = false;
+});
+document.addEventListener('touchstart', function (event) {
+    dragging = true;
+});
+document.addEventListener('touchend', function (event) {
+    dragging = false;
 });
 
 initScript.innerHTML = "";

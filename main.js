@@ -23,6 +23,7 @@ let pagesJS = [
 ];
 
 let pagesVisited = [];
+let pagesHTML = new Map();
 
 export const validPages = [
 ];
@@ -253,10 +254,16 @@ export var langFile = sendJSONRequest("lang");
 export var svgFile = sendJSONRequest("svg");
 export var linkFile = sendJSONRequest("link");
 
+for(let i = 0; i < pages.length; i++) {
+    let c = pages[i];
+    let html = sendHTMLRequest('/pages/' + c);
+    pagesHTML.set(c, html); 
+}
+
 function loadPage() {
     if (!contains(pagesVisited, page) && contains(validPages, page)) {
         pagesVisited.push(page);
-        let htmlC = sendHTMLRequest('/pages/' + page)
+        let htmlC = pagesHTML.get(page);
         replace(page + 'Page', htmlC);
         if (contains(pagesJS, page)) {
             loadScript('/pages/' + page);

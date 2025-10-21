@@ -263,9 +263,11 @@ export async function loadAllHTML() {
 }
 loadAllHTML();
 
-document.addEventListener('DOMContentLoaded', function () {
-    loadAllHTML();
-}, false);
+document.addEventListener('readystatechange', event => { 
+    if (event.target.readyState === "complete") {
+       loadAllHTML();
+    }
+});
 
 let firstLoad = true;
 function loadPage() {

@@ -55,8 +55,8 @@ export function replace(id, value, label, insertOrder) {
 }
 
 function contains(list, word) {
-    for(let i = 0; i < list.length; i++) {
-        if(list[i] == word) {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] == word) {
             return true;
         }
     }
@@ -254,16 +254,30 @@ export var langFile = sendJSONRequest("lang");
 export var svgFile = sendJSONRequest("svg");
 export var linkFile = sendJSONRequest("link");
 
-for(let i = 0; i < pages.length; i++) {
-    let c = pages[i];
-    let html = sendHTMLRequest('/pages/' + c);
-    pagesHTML.set(c, html); 
+export async function loadAllHTML() {
+    for (let i = 0; i < pages.length; i++) {
+        let c = pages[i];
+        let html = sendHTMLRequest('/pages/' + c);
+        pagesHTML.set(c, html);
+    }
 }
+loadAllHTML();
 
+document.addEventListener('DOMContentLoaded', function () {
+    loadAllHTML();
+}, false);
+
+let firstLoad = true;
 function loadPage() {
     if (!contains(pagesVisited, page) && contains(validPages, page)) {
         pagesVisited.push(page);
-        let htmlC = pagesHTML.get(page);
+        let htmlC = null;
+        if (firstLoad) {
+            htmlC = sendHTMLRequest('/pages/' + page);
+            firstLoad = false;
+        } else {
+            htmlC = pagesHTML.get(page);
+        }
         replace(page + 'Page', htmlC);
         if (contains(pagesJS, page)) {
             loadScript('/pages/' + page);
